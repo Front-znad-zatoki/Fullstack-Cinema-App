@@ -1,11 +1,12 @@
 {
+  "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module"
   },
+  "extends": ["prettier"],
   "plugins": ["prettier"],
-  "extends": ["eslint:recommended", "prettier"],
   "rules": {
-    "prettier/prettier": 2
+    "prettier/prettier": ["error"]
   },
   "env": {
     "browser": true,
