@@ -4,10 +4,6 @@
 name: Build Fullstack Cinema App
 
 on:
-  push:
-    branches: [ develop ]
-    paths-ignore:
-      - '**/*.md'
   pull_request:
     branches: [ develop ]
 
