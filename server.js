@@ -8,7 +8,7 @@ app.get('/', (req, res) => res.send('API Runnin'));
 // Connect Database
 connectDB();
 
-// Init Middleware
+// Init Middleware (not body-parser anymore)
 app.use(express.json());
 
 // Define Routes
