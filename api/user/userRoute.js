@@ -4,12 +4,11 @@ const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const { check, validationResult } = require('express-validator');
-
 const User = require('./User');
 
 // @route POST api/users
 // @description Registering user
-// @access ?
+// @access public (anybody can register)
 router.post(
   '/',
   check('name', 'Name is required').notEmpty(),
@@ -71,17 +70,5 @@ router.post(
     }
   },
 );
-
-// @ route GET users
-// @access Admin TODO: create authorization
-router.get('/', async (req, res) => {
-  try {
-    const users = await User.find();
-    res.json(users);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
-  }
-});
 
 module.exports = router;
