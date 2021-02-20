@@ -1,18 +1,18 @@
 const express = require('express');
-const mongoose = require('mongoose');
-// const connectDB = require('./config/db');
+const connectDB = require('./config/mongodb');
 
 const app = express();
 
 app.get('/', (req, res) => res.send('API Runnin'));
 
 // Connect Database
-// connectDB();
+connectDB();
 
 // Init Middleware
 app.use(express.json());
 
 // Define Routes
+app.use('/users', require('./features/user/userRoute'));
 
 // Serve static assets in production
 // if (process.env.NODE_ENV === 'production') {

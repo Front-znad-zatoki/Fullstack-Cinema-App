@@ -4,8 +4,7 @@
   "description": "CodersCamp fullstack app",
   "main": "server.js",
   "scripts": {
-    "clean": "rimraf .cache && rimraf coverage && rimraf node_modules",
-    "format": "prettier --config .prettierrc --write \"server/**/*.js\" \"test/**/*.js\" \"**/*.json\"",
+    "format": "prettier --config .prettierrc --write \"features/**/*.js\" \"test/**/*.js\" \"**/*.json\"",
     "eslint": "eslint . --ext .js",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -33,6 +32,7 @@
     "config": "^3.3.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-validator": "^6.9.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.17",
     "regenerator-runtime": "^0.13.7"
