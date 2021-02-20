@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 
-const User = require('./userModel');
+const User = require('./User');
 
 // @ route POST users
+// @access ?
 router.post(
   '/',
   check('name', 'Name is required').notEmpty(),
@@ -43,6 +44,8 @@ router.post(
   },
 );
 
+// @ route GET users
+// @access Admin TODO: create authorization
 router.get('/', async (req, res) => {
   try {
     const users = await User.find();
