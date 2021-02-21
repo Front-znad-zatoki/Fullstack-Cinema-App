@@ -51,10 +51,11 @@ router.post(
           .status(400)
           .json({ errors: [{ msg: 'Invalid Credentials' }] });
       }
-
+      // If users isAdmin===true => redirect to admin panel
       const payload = {
         user: {
           id: user.id,
+          //include isAdmin?
         },
       };
 
