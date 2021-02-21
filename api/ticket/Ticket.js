@@ -1,12 +1,11 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const ticketSchema = new mongoose.Schema({
-  screeningId: String,
-  userId: String,
-  quantity: {
-    type: Number,
-    // required: true,
+const ticketSchema = new Schema({
+  screening: {
+    type: Schema.Types.ObjectId,
+    ref: 'screening',
   },
+  // user: // tak jak screening
   location: String,
   cinemaHall: String,
   seats: String,
@@ -17,4 +16,4 @@ const ticketSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('ticket', TicketSchema);
+export default model('ticket', ticketSchema);

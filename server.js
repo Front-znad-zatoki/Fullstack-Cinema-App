@@ -12,7 +12,7 @@ connectDB();
 app.use(express.json());
 
 // Define Routes
-app.use('/users', require('./features/user/userRoute'));
+app.use('/users', require('./api/user/userRoute'));
 
 // Serve static assets in production
 // if (process.env.NODE_ENV === 'production') {
