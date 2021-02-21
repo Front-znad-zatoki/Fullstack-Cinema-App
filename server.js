@@ -12,11 +12,13 @@ connectDB();
 app.use(express.json());
 
 // Define Routes
-app.use('/api/users', require('./api/user/userRoute'));
-app.use('/api/auth', require('./api/auth/authRoute'));
-// app.use('/api/movies', require('./api/movie/movieRoute'));
-// app.use('/api/cinema', require('./api/movie/cinemaRoute'));
-//TODO: add more routes
+app.use('/users', require('./api/user/userRoute'));
+// app.use('/cinemas', require('./api/cinema/cinemaRoute'));
+// app.use('/cinemaHalls', require('./api/cinemaHall/cinemaHallRoute'));
+// app.use('/movies', require('./api/movie/movieRoute'));
+// app.use('/orders', require('./api/order/orderRoute'));
+// app.use('/screenings', require('./api/screening/ScreeningRoute'));
+// app.use('/tickets', require('./api/ticket/TicketRoute'));
 
 // Serve static assets in production
 // if (process.env.NODE_ENV === 'production') {
