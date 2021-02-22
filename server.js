@@ -13,7 +13,10 @@ app.use(express.json());
 
 // Define Routes
 app.use('/api/users', require('./api/user/userRoute'));
-app.use('/api/login', require('./api/login/loginRoute'));
+app.use(
+  '/api/login',
+  require('./api/authentication/authenticationRoute'),
+);
 // app.use('/cinemas', require('./api/cinema/cinemaRoute'));
 // app.use('/cinemaHalls', require('./api/cinemaHall/cinemaHallRoute'));
 // app.use('/movies', require('./api/movie/movieRoute'));

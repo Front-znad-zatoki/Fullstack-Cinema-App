@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "fullstack",
   "version": "1.0.0",
   "description": "CodersCamp fullstack app",

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose',
+import mongoose from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
 
 const userSchema = new mongoose.Schema({
@@ -49,6 +49,6 @@ const userSchema = new mongoose.Schema({
   // },
 });
 
-// TODO: add validation (joi?)
+// TODO: add validation (joi? unique validator?)
 
 export default mongoose.model('User', userSchema);

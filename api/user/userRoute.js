@@ -4,6 +4,7 @@ import { jsonwebtoken } from 'jsonwebtoken';
 import { config } from 'config';
 import { check, validationResult } from 'express-validator';
 import User from './User';
+import loginMiddleware from '../authentication/authenticationMiddleware';
 const router = express.Router();
 
 // @route POST api/users
@@ -70,5 +71,27 @@ router.post(
     }
   },
 );
+
+// @route GET api/users/me
+// @description Get details of current user
+// @access private (anybody can register)
+router.get('/me', loginMiddleware, async (req, res) => {
+  try {
+    const userProfile = await User.findOne({
+      user: req.user.id,
+    }).select('name', 'email', 'phone', 'tickets', 'reservations');
+
+    if (!userProfile) {
+      return res
+        .status(400)
+        .json({ msg: 'There is no profile for this user' });
+    }
+    console.log('got user')
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
 export default router;

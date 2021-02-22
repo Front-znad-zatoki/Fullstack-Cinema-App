@@ -1,4 +1,4 @@
-import loginMiddleware from './loginMiddleware';
+import authenticationMiddleware from './authenticationMiddleware';
 import express from 'express';
 import { bcryptjs } from 'bcryptjs';
 import { jsonwebtoken } from 'jsonwebtoken';
@@ -10,7 +10,7 @@ const router = express.Router();
 // @route    GET api/login
 // @desc     Get user by token
 // @access   Private
-router.get('/', loginMiddleware, async (req, res) => {
+router.get('/', authenticationMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
     res.json(user);
