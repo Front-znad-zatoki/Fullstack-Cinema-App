@@ -1,17 +1,16 @@
-// const express = require('express');
 import express from 'express';
+import { bcryptjs } from 'bcryptjs';
+import { jsonwebtoken } from 'jsonwebtoken';
+import { config } from 'config';
+import { check, validationResult } from 'express-validator';
+import User from './User';
 const router = express.Router();
-const bcryptjs = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const config = require('config');
-const { check, validationResult } = require('express-validator');
-const User = require('./User');
 
 // @route POST api/users
 // @description Registering new user
 // @access public (anybody can register)
 router.post(
-  '/',
+  '/signUp',
   check('name', 'Name is required').notEmpty(),
   check('email', 'Please include a valid email').isEmail(),
   check(
@@ -53,7 +52,7 @@ router.post(
         },
       };
 
-      jwt.sign(
+      jsonwebtoken.sign(
         payload,
         config.get('jwtSecret'),
         {
@@ -72,4 +71,4 @@ router.post(
   },
 );
 
-module.exports = router;
+export default router;

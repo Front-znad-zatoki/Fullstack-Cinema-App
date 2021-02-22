@@ -1,16 +1,16 @@
-const express = require('express');
+import loginMiddleware from './loginMiddleware';
+import express from 'express';
+import { bcryptjs } from 'bcryptjs';
+import { jsonwebtoken } from 'jsonwebtoken';
+import { config } from 'config';
+import { check, validationResult } from 'express-validator';
+import User from './User';
 const router = express.Router();
-const bcryptjs = require('bcryptjs');
-const authMiddleware = require('./authMiddleware');
-const jwt = require('jsonwebtoken');
-const config = require('config');
-const { check, validationResult } = require('express-validator');
-const User = require('../user/User');
 
-// @route    GET api/auth
+// @route    GET api/login
 // @desc     Get user by token
 // @access   Private
-router.get('/', authMiddleware, async (req, res) => {
+router.get('/', loginMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
     res.json(user);
@@ -20,7 +20,7 @@ router.get('/', authMiddleware, async (req, res) => {
   }
 });
 
-// @route    POST api/auth
+// @route    POST api/login
 // @desc     Authenticate user & get token
 // @access   Public
 router.post(
@@ -59,7 +59,7 @@ router.post(
         },
       };
 
-      jwt.sign(
+      jsonwebtoken.sign(
         payload,
         config.get('jwtSecret'),
         { expiresIn: '36000' },
@@ -75,4 +75,4 @@ router.post(
   },
 );
 
-module.exports = router;
+export default router;

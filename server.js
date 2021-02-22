@@ -1,5 +1,5 @@
-const express = require('express');
-const connectDB = require('./config/mongodb');
+import express from 'express';
+import connectDB from './config/mongodb';
 
 const app = express();
 
@@ -12,7 +12,8 @@ connectDB();
 app.use(express.json());
 
 // Define Routes
-app.use('/users', require('./api/user/userRoute'));
+app.use('/api/users', require('./api/user/userRoute'));
+app.use('/api/login', require('./api/login/loginRoute'));
 // app.use('/cinemas', require('./api/cinema/cinemaRoute'));
 // app.use('/cinemaHalls', require('./api/cinemaHall/cinemaHallRoute'));
 // app.use('/movies', require('./api/movie/movieRoute'));

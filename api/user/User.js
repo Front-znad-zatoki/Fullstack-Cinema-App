@@ -1,5 +1,5 @@
-const mongoose = require('mongoose'),
-  uniqueValidator = require('mongoose-unique-validator');
+import mongoose from 'mongoose',
+import uniqueValidator from 'mongoose-unique-validator';
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -51,4 +51,4 @@ const userSchema = new mongoose.Schema({
 
 // TODO: add validation (joi?)
 
-module.exports = mongoose.model('User', userSchema);
+export default mongoose.model('User', userSchema);
