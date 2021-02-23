@@ -1,6 +1,7 @@
 import express from 'express';
-import connectDB from './config/mongodb';
-
+import connectDB from './config/mongodb.js';
+import userRoute from './api/user/userRoute.js';
+import loginRoute from './api/authentication/authenticationRoute.js';
 const app = express();
 
 app.get('/', (req, res) => res.send('API Runnin'));
@@ -12,11 +13,8 @@ connectDB();
 app.use(express.json());
 
 // Define Routes
-app.use('/api/users', require('./api/user/userRoute'));
-app.use(
-  '/api/login',
-  require('./api/authentication/authenticationRoute'),
-);
+app.use('/api/users', userRoute);
+app.use('/api/login', loginRoute);
 // app.use('/cinemas', require('./api/cinema/cinemaRoute'));
 // app.use('/cinemaHalls', require('./api/cinemaHall/cinemaHallRoute'));
 // app.use('/movies', require('./api/movie/movieRoute'));

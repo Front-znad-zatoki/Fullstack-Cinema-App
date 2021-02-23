@@ -1,10 +1,10 @@
-import authenticationMiddleware from './authenticationMiddleware';
+import authenticationMiddleware from './authenticationMiddleware.js';
 import express from 'express';
-import { bcryptjs } from 'bcryptjs';
-import { jsonwebtoken } from 'jsonwebtoken';
-import { config } from 'config';
+import bcryptjs from 'bcryptjs';
+import jsonwebtoken from 'jsonwebtoken';
+import config from 'config';
 import { check, validationResult } from 'express-validator';
-import User from './User';
+import User from '../user/User.js';
 const router = express.Router();
 
 // @route    GET api/login

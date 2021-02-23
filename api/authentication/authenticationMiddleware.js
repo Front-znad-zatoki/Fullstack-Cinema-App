@@ -1,5 +1,5 @@
-import { jsonwebtoken } from 'jsonwebtoken';
-import { config } from 'config';
+import jsonwebtoken from 'jsonwebtoken';
+import config from 'config';
 
 export default function (req, res, next) {
   // Get token from header
