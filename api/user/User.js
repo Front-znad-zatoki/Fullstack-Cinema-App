@@ -1,26 +1,54 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import uniqueValidator from 'mongoose-unique-validator';
 
-const UserSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
+    minLength: 5,
+    maxlength: 50,
   },
   email: {
     type: String,
     required: true,
     unique: true,
+    minLength: 5,
+    maxlength: 255,
+    lowercase: true,
   },
   password: {
     type: String,
     required: true,
-  },
-  avatar: {
-    type: String,
+    minLength: 5,
+    maxlength: 255,
   },
   date: {
     type: Date,
     default: Date.now,
   },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
+  tickets: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'ticket',
+  },
+  reservations: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'ticket',
+  },
+  phone: {
+    type: Number,
+    minLength: 7,
+    maxlength: 20,
+  },
+  // TODO: add avatar
+  // avatar: {
+  //   type: String,
+  // },
 });
 
-module.exports = mongoose.model('user', UserSchema);
+// TODO: add validation (joi? unique validator?)
+
+export default mongoose.model('User', userSchema);
