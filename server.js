@@ -2,6 +2,7 @@ import express from 'express';
 import connectDB from './config/mongodb.js';
 import userRoute from './api/user/userRoute.js';
 import loginRoute from './api/authentication/authenticationRoute.js';
+import movieRoute from './api/movie/movieRoute.js';
 const app = express();
 
 app.get('/', (req, res) => res.send('API Runnin'));
@@ -17,7 +18,7 @@ app.use('/api/users', userRoute);
 app.use('/api/login', loginRoute);
 // app.use('/cinemas', require('./api/cinema/cinemaRoute'));
 // app.use('/cinemaHalls', require('./api/cinemaHall/cinemaHallRoute'));
-// app.use('/movies', require('./api/movie/movieRoute'));
+app.use('/api/movies', movieRoute);
 // app.use('/orders', require('./api/order/orderRoute'));
 // app.use('/screenings', require('./api/screening/ScreeningRoute'));
 // app.use('/tickets', require('./api/ticket/TicketRoute'));
