@@ -1,10 +1,5 @@
 const mongoose = require('mongoose');
 
-// const CinemaHallSchema = new mongoose.Schema({
-// numberOfHall: Number,
-// numberOfSeats: Number,
-// numberOfRows: Number,
-// });
 const CinemaSchema = new mongoose.Schema({
   country: String,
   city: String,
@@ -21,14 +16,13 @@ const CinemaSchema = new mongoose.Schema({
       'Please fill a valid email address',
     ],
   },
-  phone: Number,
+  phone: String,
   halls: [
     {
-      type: Schema.ObjectId,
-      ref: 'CinemaHallSchema',
+      type: Schema.Types.ObjectId,
+      ref: 'CinemaHall',
     },
   ],
-  // [CinemaHallSchema],
   hours: {
     open: {
       type: Number,
@@ -42,4 +36,4 @@ const CinemaSchema = new mongoose.Schema({
     },
   },
 });
-module.exports = mongoose.model('cinema', CinemaSchema);
+module.exports = mongoose.model('Cinema', CinemaSchema);

@@ -1,9 +1,18 @@
-//CinemaHallSchema
 const mongoose = require('mongoose');
 
 const CinemaHallSchema = new mongoose.Schema({
-  numberOfHall: Number,
-  numberOfSeats: Number,
-  numberOfRows: Number,
+  name: Number,
+  seats: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Seat',
+    },
+  ],
+  rows: Number,
+  columns: Number,
+  cinema: {
+    type: Schema.Types.ObjectId,
+    ref: 'Cinema',
+  },
 });
-module.exports = mongoose.model('cinemaHall', CinemaHallSchema);
+module.exports = mongoose.model('CinemaHall', CinemaHallSchema);
