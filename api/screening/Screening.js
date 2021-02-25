@@ -1,7 +1,15 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+const Schema = mongoose.Schema;
 
-const screeningSchema = new mongoose.Schema({
-  name: String,
+const screeningSchema = new Schema({
+  movie: {
+    type: Schema.Types.ObjectId,
+    ref: 'Movie',
+  },
+  cinemaHall: {
+    type: Schema.Types.ObjectId,
+    ref: 'CinemaHall',
+  },
   price: Number,
   startDate: {
     type: Date,
@@ -9,4 +17,4 @@ const screeningSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('screening', screeningSchema);
+export default mongoose.model('Screening', screeningSchema);
