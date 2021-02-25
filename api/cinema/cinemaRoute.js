@@ -3,18 +3,18 @@ const express = require('express');
 const router = express.Router();
 const Cinema = require('./Cinema');
 
-router.get('/cinemas', (req, res) => {
+router.get('/', (req, res) => {
   Cinema.find().then((cinemas) => res.json(cinemas));
 });
-router.get('/cinemas/:id', (req, res) => {
+router.get('/:id', (req, res) => {
   Cinema.findById(req.params.id).then((cinema) => res.json(cinema));
 });
 
-router.post('/cinemas', (req, res) => {
+router.post('/', (req, res) => {
   const newCinema = new Cinema({ city: req.body.name });
   newCinema.save().then((cinema) => res.json(cinema));
 });
-router.delete('/cinemas/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
   try {
     Cinema.findById(req.params.id).then((cinema) =>
       cinema.remove().then(() => res.json({ success: true })),
