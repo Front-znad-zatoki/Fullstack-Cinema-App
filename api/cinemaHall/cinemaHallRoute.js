@@ -3,26 +3,42 @@ const express = require('express');
 const router = express.Router();
 const CinemaHall = require('./CinemaHall');
 
-router.get('/', (req, res) => {
-  Cinema.find().then((cinemaHalls) => res.json(cinemaHalls));
-});
-router.get('/:id', (req, res) => {
-  CinemaHall.findById(req.params.id).then((cinemaHall) =>
-    res.json(cinemaHall),
-  );
+router.get('/', async (req, res) => {
+  const cinemaHalls = await CinemaHall.find();
+  return res.status(200).json(cinemaHalls);
 });
 
-router.post('/', (req, res) => {
-  const newCinemaHall = new CinemaHall({ city: req.body.name });
-  newCinemaHall.save().then((cinemaHall) => res.json(cinemaHall));
+router.post('/', async (req, res) => {
+  const { name, seats, rows, column, cinema } = req.body;
+  const newCinemaHall = new CinemaHall({
+    name,
+    seats,
+    rows,
+    column,
+    cinema,
+  });
+  await newCinemaHall.save();
+  res.status(201).end();
 });
-router.delete('/:id', (req, res) => {
-  try {
-    CinemaHall.findById(req.params.id).then((cinemaHall) =>
-      cinemaHall.remove().then(() => res.json({ success: true })),
-    );
-  } catch (err) {
-    res.status(404).json({ success: false });
+
+router.get('/:id', async (req, res) => {
+  const cinemaHall = await CinemaHall.findById(req.params.id);
+  if (cinemaHall === undefined) {
+    return res.status(404).json({
+      error: `Cannot find cinema hall with id: ${req.params.id}`,
+    });
   }
+  return res.status(200).json(cinemaHall);
 });
+
+router.delete('/:id', async (req, res) => {
+  const cinemaHall = await CinemaHall.deleteById(req.params.id);
+  if (cinemaHall === undefined) {
+    return res.status(404).json({
+      error: `Cannot find cinema hall with id: ${req.params.id}`,
+    });
+  }
+  return res.status(204).end();
+});
+
 module.exports = router;
