@@ -4,7 +4,7 @@ import jsonwebtoken from 'jsonwebtoken';
 import config from 'config';
 import { check, validationResult } from 'express-validator';
 import User from './User.js';
-import loginMiddleware from '../authentication/authenticationMiddleware.js';
+import authenticationMiddleware from '../authentication/authenticationMiddleware.js';
 const router = express.Router();
 
 // @route POST api/users
@@ -74,8 +74,8 @@ router.post(
 
 // @route GET api/users/me
 // @description Get details of current user
-// @access private (anybody can register)
-router.get('/me', loginMiddleware, async (req, res) => {
+// @access private (only current user can view)
+router.get('/me', authenticationMiddleware, async (req, res) => {
   try {
     const userProfile = await User.findOne({
       user: req.user.id,
@@ -86,7 +86,7 @@ router.get('/me', loginMiddleware, async (req, res) => {
         .status(400)
         .json({ msg: 'There is no profile for this user' });
     }
-    console.log('got user')
+    console.log('got user');
     res.json(profile);
   } catch (err) {
     console.error(err.message);
@@ -94,4 +94,24 @@ router.get('/me', loginMiddleware, async (req, res) => {
   }
 });
 
+// @route DELETE api/users/delete
+// @description Delete user account
+// @access private (only current user)
+router.delete(
+  '/delete/me',
+  authenticationMiddleware,
+  async (req, res) => {
+    try {
+      const user = await userModel.findByIdAndDelete(req.params.id);
+      if (!user) return res.status(400).send('No user found');
+      res.status(200).send(user);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  },
+);
+
+// TODO: UPDATE EMAIL
+// TODO: UPDATE PASSWORD
 export default router;

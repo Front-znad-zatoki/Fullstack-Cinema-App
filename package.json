@@ -5,8 +5,9 @@
   "description": "CodersCamp fullstack app",
   "main": "server.js",
   "scripts": {
+    "clean": "rimraf .cache && rimraf node_modules",
     "format": "prettier --config .prettierrc --write \"features/**/*.js\" \"test/**/*.js\" \"**/*.json\"",
-    "eslint": "eslint . --ext .js",
+    "eslint": "eslint --fix . --ext .js",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",

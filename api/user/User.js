@@ -49,6 +49,4 @@ const userSchema = new mongoose.Schema({
   // },
 });
 
-// TODO: add validation (joi? unique validator?)
-
 export default mongoose.model('User', userSchema);
