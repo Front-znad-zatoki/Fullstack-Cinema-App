@@ -4,7 +4,7 @@ import config from 'config';
 export default function (req, res, next) {
   // Get token from header
   const token = req.header('x-auth-token');
-
+  console.log(token);
   // Check if not token
   if (!token) {
     return res
