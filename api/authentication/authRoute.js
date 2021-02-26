@@ -1,4 +1,4 @@
-import authenticationMiddleware from './authenticationMiddleware.js';
+import auth from './authMiddleware.js';
 import express from 'express';
 import bcryptjs from 'bcryptjs';
 import jsonwebtoken from 'jsonwebtoken';
@@ -7,10 +7,10 @@ import { check, validationResult } from 'express-validator';
 import User from '../user/User.js';
 const router = express.Router();
 
-// @route    GET api/login
+// @route    GET api/auth
 // @desc     Get user by token
 // @access   Private
-router.get('/', authenticationMiddleware, async (req, res) => {
+router.get('/', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
     res.json(user);
@@ -20,7 +20,7 @@ router.get('/', authenticationMiddleware, async (req, res) => {
   }
 });
 
-// @route    POST api/login
+// @route    POST api/auth
 // @desc     Authenticate user & get token
 // @access   Public
 router.post(
@@ -55,7 +55,7 @@ router.post(
       const payload = {
         user: {
           id: user.id,
-          //include isAdmin?
+          isAdmin: user.isAdmin,
         },
       };
 

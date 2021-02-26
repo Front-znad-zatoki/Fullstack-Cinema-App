@@ -30,16 +30,12 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  tickets: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: 'ticket',
-  },
   reservations: {
     type: [mongoose.Schema.Types.ObjectId],
-    ref: 'ticket',
+    ref: 'reservation',
   },
   phone: {
-    type: Number,
+    type: String,
     minLength: 7,
     maxlength: 20,
   },
