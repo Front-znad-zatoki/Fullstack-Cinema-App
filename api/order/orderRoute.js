@@ -28,13 +28,13 @@ router
     });
     await order.save();
     tickets.forEach(async (ticket) => {
-      new Ticket({
+      const newTicket = new Ticket({
         screening: ticket.screeningId,
         row: ticket.row,
         column: ticket.column,
         order: order.id,
       });
-      await ticket.save();
+      await newTicket.save();
       return ticket.id;
     });
     await order.save();
