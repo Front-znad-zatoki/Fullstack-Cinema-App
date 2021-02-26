@@ -1,5 +1,7 @@
 import express from 'express';
 import Screening from './Screening.js';
+import Movie from '../movie/Movie.js';
+// TODO: add when CinemaHall is ready import CinemaHall from '../cinemaHall/cinemaHallRoute.js';
 
 const router = express.Router();
 

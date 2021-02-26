@@ -3,7 +3,9 @@ import connectDB from './config/mongodb.js';
 import userRoute from './api/user/userRoute.js';
 import loginRoute from './api/authentication/authenticationRoute.js';
 import movieRoute from './api/movie/movieRoute.js';
+import orderRoute from './api/order/orderRoute.js';
 import screeningRoute from './api/screening/screeningRoute.js';
+import ticketRoute from './api/ticket/ticketRoute.js';
 const app = express();
 
 app.get('/', (req, res) => res.send('API Runnin'));
@@ -20,9 +22,10 @@ app.use('/api/login', loginRoute);
 // app.use('/cinemas', require('./api/cinema/cinemaRoute'));
 // app.use('/cinemaHalls', require('./api/cinemaHall/cinemaHallRoute'));
 app.use('/api/movies', movieRoute);
-// app.use('/orders', require('./api/order/orderRoute'));
+app.use('/api/orders', orderRoute);
+
 app.use('/api/screenings', screeningRoute);
-// app.use('/tickets', require('./api/ticket/TicketRoute'));
+app.use('/api/tickets', ticketRoute);
 
 // Serve static assets in production
 // if (process.env.NODE_ENV === 'production') {
