@@ -14,7 +14,8 @@ router.use('/orders', userOrderRoute);
 router.get('/', authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
-    res.status(200).res.json(user);
+    if (!user) res.status(404).res.json({ msg: 'User not found' });
+    res.status(200).json(user);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
@@ -29,6 +30,7 @@ router.delete('/', authMiddleware, async (req, res) => {
     const user = await User.findByIdAndDelete(req.user.id).select(
       '-password',
     );
+    if (!user) res.status(404).res.json({ msg: 'User not found' });
     res.status(200).json(user);
   } catch (err) {
     console.error(err.message);

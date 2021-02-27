@@ -93,6 +93,7 @@ router.post(
 router.get('/', authMiddleware, adminMiddleware, async (req, res) => {
   try {
     const users = await User.find().select('-password');
+    if (!users) res.status(404).send('Users not found');
     res.json(users);
   } catch (err) {
     console.error(err.message);
@@ -110,6 +111,7 @@ router.delete(
   async (req, res) => {
     try {
       const user = await User.findByIdAndDelete(req.body.id);
+      if (!user) res.status(404).send('User not found');
       res.status(200).json(user);
     } catch (err) {
       console.error(err.message);

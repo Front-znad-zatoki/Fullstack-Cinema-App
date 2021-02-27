@@ -55,43 +55,6 @@ router.get(
   },
 );
 
-// @route    PUT api/users/me/orders/:id
-// @desc     Update orders
-// @access   Private
-// TODO: check after orders merged
-router.put('/:orderId', authMiddleware, async (req, res) => {
-  try {
-    let user = await User.findById(req.user.id);
-    if (!user) res.status(404).send('User not found');
-
-    const { orders } = user;
-    console.log(orders)
-    if (orders.includes(req.params.orderId)) {
-      return res
-        .status(400)
-        .json({ errors: [{ msg: 'Order already exists' }] });
-    }
-    // await user.update()
-    user = await User.findOneAndUpdate(
-      req.user.id,
-      {
-        $push: {
-          orders: {
-            order: req.params.orderId,
-          },
-        },
-      },
-      { new: true, upsert: true },
-    );
-    console.log(user.orders);
-    await user.save();
-
-    res.status(200).json(user.orders);
-  } catch (err) {
-    res.status(500).send('Server Error');
-  }
-});
-
 // @route    DELETE api/users/me/orders/:id
 // @desc     Delete order
 // @access   Private
