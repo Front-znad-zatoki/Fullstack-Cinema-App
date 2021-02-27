@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+const Schema = mongoose.Schema;
 
-const CinemaHallSchema = new mongoose.Schema({
+const cinemaHallSchema = new Schema({
   name: Number,
   seats: [
     {
@@ -15,4 +16,4 @@ const CinemaHallSchema = new mongoose.Schema({
     ref: 'Cinema',
   },
 });
-module.exports = mongoose.model('CinemaHall', CinemaHallSchema);
+export default mongoose.model('CinemaHall', cinemaHallSchema);

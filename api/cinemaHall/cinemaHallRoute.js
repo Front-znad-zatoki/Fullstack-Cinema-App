@@ -1,7 +1,7 @@
-//cinemaHall endpoints
-const express = require('express');
+import express from 'express';
+import CinemaHall from './CinemaHall.js';
+
 const router = express.Router();
-const CinemaHall = require('./CinemaHall');
 
 router.get('/', async (req, res) => {
   const cinemaHalls = await CinemaHall.find();
@@ -9,12 +9,12 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { name, seats, rows, column, cinema } = req.body;
+  const { name, seats, rows, columns, cinema } = req.body;
   const newCinemaHall = new CinemaHall({
     name,
     seats,
     rows,
-    column,
+    columns,
     cinema,
   });
   await newCinemaHall.save();
@@ -32,7 +32,9 @@ router.get('/:id', async (req, res) => {
 });
 
 router.delete('/:id', async (req, res) => {
-  const cinemaHall = await CinemaHall.deleteById(req.params.id);
+  const cinemaHall = await CinemaHall.findByIdAndDelete(
+    req.params.id,
+  );
   if (cinemaHall === undefined) {
     return res.status(404).json({
       error: `Cannot find cinema hall with id: ${req.params.id}`,
@@ -41,4 +43,4 @@ router.delete('/:id', async (req, res) => {
   return res.status(204).end();
 });
 
-module.exports = router;
+export default router;

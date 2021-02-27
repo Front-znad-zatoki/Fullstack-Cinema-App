@@ -1,7 +1,6 @@
-//cinema endpoints
-const express = require('express');
+import express from 'express';
+import Cinema from './Cinema.js';
 const router = express.Router();
-const Cinema = require('./Cinema');
 
 router.get('/', async (req, res) => {
   const cinemas = await Cinema.find();
@@ -42,7 +41,7 @@ router.get('/:id', async (req, res) => {
 });
 
 router.delete('/:id', async (req, res) => {
-  const cinema = await Cinema.deleteById(req.params.id);
+  const cinema = await Cinema.findByIdAndDelete(req.params.id);
   if (cinema === undefined) {
     return res.status(404).json({
       error: `Cannot find cinema with id: ${req.params.id}`,
@@ -51,4 +50,4 @@ router.delete('/:id', async (req, res) => {
   return res.status(204).end();
 });
 
-module.exports = router;
+export default router;

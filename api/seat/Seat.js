@@ -1,9 +1,10 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+const Schema = mongoose.Schema;
 
-const Seat = new mongoose.Schema({
+const seat = new Schema({
   hall: {
     type: Schema.Types.ObjectId,
     ref: 'CinemaHall',
   },
 });
-module.exports = mongoose.model('Seat', SeatSchema);
+export default mongoose.model('Seat', seatSchema);
