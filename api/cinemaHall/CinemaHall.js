@@ -1,1 +1,1 @@
-//CinemaHallSchema
+// CinemaHallSchema

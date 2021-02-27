@@ -2,6 +2,7 @@ import express from 'express';
 import connectDB from './config/mongodb.js';
 import userRoute from './api/user/userRoute.js';
 import authRoute from './api/authentication/authRoute.js';
+
 const app = express();
 
 app.get('/', (req, res) => res.send('API Runnin'));

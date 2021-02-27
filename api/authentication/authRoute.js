@@ -1,10 +1,11 @@
-import auth from './authMiddleware.js';
 import express from 'express';
 import bcryptjs from 'bcryptjs';
 import jsonwebtoken from 'jsonwebtoken';
 import config from 'config';
 import { check, validationResult } from 'express-validator';
+import auth from './authMiddleware.js';
 import User from '../user/User.js';
+
 const router = express.Router();
 
 // @route    GET api/auth
@@ -36,7 +37,7 @@ router.post(
     const { email, password } = req.body;
 
     try {
-      let user = await User.findOne({ email });
+      const user = await User.findOne({ email });
 
       if (!user) {
         return res

@@ -19,10 +19,9 @@ export default function (req, res, next) {
       (error, decoded) => {
         if (error) {
           return res.status(401).json({ msg: 'Token is not valid' });
-        } else {
-          req.user = decoded.user;
-          next();
         }
+        req.user = decoded.user;
+        next();
       },
     );
   } catch (err) {

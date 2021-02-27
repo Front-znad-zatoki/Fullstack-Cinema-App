@@ -1,1 +1,1 @@
-//cinemaHall endpoints
+// cinemaHall endpoints

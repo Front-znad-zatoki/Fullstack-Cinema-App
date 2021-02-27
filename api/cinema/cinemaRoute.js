@@ -1,1 +1,1 @@
-//cinema endpoints
+// cinema endpoints

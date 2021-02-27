@@ -1,8 +1,9 @@
 import express from 'express';
 import { check, validationResult } from 'express-validator';
+import bcryptjs from 'bcryptjs';
 import User from './User.js';
 import authMiddleware from '../authentication/authMiddleware.js';
-import bcryptjs from 'bcryptjs';
+
 const router = express.Router();
 
 // @route    GET api/users/me

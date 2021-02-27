@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import uniqueValidator from 'mongoose-unique-validator';
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -30,9 +29,9 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  reservations: {
+  orders: {
     type: [mongoose.Schema.Types.ObjectId],
-    ref: 'reservation',
+    ref: 'order',
   },
   phone: {
     type: String,
@@ -44,7 +43,5 @@ const userSchema = new mongoose.Schema({
   //   type: String,
   // },
 });
-
-// TODO: add validation (joi? unique validator?)
 
 export default mongoose.model('User', userSchema);

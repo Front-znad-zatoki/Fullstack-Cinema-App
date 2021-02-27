@@ -7,6 +7,7 @@ import User from './User.js';
 import authMiddleware from '../authentication/authMiddleware.js';
 import adminMiddleware from '../admin/adminMiddleware.js';
 import userMeRoute from './userMeRoute.js';
+
 const router = express.Router();
 
 router.use('/me', userMeRoute);
@@ -16,12 +17,22 @@ router.use('/me', userMeRoute);
 // @access public (anybody can register)
 router.post(
   '/',
-  check('name', 'Name is required').notEmpty(),
-  check('email', 'Please include a valid email').isEmail(),
+  check('name', 'Name is required of 5 or more characters')
+    .notEmpty()
+    .isString()
+    .trim()
+    .isLength({ min: 5, max: 50 }),
+  check('email', 'Please include a valid email')
+    .isEmail()
+    .trim()
+    .isLength({ max: 255 })
+    .normalizeEmail(),
   check(
     'password',
     'Please enter a password with 5 or more characters',
-  ).isLength({ min: 5 }),
+  )
+    .trim()
+    .isLength({ min: 5, max: 255 }),
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
