@@ -38,11 +38,13 @@ router.get(
   async (req, res) => {
     try {
       const user = await User.findById(req.user.id);
-      const order = user.find({
-        orders: {
-          id: req.params.orderId,
-        },
-      });
+      const order = user
+        .find({
+          orders: {
+            id: req.params.orderId,
+          },
+        })
+        .populate('order');
       if (!user) res.status(404).send('User not found');
       res.status(200).json(order);
     } catch (err) {
