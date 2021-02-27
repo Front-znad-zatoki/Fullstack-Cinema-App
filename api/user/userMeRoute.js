@@ -3,8 +3,10 @@ import { check, validationResult } from 'express-validator';
 import bcryptjs from 'bcryptjs';
 import User from './User.js';
 import authMiddleware from '../authentication/authMiddleware.js';
+import userOrderRoute from './userOrdersRoute.js';
 
 const router = express.Router();
+router.use('/orders', userOrderRoute);
 
 // @route    GET api/users/me
 // @desc     Get user by token
@@ -42,6 +44,8 @@ router.put(
   authMiddleware,
   check('phone', 'Insert phone number min 7 digits')
     .notEmpty()
+    .isString()
+    .trim()
     .isLength({ min: 7, max: 20 }),
   async (req, res) => {
     const errors = validationResult(req);
@@ -74,6 +78,8 @@ router.put(
   authMiddleware,
   check('name', 'Name is required')
     .notEmpty()
+    .isString()
+    .trim()
     .isLength({ min: 5, max: 255 }),
   async (req, res) => {
     const errors = validationResult(req);
@@ -105,6 +111,8 @@ router.put(
   authMiddleware,
   check('password', 'Password is required')
     .notEmpty()
+    .isString()
+    .trim()
     .isLength({ min: 5, max: 255 }),
   async (req, res) => {
     const errors = validationResult(req);
@@ -119,61 +127,6 @@ router.put(
         req.user.id,
         { password: password },
         { new: true },
-      ).select('-password');
-      if (!user) res.status(404).send('User not found');
-      await user.save();
-      res.status(200).json(user);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server Error');
-    }
-  },
-);
-
-// @route    GET api/users/me/reservations
-// @desc     get reservations
-// @access   Private
-// TODO: check after reservations merged
-router.get('/reservations', authMiddleware, async (req, res) => {
-  try {
-    const user = await User.findById(req.user.id).select(
-      'reservations',
-    );
-
-    if (!user) res.status(404).send('User not found');
-    await user.save();
-    res.status(200).json(user);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
-  }
-});
-
-// @route    PUT api/users/me/reservations
-// @desc     Update reservations
-// @access   Private
-// TODO: check after reservations merged
-router.put(
-  '/reservations',
-  authMiddleware,
-  check('reservations', 'New reservation required')
-    .notEmpty()
-    .isArray(),
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
-    try {
-      const user = await User.findOneAndUpdate(
-        req.user.id,
-        {
-          $push: {
-            reservations: req.body.reservationId,
-          },
-        },
-        { new: true, upsert: true },
       ).select('-password');
       if (!user) res.status(404).send('User not found');
       await user.save();
