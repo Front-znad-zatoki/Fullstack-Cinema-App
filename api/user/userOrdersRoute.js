@@ -46,6 +46,7 @@ router.get(
         })
         .populate('order');
       if (!user) res.status(404).send('User not found');
+      if (!order) res.status(404).send('Order not found');
       res.status(200).json(order);
     } catch (err) {
       console.error(err.message);
