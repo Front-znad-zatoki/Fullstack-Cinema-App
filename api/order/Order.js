@@ -8,6 +8,8 @@ const orderSchema = new Schema({
   },
   email: String,
   status: String,
+  // TODO: prepare enum for that field
+  // TODO: add tickets array here?
 });
 
 export default mongoose.model('Order', orderSchema);

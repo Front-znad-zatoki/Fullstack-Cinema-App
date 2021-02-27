@@ -8,10 +8,13 @@ const router = express.Router();
 router
   .route('/')
   .get(async (req, res) => {
+    // TODO: add error handling
     const orders = await Order.find({});
     res.status(200).json(orders);
   })
+  // TODO:  add admin check (middleware) for all requests that are not GET
   .post(async (req, res) => {
+    // TODO: available for authenticated users or / ?
     const { userId, email, status, tickets } = req.body;
     const user = await User.findById(userId);
     if (user === undefined) {
@@ -44,6 +47,7 @@ router
 router
   .route('/:id')
   .get(async (req, res) => {
+    // TODO: for admin and user who purchased only? to change for all not public routes
     const order = await Order.findById(req.params.id);
     if (order === undefined) {
       res.status(404).json({

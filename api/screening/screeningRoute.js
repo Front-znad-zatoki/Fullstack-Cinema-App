@@ -1,13 +1,14 @@
 import express from 'express';
 import Screening from './Screening.js';
 import Movie from '../movie/Movie.js';
-// TODO: add when CinemaHall is ready import CinemaHall from '../cinemaHall/cinemaHallRoute.js';
+import CinemaHall from '../cinemaHall/CinemaHall.js';
 
 const router = express.Router();
 
 router
   .route('/')
   .get(async (req, res) => {
+    // TODO: add error handling
     const screenings = await Screening.find({});
     res.status(200).json(screenings);
   })

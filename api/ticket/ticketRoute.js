@@ -8,6 +8,7 @@ const router = express.Router();
 router
   .route('/')
   .get(async (req, res) => {
+    // TODO: add error handling
     const tickets = await Ticket.find({});
     res.status(200).json(tickets);
   })
