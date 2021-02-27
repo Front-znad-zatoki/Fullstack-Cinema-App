@@ -41,7 +41,7 @@ router.get(
       const order = user
         .find({
           orders: {
-            id: req.params.orderId,
+            order: req.params.orderId,
           },
         })
         .populate('order');
@@ -65,18 +65,20 @@ router.put('/:orderId', authMiddleware, async (req, res) => {
     if (!user) res.status(404).send('User not found');
 
     const { orders } = user;
+    console.log(orders)
     if (orders.includes(req.params.orderId)) {
       return res
         .status(400)
         .json({ errors: [{ msg: 'Order already exists' }] });
     }
-
+    // await user.update()
     user = await User.findOneAndUpdate(
       req.user.id,
-      // await user.update()
       {
         $push: {
-          orders: req.params.orderId,
+          orders: {
+            order: req.params.orderId,
+          },
         },
       },
       { new: true, upsert: true },
@@ -93,7 +95,7 @@ router.put('/:orderId', authMiddleware, async (req, res) => {
 // @route    DELETE api/users/me/orders/:id
 // @desc     Delete order
 // @access   Private
-// TODO: check after orders merged
+// TODO: check after orders merged, connect with orders
 router.delete(
   '/:orderId',
   authMiddleware,
@@ -107,7 +109,9 @@ router.delete(
     try {
       const user = await User.findByIdAndUpdate(req.user.id, {
         $pull: {
-          orders: req.params.orderId,
+          orders: {
+            order: req.params.orderId,
+          },
         },
       }).select('orders');
       if (!user) res.status(404).send('User not found');
