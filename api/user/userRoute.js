@@ -86,7 +86,7 @@ router.get('/me', loginMiddleware, async (req, res) => {
         .status(400)
         .json({ msg: 'There is no profile for this user' });
     }
-    console.log('got user')
+    console.log('got user');
     res.json(profile);
   } catch (err) {
     console.error(err.message);
