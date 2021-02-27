@@ -6,6 +6,8 @@ import movieRoute from './api/movie/movieRoute.js';
 import orderRoute from './api/order/orderRoute.js';
 import screeningRoute from './api/screening/screeningRoute.js';
 import ticketRoute from './api/ticket/ticketRoute.js';
+import cinemaRoute from './api/cinema/cinemaRoute.js';
+import cinemaHallRoute from './api/cinemaHall/cinemaHallRoute.js';
 const app = express();
 
 app.get('/', (req, res) => res.send('API Runnin'));
@@ -19,13 +21,13 @@ app.use(express.json());
 // Define Routes
 app.use('/api/users', userRoute);
 app.use('/api/login', loginRoute);
-// app.use('/cinemas', require('./api/cinema/cinemaRoute'));
-// app.use('/cinemaHalls', require('./api/cinemaHall/cinemaHallRoute'));
 app.use('/api/movies', movieRoute);
 app.use('/api/orders', orderRoute);
 
 app.use('/api/screenings', screeningRoute);
 app.use('/api/tickets', ticketRoute);
+app.use('/api/cinemas', cinemaRoute);
+app.use('/api/cinemaHalls', cinemaHallRoute);
 
 // Serve static assets in production
 // if (process.env.NODE_ENV === 'production') {
