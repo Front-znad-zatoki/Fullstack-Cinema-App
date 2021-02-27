@@ -6,7 +6,10 @@ import { check, validationResult } from 'express-validator';
 import User from './User.js';
 import authMiddleware from '../authentication/authMiddleware.js';
 import adminMiddleware from '../admin/adminMiddleware.js';
+import userMeRoute from './userMeRoute.js';
 const router = express.Router();
+
+router.use('/me', userMeRoute);
 
 // @route POST api/users
 // @description Registering new user
@@ -96,148 +99,6 @@ router.delete(
   async (req, res) => {
     try {
       const user = await User.findByIdAndDelete(req.body.id);
-      res.status(200).json(user);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server Error');
-    }
-  },
-);
-
-// @route DELETE api/user
-// @description delete user
-// @access private user
-router.delete('/me', authMiddleware, async (req, res) => {
-  try {
-    const user = await User.findByIdAndDelete(req.user.id);
-    res.status(200).json(user);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
-  }
-});
-
-// @route    PUT api/user/me/phone
-// @desc     Update profile
-// @access   Private
-router.put(
-  '/me/phone',
-  authMiddleware,
-  check('phone', 'Insert phone number min 7 digits')
-    .notEmpty()
-    .isLength({ min: 7, max: 20 }),
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
-    try {
-      const user = await User.findOneAndUpdate(
-        req.user.id,
-        { phone: req.body.phone },
-        { new: true },
-      );
-      if (!user) res.status(404).send('User not found');
-      await user.save();
-
-      res.status(200).json(user);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server Error');
-    }
-  },
-);
-
-// @route    PUT api/user/me/name
-// @desc     Update name
-// @access   Private
-router.put(
-  '/me/name',
-  authMiddleware,
-  check('name', 'Name is required')
-    .notEmpty()
-    .isLength({ min: 5, max: 255 }),
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
-    try {
-      const user = await User.findOneAndUpdate(
-        req.user.id,
-        { name: req.body.name },
-        { new: true },
-      );
-      if (!user) res.status(404).send('User not found');
-      await user.save();
-      res.status(200).json(user);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server Error');
-    }
-  },
-);
-
-// @route    PUT api/user/me/password
-// @desc     Update password
-// @access   Private
-router.put(
-  '/me/password',
-  authMiddleware,
-  check('password', 'Password is required')
-    .notEmpty()
-    .isLength({ min: 5, max: 255 }),
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
-    try {
-      const user = await User.findOneAndUpdate(
-        req.user.id,
-        { password: req.body.password },
-        { new: true },
-      );
-      if (!user) res.status(404).send('User not found');
-      await user.save();
-      res.status(200).json(user);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server Error');
-    }
-  },
-);
-
-// @route    PUT api/user/me/reservations
-// @desc     Update reservations
-// @access   Private
-router.put(
-  '/me/reservations',
-  authMiddleware,
-  check('reservations', 'New reservation requires')
-    .notEmpty()
-    .isArray(),
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
-    try {
-      const user = await User.findOneAndUpdate(
-        req.user.id,
-        {
-          $push: {
-            reservations: req.body.reservationId,
-          },
-        },
-        { new: true, upsert: true },
-      );
-      if (!user) res.status(404).send('User not found');
-      await user.save();
       res.status(200).json(user);
     } catch (err) {
       console.error(err.message);
