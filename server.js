@@ -2,6 +2,8 @@ import express from 'express';
 import connectDB from './config/mongodb.js';
 import userRoute from './api/user/userRoute.js';
 import authRoute from './api/authentication/authRoute.js';
+import cinemaRoute from './api/cinema/cinemaRoute.js';
+import cinemaHallRoute from './api/cinemaHall/cinemaHallRoute.js';
 
 const app = express();
 
@@ -16,9 +18,8 @@ app.use(express.json());
 // Define Routes
 app.use('/api/users', userRoute);
 app.use('/api/auth', authRoute);
-
-// app.use('/cinemas', require('./api/cinema/cinemaRoute'));
-// app.use('/cinemaHalls', require('./api/cinemaHall/cinemaHallRoute'));
+app.use('/api/cinemas', cinemaRoute);
+app.use('/api/cinemaHalls', cinemaHallRoute);
 // app.use('/movies', require('./api/movie/movieRoute'));
 // app.use('/orders', require('./api/order/orderRoute'));
 // app.use('/screenings', require('./api/screening/ScreeningRoute'));
