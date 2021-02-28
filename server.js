@@ -33,6 +33,8 @@ app.use('/api/cinemaHalls', cinemaHallRoute);
 // Serve static assets in production
 // if (process.env.NODE_ENV === 'production') {
 //   console.log('production');
+// app.use(express.static('client/build'))
+// TODO: finish deployment config
 // }
 
 const PORT = process.env.PORT || 5000;
