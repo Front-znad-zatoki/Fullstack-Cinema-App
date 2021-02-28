@@ -1,8 +1,8 @@
 import React from 'react'
 
-function Button({textToDisplay}) {
+function Button({textToDisplay, classes, callback}) {
     return (
-        <button className="button">
+        <button className={classes} onClick={callback}>
             {textToDisplay}
         </button>
     )
