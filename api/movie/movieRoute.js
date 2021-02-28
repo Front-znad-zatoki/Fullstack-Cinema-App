@@ -1,5 +1,6 @@
 import express from 'express';
 import Movie from './Movie.js';
+
 const router = express.Router();
 router
   .route('/')

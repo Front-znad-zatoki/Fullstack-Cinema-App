@@ -14,7 +14,8 @@
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "build:client": "npm run-script build --prefix client"
+    "build:client": "npm run-script build --prefix client",
+    "clean": "rimraf .cache && rimraf coverage && rimraf node_modules && rimraf build"
   },
   "repository": {
     "type": "git",
