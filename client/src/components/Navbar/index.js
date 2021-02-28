@@ -7,9 +7,15 @@ function Navbar() {
       Rendering Navbar in here
       <h1>Navigation</h1>
       <ul>
-        <li><Link to="/movies">Movies</Link></li>
-        <li><Link to="/signup">SignUp</Link></li>
-        <li><Link to="/login">Login</Link></li>
+        <li>
+          <Link to="/movies">Movies</Link>
+        </li>
+        <li>
+          <Link to="/signup">SignUp</Link>
+        </li>
+        <li>
+          <Link to="/login">Login</Link>
+        </li>
       </ul>
     </div>
   );
