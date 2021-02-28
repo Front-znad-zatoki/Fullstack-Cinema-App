@@ -1,4 +1,4 @@
-import './style.css';
+import './style.scss';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import Landing from '../../domain/Landing';
 import SignUp from '../../domain/Auth/SignUp';
@@ -9,7 +9,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <header className="App-header">
+        <header className="App__header">
           <h1>FZZinemas</h1>
         </header>
         <Route exact path='/' component={Landing} />

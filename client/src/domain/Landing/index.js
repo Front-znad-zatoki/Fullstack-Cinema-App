@@ -1,5 +1,5 @@
 import Navbar from '../../components/Navbar';
-import './style.css';
+import './style.scss';
 
 
 function Landing() {
