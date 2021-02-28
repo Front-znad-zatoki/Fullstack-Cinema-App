@@ -4,20 +4,35 @@ import jsonwebtoken from 'jsonwebtoken';
 import config from 'config';
 import { check, validationResult } from 'express-validator';
 import User from './User.js';
-import loginMiddleware from '../authentication/authenticationMiddleware.js';
+import authMiddleware from '../authentication/authMiddleware.js';
+import adminMiddleware from '../admin/adminMiddleware.js';
+import userMeRoute from './userMeRoute.js';
+
 const router = express.Router();
+
+router.use('/me', userMeRoute);
 
 // @route POST api/users
 // @description Registering new user
 // @access public (anybody can register)
 router.post(
-  '/signUp',
-  check('name', 'Name is required').notEmpty(),
-  check('email', 'Please include a valid email').isEmail(),
+  '/',
+  check('name', 'Name is required of 5 or more characters')
+    .notEmpty()
+    .isString()
+    .trim()
+    .isLength({ min: 5, max: 50 }),
+  check('email', 'Please include a valid email')
+    .isEmail()
+    .trim()
+    .isLength({ max: 255 })
+    .normalizeEmail(),
   check(
     'password',
     'Please enter a password with 5 or more characters',
-  ).isLength({ min: 5 }),
+  )
+    .trim()
+    .isLength({ min: 5, max: 255 }),
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -72,26 +87,37 @@ router.post(
   },
 );
 
-// @route GET api/users/me
-// @description Get details of current user
-// @access private (anybody can register)
-router.get('/me', loginMiddleware, async (req, res) => {
+// @route GET api/users
+// @description Getting all users
+// @access admin
+router.get('/', authMiddleware, adminMiddleware, async (req, res) => {
   try {
-    const userProfile = await User.findOne({
-      user: req.user.id,
-    }).select('name', 'email', 'phone', 'tickets', 'reservations');
-
-    if (!userProfile) {
-      return res
-        .status(400)
-        .json({ msg: 'There is no profile for this user' });
-    }
-    console.log('got user');
-    res.json(profile);
+    const users = await User.find().select('-password');
+    if (!users) res.status(404).send('Users not found');
+    res.json(users);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
   }
 });
+
+// @route DELETE api/users
+// @description Delete user by admin
+// @access admin
+router.delete(
+  '/',
+  authMiddleware,
+  adminMiddleware,
+  async (req, res) => {
+    try {
+      const user = await User.findByIdAndDelete(req.body.id);
+      if (!user) res.status(404).send('User not found');
+      res.status(200).json(user);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  },
+);
 
 export default router;

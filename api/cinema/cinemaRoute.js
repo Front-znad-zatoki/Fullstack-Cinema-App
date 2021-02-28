@@ -1,5 +1,6 @@
 import express from 'express';
 import Cinema from './Cinema.js';
+
 const router = express.Router();
 
 router.get('/', async (req, res) => {
