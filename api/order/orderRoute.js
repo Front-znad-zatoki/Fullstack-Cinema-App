@@ -15,6 +15,7 @@ router
   // TODO:  add admin check (middleware) for all requests that are not GET
   .post(async (req, res) => {
     // TODO: available for authenticated users or / ?
+    // eslint-disable-next-line object-curly-newline
     const { userId, email, status, tickets } = req.body;
     const user = await User.findById(userId);
     if (user === undefined) {
@@ -66,7 +67,7 @@ router
       return;
     }
     if (req.body.userId !== undefined) {
-      const user = await User.findById(userId);
+      const user = await User.findById(req.body.userId);
       if (user === undefined) {
         res.status(400).json({
           error: `Cannot find user with id: ${req.params.id}'`,
@@ -81,7 +82,7 @@ router
     if (req.body.status !== undefined) {
       order.status = req.body.status;
     }
-    await ticket.save();
+    await order.save();
     res
       .status(200)
       .json({ message: 'Order updated successfully', order });
