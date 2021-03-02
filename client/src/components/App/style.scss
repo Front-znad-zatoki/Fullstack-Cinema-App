@@ -1,8 +1,9 @@
+@import '../../../src/index.scss';
 .App {
-    background-color: blue;
-    color: aqua;
-    &__header {
-        font-size: 2rem;
-        color: aqua;
-    }
+  background-color: $color-primary;
+  color: $text-color-secondary;
+  &__header {
+    font-size: 2rem;
+    color: $text-color-secondary;
+  }
 }
