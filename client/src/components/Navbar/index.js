@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 function Navbar({ name, icon }) {
   return (
-    <div className="navbar">
+    <div className="Navbar">
       <h1>
         <span className={icon} /> {name}
       </h1>
