@@ -1,4 +1,5 @@
 import Navbar from '../../components/Navbar';
+import MovieSlider from '../MovieSlider';
 import './style.scss';
 
 function Landing() {
@@ -6,6 +7,7 @@ function Landing() {
     <div className="landing">
       Rendering Landing Page
       <Navbar />
+      <MovieSlider />
     </div>
   );
 }
