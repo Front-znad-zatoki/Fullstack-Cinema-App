@@ -50,15 +50,19 @@
     "react-test-renderer": "^17.0.1"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
+    "*.js": [
       "npx prettier --write",
-      "eslint src/*.js --fix-dry-run"
+      "eslint src/*.js --fix",
+      "npm run format"
     ]
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "lint-staged && npm run test && npm run test:cov"
+      "pre-commit": "lint-staged && echo \"[Husky] pre-commit\"",
+      "pre-push": "lint-staged && npm run test && npm run test:cov",
+      "applypatch-msg": "echo \"[Husky] applypatch-msg\"",
+      "pre-applypatch": "echo \"[Husky] pre-applypatch\"",
+      "post-applypatch": "echo \"[Husky] post-applypatch\""
     }
   }
 }
