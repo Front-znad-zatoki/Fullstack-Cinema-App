@@ -1,13 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './style.scss';
 import { Link } from 'react-router-dom';
 
-function Navbar({ name, icon }) {
+function Navbar() {
   return (
-    <div className="navbar">
+    <nav className="navbar">
       <h1>
-        <span className={icon} /> {name}
+        <span className="fas fa-video" /> 'FZZ Cinemas'
       </h1>
       <ul>
         <li>
@@ -23,18 +22,8 @@ function Navbar({ name, icon }) {
           <Link to="/login">Login</Link>
         </li>
       </ul>
-    </div>
+    </nav>
   );
 }
-
-Navbar.propTypes = {
-  name: PropTypes.string.isRequired,
-  icon: PropTypes.string,
-};
-
-Navbar.defaultProps = {
-  name: 'FZZ Cinemas',
-  icon: 'fas fa-video',
-};
 
 export default Navbar;
