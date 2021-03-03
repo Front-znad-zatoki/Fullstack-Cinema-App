@@ -44,7 +44,8 @@
   "proxy": "http://localhost:5000",
   "devDependencies": {
     "eslint-plugin-prettier": "^3.3.1",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "react-test-renderer": "^17.0.1"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
@@ -53,7 +54,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run format"
+      "pre-commit": "npm run format",
+      "pre-push": "npm run test && npm run test:cov"
     }
   }
 }
