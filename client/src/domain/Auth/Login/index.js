@@ -55,7 +55,8 @@ function Login() {
         </button>
       </form>
       <p className="auth__redirect">
-        Don't have an account? <Link to="/signup">Sign Up</Link>
+        Don&apos;t have an account? 
+        <Link to="/signup">Sign Up</Link>
       </p>
     </div>
   );
