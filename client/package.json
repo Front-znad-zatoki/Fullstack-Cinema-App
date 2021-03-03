@@ -50,7 +50,7 @@
     "react-test-renderer": "^17.0.1"
   },
   "lint-staged": {
-    "./src/*.{js,jsx,ts,tsx}": [
+    "*.{js,jsx,ts,tsx}": [
       "npx prettier --write",
       "eslint src/*.js --fix-dry-run"
     ]
