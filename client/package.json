@@ -43,18 +43,21 @@
   },
   "proxy": "http://localhost:5000",
   "devDependencies": {
+    "eslint": "^7.21.0",
+    "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-prettier": "^3.3.1",
     "prettier": "^2.2.1",
     "react-test-renderer": "^17.0.1"
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "prettier --write"
+    "./src/*.{js,jsx,ts,tsx}": [
+      "npx prettier --write",
+      "eslint src/*.js --fix-dry-run"
     ]
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run format",
+      "pre-commit": "lint-staged",
       "pre-push": "npm run test && npm run test:cov"
     }
   }
