@@ -5,7 +5,7 @@
   "description": "CodersCamp fullstack app",
   "main": "server.js",
   "scripts": {
-    "format": "prettier --config .prettierrc --write \"api/**/*.js\" \"test/**/*.js\" \"**/*.json\" && fnpm run format --prefix client",
+    "format": "prettier --config .prettierrc --write \"api/**/*.js\" \"test/**/*.js\" \"**/*.json\" && npm run format --prefix client",
     "eslint": "eslint . --fix --ext .js",
     "test": "jest",
     "test:watch": "jest --watch",
