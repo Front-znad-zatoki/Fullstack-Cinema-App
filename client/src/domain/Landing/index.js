@@ -1,13 +1,7 @@
-import Navbar from '../../components/Navbar';
 import './style.scss';
 
 function Landing() {
-  return (
-    <div className="landing">
-      Rendering Landing Page
-      <Navbar />
-    </div>
-  );
+  return <div className="landing">Rendering Landing Page</div>;
 }
 
 export default Landing;
