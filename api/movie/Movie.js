@@ -3,27 +3,29 @@ import mongoose from 'mongoose';
 const movieSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true,
+    required: [true, 'Please enter movie title'],
+    trim: true,
   },
   duration: {
     type: Number,
-    required: true,
+    required: [true, 'Please enter duration'],
   },
   releaseDate: {
     type: Date,
-    required: true,
+    required: [true, 'Please enter movie release date'],
   },
   description: {
     type: String,
-    required: true,
+    required: [true, 'Please enter movie description'],
   },
   poster: {
     type: String,
-    required: true,
+    required: [true, 'Please enter movie poster'],
   },
   genre: {
     type: String,
-    required: true,
+    required: [true, 'Please enter movie genre'],
+    trim: true,
   },
 });
 
