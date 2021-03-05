@@ -14,33 +14,12 @@ function MovieSlider() {
   };
 
   const posters = [
-    "../../../public/moviePosters/Adam's_Apples.jpg",
-    '../../../public/moviePosters/avatar.jpg',
-    '../../../public/moviePosters/noTimeToDiePoster.jpg',
+    "./moviePosters/Adam's_Apples.jpg",
+    './moviePosters/avatar.jpg',
+    './moviePosters/noTimeToDiePoster.jpg',
   ];
   return (
-    <div>
-      <h2> Coming up </h2>
-      <Slider {...settings}>
-        <div>
-          <h3>1</h3>
-          <img src="../../../public/moviePosters/Adam's_Apples.jpg" alt="" />
-        </div>
-        <div>
-          <h3>2</h3>
-          <img src="../../../public/moviePosters/avatar.jpg" alt="" />
-        </div>
-        <div>
-          <h3>3</h3>
-          <img
-            src="../../../public/moviePosters/noTimeToDiePoster.jpg"
-            alt=""
-          />
-        </div>
-      </Slider>
-    </div>
-  );
-  /*<div className="App">
+    <div className="App">
       <h2>Coming up</h2>
 
       <Slider {...settings}>
@@ -54,6 +33,6 @@ function MovieSlider() {
         })}
       </Slider>
     </div>
-  );*/
+  );
 }
 export default MovieSlider;
