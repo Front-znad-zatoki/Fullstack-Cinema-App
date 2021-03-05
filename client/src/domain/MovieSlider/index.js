@@ -1,5 +1,8 @@
 import React from 'react';
 import Slider from 'react-slick';
+import poster1 from "../../../public/moviePosters/Adam's_Apples.jpg";
+import poster2 from '../../../public/moviePosters/avatar.jpg';
+import poster3 from '../../../public/moviePosters/noTimeToDiePoster.jpg';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
@@ -13,21 +16,17 @@ function MovieSlider() {
     autoplay: true,
   };
 
-  const posters = [
-    "./moviePosters/Adam's_Apples.jpg",
-    './moviePosters/avatar.jpg',
-    './moviePosters/noTimeToDiePoster.jpg',
-  ];
+  const posters = [poster1, poster2, poster3];
   return (
-    <div className="App">
+    <div className="slider">
       <h2>Coming up</h2>
 
       <Slider {...settings}>
         {posters.map((poster, i) => {
           console.log(poster);
           return (
-            <div key={i} className="img-card">
-              <img className="img" src={poster} alt="" />
+            <div key={i} className="slider_container">
+              <img className="slider_container_img" src={poster} alt="" />
             </div>
           );
         })}
