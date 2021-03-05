@@ -6,12 +6,14 @@ import SignUp from '../../domain/Auth/SignUp';
 import Login from '../../domain/Auth/Login';
 import MovieList from '../../domain/MovieList';
 import Navbar from '../Navbar/index';
+import MovieSlider from '../../domain/MovieSlider';
 
 function App() {
   return (
     <Router>
       <Fragment>
         <Navbar />
+        <MovieSlider />
         <div className="App">
           <Route exact path="/" component={Landing} />
           <Switch>
