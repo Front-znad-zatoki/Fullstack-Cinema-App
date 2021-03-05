@@ -10,7 +10,7 @@
     "airbnb",
     "plugin:jsx-a11y/strict",
     "plugin:react/recommended",
-    "prettier",
+    "plugin:prettier/recommended",
     "plugin:compat/recommended",
     "react-app",
     "react-app/jest"
