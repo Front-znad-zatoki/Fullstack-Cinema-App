@@ -6,14 +6,12 @@ import SignUp from '../../domain/Auth/SignUp';
 import Login from '../../domain/Auth/Login';
 import MovieList from '../../domain/MovieList';
 import Navbar from '../Navbar/index';
-import BackButton from '../BackButton';
 
 function App() {
   return (
     <Router>
       <>
         <Navbar />
-        <BackButton />
         <div className="App">
           <Route exact path="/" component={Landing} />
           <Switch>
