@@ -10,7 +10,7 @@ import Navbar from '../Navbar/index';
 function App() {
   return (
     <Router>
-      <Fragment>
+      <>
         <Navbar />
         <div className="App">
           <Route exact path="/" component={Landing} />
@@ -40,7 +40,7 @@ function App() {
             {/* http://localhost:3000/admin */}
           </Switch>
         </div>
-      </Fragment>
+      </>
     </Router>
   );
 }
