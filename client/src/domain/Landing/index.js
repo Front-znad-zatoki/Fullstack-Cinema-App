@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
+import MovieList from '../MovieList';
 import './style.scss';
 
 function Landing() {
@@ -15,6 +16,7 @@ function Landing() {
       }}
     >
       Rendering Landing Page
+      <MovieList />
     </div>
   );
 }
