@@ -22,10 +22,10 @@ function MovieSlider() {
       <h2>Coming up</h2>
 
       <Slider {...settings}>
-        {posters.map((poster, i) => {
+        {posters.map((poster) => {
           console.log(poster);
           return (
-            <div key={i} className="slider_container">
+            <div key={poster} className="slider_container">
               <img className="slider_container_img" src={poster} alt="" />
             </div>
           );

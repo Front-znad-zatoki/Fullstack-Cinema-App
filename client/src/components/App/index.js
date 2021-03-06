@@ -13,7 +13,6 @@ function App() {
     <Router>
       <>
         <Navbar />
-        <MovieSlider />
         <div className="App">
           <Route exact path="/" component={Landing} />
           <Switch>

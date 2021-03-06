@@ -48,6 +48,7 @@
     "react/prop-types": 0,
     "prettier/prettier": ["error"],
     "compat/compat": "off",
-    "react/button-has-type": "warn"
+    "react/button-has-type": "warn",
+    "react/jsx-props-no-spreading":"off"
   }
 }
