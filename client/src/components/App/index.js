@@ -11,7 +11,7 @@ import MovieDetails from '../../domain/MovieDetails/index';
 function App() {
   return (
     <Router>
-      <Fragment>
+      <>
         <Navbar />
         <MovieDetails />
         <div className="App">
@@ -42,7 +42,7 @@ function App() {
             {/* http://localhost:3000/admin */}
           </Switch>
         </div>
-      </Fragment>
+      </>
     </Router>
   );
 }
