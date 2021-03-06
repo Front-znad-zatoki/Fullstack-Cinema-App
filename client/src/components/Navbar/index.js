@@ -1,7 +1,12 @@
 import React from 'react';
 import './style.scss';
 import { Link } from 'react-router-dom';
-import { ROUTE_ROOT, ROUTE_MOVIES, ROUTE_SIGNUP, ROUTE_LOGIN } from '../../../routes';
+import {
+  ROUTE_ROOT,
+  ROUTE_MOVIES,
+  ROUTE_SIGNUP,
+  ROUTE_LOGIN,
+} from '../../routes';
 
 function Navbar() {
   return (
