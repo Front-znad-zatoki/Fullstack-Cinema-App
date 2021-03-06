@@ -1,5 +1,6 @@
 const movies = [
   {
+    id: 1,
     title: 'No Time to Die',
     duration: 163,
     releaseDate: '30 September 2021 (UK)',
@@ -9,6 +10,7 @@ const movies = [
     poster: '../assets/moviePosters/noTimeToDiePoster.jpg',
   },
   {
+    id: 2,
     title: 'Time to Die',
     duration: 13,
     releaseDate: '30 September 2020 (UK)',
@@ -18,6 +20,7 @@ const movies = [
     poster: '../assets/moviePosters/avatar.jpg',
   },
   {
+    id: 3,
     title: 'Die',
     duration: 160,
     releaseDate: '30 September 2010 (UK)',
