@@ -1,8 +1,8 @@
 import React from 'react';
 import Slider from 'react-slick';
-import poster1 from "../../../public/moviePosters/Adam's_Apples.jpg";
-import poster2 from '../../../public/moviePosters/avatar.jpg';
-import poster3 from '../../../public/moviePosters/noTimeToDiePoster.jpg';
+import poster1 from "../../../public/Adam's_Apples.jpg";
+import poster2 from '../../../public/avatar.jpg';
+import poster3 from '../../../public/noTimeToDiePoster.jpg';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
