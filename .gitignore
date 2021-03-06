@@ -119,3 +119,4 @@ dist
 
 default.json
 .DS_Store
+.editorconfig
