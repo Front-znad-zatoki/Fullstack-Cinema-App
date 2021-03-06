@@ -6,13 +6,18 @@ import SignUp from '../../domain/Auth/SignUp';
 import Login from '../../domain/Auth/Login';
 import MovieList from '../../domain/MovieList';
 import Navbar from '../Navbar/index';
+<<<<<<< HEAD
 import MovieSlider from '../../domain/MovieSlider';
+=======
+import MovieDetails from '../../domain/MovieDetails/index';
+>>>>>>> develop
 
 function App() {
   return (
     <Router>
       <>
         <Navbar />
+        <MovieDetails />
         <div className="App">
           <Route exact path="/" component={Landing} />
           <Switch>

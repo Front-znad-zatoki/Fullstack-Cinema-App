@@ -118,5 +118,7 @@ dist
 .pnp.*
 
 default.json
-.DS_Store
+
+*.DS_Store
 .editorconfig
+
