@@ -1,12 +1,17 @@
+import React from 'react';
 import './style.scss';
 import { Link } from 'react-router-dom';
 
 function Navbar() {
   return (
-    <div className="navbar">
-      Rendering Navbar in here
-      <h1>Navigation</h1>
+    <nav className="navbar">
+      <h1>
+        <span className="fas fa-video" /> 'FZZ Cinemas'
+      </h1>
       <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
         <li>
           <Link to="/movies">Movies</Link>
         </li>
@@ -17,7 +22,7 @@ function Navbar() {
           <Link to="/login">Login</Link>
         </li>
       </ul>
-    </div>
+    </nav>
   );
 }
 
