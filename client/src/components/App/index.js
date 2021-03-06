@@ -7,7 +7,7 @@ import Login from '../../domain/Auth/Login';
 import MovieList from '../../domain/MovieList';
 import { ThemeContext } from '../../context/Theme';
 import Navbar from '../Navbar/index';
-import MoviesContextProvider from '../../context/Movies/MoviesContext';
+import MoviesContextProvider from '../../context/Movies';
 
 function App() {
   const themeHook = useState('light');

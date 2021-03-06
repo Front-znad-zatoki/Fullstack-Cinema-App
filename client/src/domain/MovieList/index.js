@@ -4,7 +4,7 @@ import moviesMock from '../../mock/moviesMock';
 import Movie from './Movie';
 import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
-import { MoviesContext } from '../../context/Movies/MoviesContext';
+import { MoviesContext } from '../../context/Movies';
 
 function MovieList() {
   // const [movies, setMovies] = useState(null);
