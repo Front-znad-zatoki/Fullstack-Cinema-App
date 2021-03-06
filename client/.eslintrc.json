@@ -46,7 +46,7 @@
     "react/react-in-jsx-scope": "off",
     "no-console": "off",
     "react/prop-types": 0,
-    "prettier/prettier": ["error", {"endOfLine":"auto"}],
+    "prettier/prettier": ["error", { "endOfLine": "auto" }],
     "compat/compat": "off",
     "react/button-has-type": "off"
   }
