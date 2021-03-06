@@ -1,11 +1,9 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext } from 'react';
 
 export const ThemeContext = createContext(['light', () => {}]);
 
-function ThemeContextProvider() {
-  const [theme, setTheme] = useState(0);
-
+function ThemeComponent() {
   return <div />;
 }
 
-export default ThemeContextProvider;
+export default ThemeComponent;
