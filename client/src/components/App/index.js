@@ -11,7 +11,7 @@ import MovieSlider from '../../domain/MovieSlider';
 function App() {
   return (
     <Router>
-      <Fragment>
+      <>
         <Navbar />
         <MovieSlider />
         <div className="App">
@@ -42,7 +42,7 @@ function App() {
             {/* http://localhost:3000/admin */}
           </Switch>
         </div>
-      </Fragment>
+      </>
     </Router>
   );
 }

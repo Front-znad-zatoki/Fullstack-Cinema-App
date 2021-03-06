@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
-
-echo "Whatever you need ☕️"
+npm run format
+npm run test

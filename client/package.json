@@ -7,15 +7,12 @@
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.7.1",
     "axios": "^0.21.1",
-    "husky": "^5.1.1",
-    "lint-staged": "^10.5.4",
     "node-sass": "^5.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
-    "react-slick": "^0.28.0",
-    "slick-carousel": "^1.8.1",
+    "styled-components": "^5.2.1",
     "web-vitals": "^1.1.0"
   },
   "scripts": {
@@ -23,13 +20,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "format": "prettier --config .prettierrc --write \"src/**/*.js\" \"src/*.js\" \"**/*.json\""
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "format:prettier": "prettier --config .prettierrc --write src",
+    "lint": "eslint \"src/**/*.{js,jsx,json,scss,css}\" \"src/*.{js,jsx,json,scss,css}\"\"src/**/**/.{js,jsx,json,scss,css}\"",
+    "lint:fix": "eslint . --fix",
+    "format": "npm run format:prettier && npm run lint:fix"
   },
   "browserslist": {
     "production": [
@@ -45,12 +39,18 @@
   },
   "proxy": "http://localhost:5000",
   "devDependencies": {
+    "eslint": "^7.21.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-compat": "^3.9.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.22.0",
+    "husky": "^5.1.3",
     "prettier": "^2.2.1"
   },
-  "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "prettier --write"
-    ]
+  "resolutions": {
+    "styled-components": "^5"
   }
 }
