@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-import Navbar from '../../components/Navbar';
 import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
 import './style.scss';
@@ -11,13 +10,11 @@ function Landing() {
     <div
       className="landing"
       style={{
-        padding: '1rem',
         backgroundColor: `${currentTheme.backgroundColor}`,
         color: `${currentTheme.textColor}`,
       }}
     >
       Rendering Landing Page
-      <Navbar />
     </div>
   );
 }
