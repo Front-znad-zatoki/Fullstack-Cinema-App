@@ -1,11 +1,11 @@
 import './style.scss';
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Landing from '../../domain/Landing';
 import SignUp from '../../domain/Auth/SignUp';
 import Login from '../../domain/Auth/Login';
 import MovieList from '../../domain/MovieList';
-import { useState } from 'react';
+
 import { ThemeContext } from '../../context/Theme';
 import Navbar from '../Navbar/index';
 
@@ -14,7 +14,7 @@ function App() {
   return (
     <ThemeContext.Provider value={themeHook}>
       <Router>
-        <Fragment>
+        <>
           <Navbar />
           <div className="App">
             <Route exact path="/" component={Landing} />
@@ -39,12 +39,11 @@ function App() {
               {/* <Route path='/reservation/payment/:reservationId' component={ ReservationPayment }/> */}
               {/* http://localhost:3000/reservation/confirm/:reservationId */}
               {/* <Route path='/reservation/confirm/:reservationId' component={ ReservationConfirmation }/> */}
-
               {/* <PrivateRoute exact path='/admin' component={ Admin }/> */}
               {/* http://localhost:3000/admin */}
             </Switch>
           </div>
-        </Fragment>
+        </>
       </Router>
     </ThemeContext.Provider>
   );

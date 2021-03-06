@@ -1,12 +1,53 @@
 {
-  "extends": "react-app",
-  "plugins": ["prettier"],
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "jest": true,
+    "node": true
+  },
+  "extends": [
+    "airbnb",
+    "plugin:jsx-a11y/recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended",
+    "plugin:compat/recommended",
+    "react-app",
+    "react-app/jest"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true,
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "plugins": [
+    "react",
+    "react-hooks",
+    "jsx-a11y",
+    "prettier",
+    "compat"
+  ],
   "rules": {
-    "prettier/prettier": [
-      "error",
+    "react/jsx-filename-extension": [
+      1,
       {
-        "endOfLine": "auto"
+        "extensions": [".js", ".jsx"]
       }
-    ]
+    ],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "react/jsx-fragments": "warn",
+    "react/no-unescaped-entities": "warn",
+    "react/react-in-jsx-scope": "off",
+    "no-console": "off",
+    "react/prop-types": 0,
+    "prettier/prettier": ["error"],
+    "compat/compat": "off",
+    "react/button-has-type": "off"
   }
 }
