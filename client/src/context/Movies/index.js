@@ -1,6 +1,6 @@
 import React, { createContext, useState, useReducer, useEffect } from 'react';
 import moviesMock from '../../mock/moviesMock';
-import moviesReducer from '../../reducers/Movies/moviesReducer';
+import moviesReducer from './moviesReducer';
 
 export const MoviesContext = createContext();
 
