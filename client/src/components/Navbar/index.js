@@ -1,6 +1,7 @@
 import React from 'react';
 import './style.scss';
 import { Link } from 'react-router-dom';
+import ThemeToggler from '../ThemeToggler';
 
 function Navbar() {
   return (
@@ -20,6 +21,9 @@ function Navbar() {
         </li>
         <li>
           <Link to="/login">Login</Link>
+        </li>
+        <li>
+          <ThemeToggler />
         </li>
       </ul>
     </nav>
