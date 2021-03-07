@@ -6,13 +6,17 @@ import AppTheme from '../../context/Theme/themeColors';
 import { MoviesContext } from '../../context/Movies';
 
 function MovieList() {
-  const { movies } = useContext(MoviesContext);
+  const { movies, dispatch } = useContext(MoviesContext);
   const { incoming, currentlyPlaying } = movies;
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
   useEffect(() => {
     console.log(movies);
     // console.log('using effect', incoming, currentlyPlaying);
+    dispatch({
+      type: 'ADD',
+      payload: 'action dispatched from useEffect',
+    });
   }, []);
 
   return (
