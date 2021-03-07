@@ -1,4 +1,4 @@
-import { SUCCESS, FAIL } from '../ActionTypes/apiCallActionTypes';
+import { SUCCESS, FAIL } from '../../actions/types';
 
 const moviesReducer = (state, action) => {
   switch (action.type) {
