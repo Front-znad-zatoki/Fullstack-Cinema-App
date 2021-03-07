@@ -1,8 +1,12 @@
 import './style.scss';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { ThemeContext } from '../../../context/Theme';
+import AppTheme from '../../../context/Theme/themeColors';
 
 function SignUp() {
+  const theme = useContext(ThemeContext)[0];
+  const currentTheme = AppTheme[theme];
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -29,7 +33,13 @@ function SignUp() {
   // }
 
   return (
-    <div className="signup">
+    <div
+      className="signup"
+      style={{
+        backgroundColor: `${currentTheme.backgroundColor}`,
+        color: `${currentTheme.textColor}`,
+      }}
+    >
       <h1>Sign Up</h1>
       <form className="signup__form" onSubmit={onSubmit}>
         <div className="signup__form-group">

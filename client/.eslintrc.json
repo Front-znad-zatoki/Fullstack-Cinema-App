@@ -8,7 +8,7 @@
   },
   "extends": [
     "airbnb",
-    "plugin:jsx-a11y/strict",
+    "plugin:jsx-a11y/recommended",
     "plugin:react/recommended",
     "plugin:prettier/recommended",
     "plugin:compat/recommended",
@@ -46,9 +46,9 @@
     "react/react-in-jsx-scope": "off",
     "no-console": "off",
     "react/prop-types": 0,
-    "prettier/prettier": ["error"],
+    "prettier/prettier": ["error", { "endOfLine": "auto" }],
     "compat/compat": "off",
-    "react/button-has-type": "warn",
-    "react/jsx-props-no-spreading": "warn"
+    "react/jsx-props-no-spreading": "warn",
+    "react/button-has-type": "off"
   }
 }

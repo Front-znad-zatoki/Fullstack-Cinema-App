@@ -1,8 +1,12 @@
 import './style.scss';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { ThemeContext } from '../../../context/Theme';
+import AppTheme from '../../../context/Theme/themeColors';
 
 function Login() {
+  const theme = useContext(ThemeContext)[0];
+  const currentTheme = AppTheme[theme];
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -26,7 +30,13 @@ function Login() {
   // }
 
   return (
-    <div className="auth">
+    <div
+      className="auth"
+      style={{
+        backgroundColor: `${currentTheme.backgroundColor}`,
+        color: `${currentTheme.textColor}`,
+      }}
+    >
       <h1>Login</h1>
       <form className="auth__form" onSubmit={onSubmit}>
         <div className="auth__form-group">
