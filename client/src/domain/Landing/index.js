@@ -17,6 +17,7 @@ function Landing() {
       }}
     >
       Rendering Landing Page
+      <MovieSlider />
       <MovieList />
     </div>
   );
