@@ -7,7 +7,10 @@ import Login from '../../domain/Auth/Login';
 import MovieList from '../../domain/MovieList';
 import { ThemeContext } from '../../context/Theme';
 import Navbar from '../Navbar/index';
+import MovieDetails from '../../domain/MovieDetails/index';
+import MovieSlider from '../../domain/MovieSlider';
 import MoviesContextProvider from '../../context/Movies';
+import moviesMock from '../../mock/moviesMock';
 
 function App() {
   const themeHook = useState('light');
@@ -17,6 +20,7 @@ function App() {
         <Router>
           <>
             <Navbar />
+            {/* <MovieDetails movie={moviesMock.currentlyPlaying[0]} /> */}
             <div className="App">
               <Route exact path="/" component={Landing} />
               <Switch>
