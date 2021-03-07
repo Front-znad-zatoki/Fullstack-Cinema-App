@@ -4,20 +4,24 @@ import Movie from './Movie';
 import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
 import { MoviesContext } from '../../context/Movies';
+import useFetchedData from '../../hooks/useFetchedData';
 
 function MovieList() {
   const { movies, dispatch } = useContext(MoviesContext);
   const { incoming, currentlyPlaying } = movies;
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
+  const mongoMovies = useFetchedData('http://localhost:5000/api/movies');
+
   useEffect(() => {
     console.log(movies);
+    console.log(mongoMovies);
     // console.log('using effect', incoming, currentlyPlaying);
     dispatch({
-      type: 'ADD',
+      type: 'SUCCESS',
       payload: 'action dispatched from useEffect',
     });
-  }, []);
+  }, [mongoMovies]);
 
   return (
     <div
