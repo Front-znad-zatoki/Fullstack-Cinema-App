@@ -1,4 +1,5 @@
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import connectDB from './config/mongodb.js';
 import userRoute from './api/user/userRoute.js';
 import authRoute from './api/authentication/authRoute.js';
@@ -16,6 +17,8 @@ app.get('/', (req, res) => res.send('API Runnin'));
 // Connect Database
 connectDB();
 
+// Cookies handling
+app.use(cookieParser());
 // Init Middleware (not body-parser anymore)
 app.use(express.json());
 
