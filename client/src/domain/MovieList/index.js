@@ -1,19 +1,18 @@
 import { useState, useContext, useEffect } from 'react';
 import './style.scss';
-import moviesMock from '../../mock/moviesMock';
 import Movie from './Movie';
 import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
 import { MoviesContext } from '../../context/Movies';
 
 function MovieList() {
-  // const [movies, setMovies] = useState(null);
-  const { incoming, currentlyPlaying } = useContext(MoviesContext);
+  const { movies } = useContext(MoviesContext);
+  const { incoming, currentlyPlaying } = movies;
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
   useEffect(() => {
-    console.log('using effect', incoming, currentlyPlaying);
-    // setMovies(moviesMock);
+    console.log(movies);
+    // console.log('using effect', incoming, currentlyPlaying);
   }, []);
 
   return (
@@ -25,12 +24,14 @@ function MovieList() {
       }}
     >
       <h4>Rendering movies list</h4>
-      {currentlyPlaying && (
+      {currentlyPlaying ? (
         <ul className="movie__list">
           {currentlyPlaying.map((movie) => {
             return <Movie key={movie.id} movie={movie} />;
           })}
         </ul>
+      ) : (
+        <div className="movie__error">No movies found</div>
       )}
     </div>
   );
