@@ -3,7 +3,9 @@ import config from 'config';
 
 export default function (req, res, next) {
   // Get token from header
-  const token = req.header('x-auth-token');
+  // TODO: change to cookies
+  // const token = req.header('x-auth-token');
+  const token = req.cookies.access_token;
   // Check if not token
   if (!token) {
     return res

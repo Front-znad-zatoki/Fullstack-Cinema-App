@@ -15,7 +15,7 @@ router.get('/', authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
     if (!user) res.status(404).res.json({ msg: 'User not found' });
-    res.status(200).json(user);
+    res.status(200).json({ user: user, isAuthenticated: true });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
@@ -31,7 +31,7 @@ router.delete('/', authMiddleware, async (req, res) => {
       '-password',
     );
     if (!user) res.status(404).res.json({ msg: 'User not found' });
-    res.status(200).json(user);
+    res.status(200).json({ user: user, isAuthenticated: false });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
@@ -64,7 +64,7 @@ router.put(
       if (!user) res.status(404).send('User not found');
       await user.save();
 
-      res.status(200).json(user);
+      res.status(200).json({ user: user, isAuthenticated: true });
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
@@ -97,7 +97,7 @@ router.put(
       ).select('-password');
       if (!user) res.status(404).send('User not found');
       await user.save();
-      res.status(200).json(user);
+      res.status(200).json({ user: user, isAuthenticated: true });
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
@@ -132,7 +132,7 @@ router.put(
       ).select('-password');
       if (!user) res.status(404).send('User not found');
       await user.save();
-      res.status(200).json(user);
+      res.status(200).json({ user: user, isAuthenticated: true });
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');

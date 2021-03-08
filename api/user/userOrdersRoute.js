@@ -19,7 +19,9 @@ router.get(
     try {
       const user = await User.findById(req.user.id).select('orders');
       if (!user) res.status(404).send('User not found');
-      res.status(200).json(user.orders);
+      res
+        .status(200)
+        .json({ orders: user.orders, isAuthenticated: true });
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
@@ -44,10 +46,11 @@ router.get(
             order: req.params.orderId,
           },
         })
-        .populate('order');
+        .populate('order')
+        .exec();
       if (!user) res.status(404).send('User not found');
       if (!order) res.status(404).send('Order not found');
-      res.status(200).json(order);
+      res.status(200).json({ order: order, isAuthenticated: true });
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
@@ -79,7 +82,7 @@ router.delete(
       }).select('orders');
       if (!user) res.status(404).send('User not found');
       await user.save();
-      res.status(200).json(user);
+      res.status(200).json({ user: user, isAuthenticated: true });
     } catch (err) {
       res.status(500).send('Server Error');
     }

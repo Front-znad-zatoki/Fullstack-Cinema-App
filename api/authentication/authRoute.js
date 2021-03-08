@@ -52,7 +52,7 @@ router.post(
           .status(400)
           .json({ errors: [{ msg: 'Invalid Credentials' }] });
       }
-      // If users isAdmin===true => redirect to admin panel
+
       const payload = {
         user: {
           id: user.id,
@@ -66,7 +66,16 @@ router.post(
         { expiresIn: '36000' },
         (err, token) => {
           if (err) throw err;
-          res.json({ token });
+          res
+            .cookie('access_token', token, {
+              httpOnly: true,
+              sameSite: true,
+            })
+            .json({
+              isAuthenticated: true,
+              user: { id: user.id, isAdmin: user.isAdmin },
+            })
+            .status(200);
         },
       );
     } catch (err) {
