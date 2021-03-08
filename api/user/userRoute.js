@@ -96,6 +96,71 @@ router.post(
   },
 );
 
+
+// @route    POST api/users/login
+// @desc     Authenticate user & get token
+// @access   Public
+router.post(
+  '/login',
+  check('email', 'Please include a valid email').isEmail(),
+  check('password', 'Password is required').exists(),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { email, password } = req.body;
+
+    try {
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'Invalid Credentials' }] });
+      }
+
+      const isMatch = await bcryptjs.compare(password, user.password);
+
+      if (!isMatch) {
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'Invalid Credentials' }] });
+      }
+
+      const payload = {
+        user: {
+          id: user.id,
+          isAdmin: user.isAdmin,
+        },
+      };
+
+      jsonwebtoken.sign(
+        payload,
+        config.get('jwtSecret'),
+        { expiresIn: '36000' },
+        (err, token) => {
+          if (err) throw err;
+          res
+            .cookie('access_token', token, {
+              httpOnly: true,
+              sameSite: true,
+            })
+            .json({
+              isAuthenticated: true,
+              user: { id: user.id, isAdmin: user.isAdmin },
+            })
+            .status(200);
+        },
+      );
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server error');
+    }
+  },
+);
+
 // @route GET api/users/logout
 // @description Logging out user
 // @access public (anybody can log out)
