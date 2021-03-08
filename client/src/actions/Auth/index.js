@@ -34,3 +34,13 @@ export const register = (formData) => async (dispatch) => {
 
 // Logout
 export const logout = () => ({ type: LOGOUT });
+
+// check if authenticated after page init
+export const checkIfIsAuthenticated = () => {
+  try {
+    // const res = await api.get('/users/authenticated');
+    console.log('checking if cookie exists');
+  } catch {
+    console.log('no cookies');
+  }
+};

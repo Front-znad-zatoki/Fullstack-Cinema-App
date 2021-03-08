@@ -11,7 +11,7 @@ function MovieList() {
   const { incoming, currentlyPlaying } = movies;
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
-  const mongoMovies = useFetchedData('http://localhost:5000/api/movies');
+  const mongoMovies = useFetchedData('api/movies');
 
   useEffect(() => {
     console.log(movies);

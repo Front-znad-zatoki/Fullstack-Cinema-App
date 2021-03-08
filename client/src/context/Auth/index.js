@@ -1,10 +1,27 @@
-import { createContext } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { SUCCESS, FAIL } from '../../actions/types';
+import { checkIfIsAuthenticated } from '../../actions/Auth/index';
 
-export const AuthContext = createContext(['', () => {}]);
+export const AuthContext = createContext();
 
-function AuthComponent() {
-  return <div />;
-}
+const AuthContextProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
-export default AuthComponent;
+  return (
+    <div>
+      {!isLoaded ? (
+        <h1>Loading</h1>
+      ) : (
+        <AuthContext.Provider
+          value={{ user, setUser, isAuthenticated, setIsAuthenticated }}
+        >
+          {children}
+        </AuthContext.Provider>
+      )}
+    </div>
+  );
+};
+
+export default AuthContextProvider;
