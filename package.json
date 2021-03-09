@@ -42,8 +42,11 @@
     "express": "^4.17.1",
     "express-validator": "^6.9.2",
     "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
     "mongoose": "^5.11.17",
     "mongoose-unique-validator": "^2.0.3",
+    "react-date-picker": "^8.0.7",
+    "react-datepicker": "^3.6.0",
     "regenerator-runtime": "^0.13.7"
   },
   "devDependencies": {

@@ -1,0 +1,13 @@
+.movie_nav {
+  display: flex;
+  justify-content: space-around;
+  width: 100vw;
+  &_date {
+    background-color: black;
+    color: white;
+  }
+  &_search {
+    background-color: black;
+    color: white;
+  }
+}
