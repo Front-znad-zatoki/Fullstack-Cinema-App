@@ -7,6 +7,7 @@ import Login from '../../domain/Auth/Login';
 import MovieList from '../../domain/MovieList';
 import Navbar from '../Navbar/index';
 import MovieDetails from '../../domain/MovieDetails/index';
+import MovieListNav from '../../domain/MovieListNav/MovieListNav';
 
 function App() {
   return (
@@ -14,6 +15,8 @@ function App() {
       <>
         <Navbar />
         <MovieDetails />
+        <MovieListNav />
+
         <div className="App">
           <Route exact path="/" component={Landing} />
           <Switch>
