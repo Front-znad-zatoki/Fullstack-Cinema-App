@@ -123,7 +123,7 @@ router.post(
       const user = await User.findById(req.user.id).select(
         '-password',
       );
-
+      if (!user) return res.status(404).send('User not found');
       const order = new Order({
         user: req.user.id,
         email: user.email,
@@ -140,5 +140,49 @@ router.post(
     }
   },
 );
+
+// @route    PUT api/users/me/orders/
+// @desc     Update order
+// @access   Private
+router.put('/', authMiddleware, async (req, res) => {
+  // const errors = validationResult(req);
+  // if (!errors.isEmpty()) {
+  //   return res.status(400).json({ errors: errors.array() });
+  // }
+
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    if (!user) return res.status(404).send('User not found');
+
+    const order = await Order.findById(req.body.orderId);
+    if (!order) return res.status(404).send('Order not found');
+
+    const userOrders = user.orders;
+    if (
+      !userOrders.some(
+        (orderItem) => orderItem.id === req.body.orderId,
+      )
+    ) {
+      return res.status(404).send('Order not found');
+    }
+
+    if (req.body.tickets) {
+      order.tickets = req.body.tickets;
+    }
+    if (req.body.status) {
+      order.status = req.body.status;
+    }
+
+    await order.save();
+    res.status(200).json({
+      message: 'Order updated successfully',
+      order: order,
+      isAuthenticated: true,
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
 export default router;
