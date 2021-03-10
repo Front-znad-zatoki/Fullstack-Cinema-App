@@ -2,6 +2,8 @@ import express from 'express';
 import { check, validationResult } from 'express-validator';
 import User from './User.js';
 import authMiddleware from '../authentication/authMiddleware.js';
+import validateObjectId from '../utils/validateObjectId.js';
+import Order from '../order/Order.js';
 
 const router = express.Router();
 
@@ -63,9 +65,9 @@ router.get(
 // @access   Private
 // TODO: check after orders merged, connect with orders
 router.delete(
-  '/:orderId',
+  '/',
   authMiddleware,
-  check('order', 'Something wrong with the order').notEmpty(),
+  check('orderId', 'Something wrong with the order').notEmpty(),
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -73,17 +75,67 @@ router.delete(
     }
 
     try {
+      const order = await Order.findById(req.body.orderId)
+        .populate()
+        .exec();
+      if (!order) return res.status(404).send('Order not found');
       const user = await User.findByIdAndUpdate(req.user.id, {
         $pull: {
           orders: {
-            order: req.params.orderId,
+            _id: req.body.orderId,
           },
         },
       }).select('orders');
-      if (!user) res.status(404).send('User not found');
+      const userOrders = user.orders;
+      if (
+        !userOrders.some(
+          (orderItem) => orderItem.id === req.body.orderId,
+        )
+      ) {
+        return res.status(404).send('Order not found');
+      }
+      if (!user) return res.status(404).send('User not found');
       await user.save();
-      res.status(200).json({ user: user, isAuthenticated: true });
+      res.status(200).json({
+        deletedOrder: order,
+        isAuthenticated: true,
+      });
     } catch (err) {
+      res.status(500).send('Server Error');
+    }
+  },
+);
+
+// @route    POST api/users/me/orders/
+// @desc     Add new order
+// @access   Private
+router.post(
+  '/',
+  authMiddleware,
+  check('status', 'Status is required').notEmpty(),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      const user = await User.findById(req.user.id).select(
+        '-password',
+      );
+
+      const order = new Order({
+        user: req.user.id,
+        email: user.email,
+        status: req.body.status,
+      });
+
+      await order.save();
+      user.orders.push(order);
+      await user.save();
+      res.status(200).json({ order: order, isAuthenticated: true });
+    } catch (err) {
+      console.error(err.message);
       res.status(500).send('Server Error');
     }
   },
