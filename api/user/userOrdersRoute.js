@@ -149,7 +149,7 @@ router.put('/', authMiddleware, async (req, res) => {
   // if (!errors.isEmpty()) {
   //   return res.status(400).json({ errors: errors.array() });
   // }
-
+  // TODO: add validation
   try {
     const user = await User.findById(req.user.id).select('-password');
     if (!user) return res.status(404).send('User not found');
