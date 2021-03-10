@@ -1,7 +1,7 @@
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import connectDB from './config/mongodb.js';
 import userRoute from './api/user/userRoute.js';
-import authRoute from './api/authentication/authRoute.js';
 import movieRoute from './api/movie/movieRoute.js';
 import orderRoute from './api/order/orderRoute.js';
 import screeningRoute from './api/screening/screeningRoute.js';
@@ -16,15 +16,16 @@ app.get('/', (req, res) => res.send('API Runnin'));
 // Connect Database
 connectDB();
 
+// Cookies handling
+app.use(cookieParser());
+
 // Init Middleware (not body-parser anymore)
 app.use(express.json());
 
 // Define Routes
 app.use('/api/users', userRoute);
-app.use('/api/auth', authRoute);
 app.use('/api/movies', movieRoute);
 app.use('/api/orders', orderRoute);
-
 app.use('/api/screenings', screeningRoute);
 app.use('/api/tickets', ticketRoute);
 app.use('/api/cinemas', cinemaRoute);
