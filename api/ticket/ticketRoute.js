@@ -2,12 +2,12 @@ import express from 'express';
 import Ticket from './Ticket.js';
 import Screening from '../screening/Screening.js';
 import Order from '../order/Order.js';
+
 const router = express.Router();
 
 router
   .route('/')
   .get(async (req, res) => {
-    // TODO: add error handling
     try {
       const tickets = await Ticket.find({});
       res.status(200).json(tickets);

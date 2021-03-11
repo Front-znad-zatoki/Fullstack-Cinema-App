@@ -5,7 +5,6 @@ const router = express.Router();
 router
   .route('/')
   .get(async (req, res) => {
-    // TODO: add error handling
     try {
       const movies = await Movie.find({});
       res.status(200).json(movies);
@@ -16,9 +15,23 @@ router
 
   // TODO:  add admin check (middleware) for all requests that are not GET
   .post(async (req, res) => {
-    const { title, duration } = req.body;
+    const {
+      title,
+      duration,
+      releaseDate,
+      description,
+      poster,
+      genre,
+    } = req.body;
     try {
-      const movie = new Movie({ title, duration });
+      const movie = new Movie({
+        title,
+        duration,
+        releaseDate,
+        description,
+        poster,
+        genre,
+      });
       await movie.save();
       res.status(200).json({ message: movie.id });
     } catch (e) {
@@ -42,6 +55,14 @@ router
     }
   })
   .put(async (req, res) => {
+    const {
+      title,
+      duration,
+      releaseDate,
+      description,
+      poster,
+      genre,
+    } = req.body;
     const movie = await Movie.findById(req.params.id);
     // TODO: findByIdAndUpdate can save you some lines
     try {
@@ -52,11 +73,23 @@ router
         return;
       }
       // TODO:  use express-validator checks for that
-      if (req.body.title !== undefined) {
-        movie.title = req.body.title;
+      if (title !== undefined) {
+        movie.title = title;
       }
-      if (req.body.duration !== undefined) {
-        movie.duration = req.body.duration;
+      if (duration !== undefined) {
+        movie.duration = duration;
+      }
+      if (releaseDate !== undefined) {
+        movie.duration = releaseDate;
+      }
+      if (description !== undefined) {
+        movie.duration = description;
+      }
+      if (poster !== undefined) {
+        movie.duration = poster;
+      }
+      if (genre !== undefined) {
+        movie.duration = genre;
       }
       await movie.save();
       res
@@ -75,7 +108,9 @@ router
         });
         return;
       }
-      res.status(204).json(movie);
+      res
+        .status(200)
+        .json({ message: 'Movie deleted successfully', movie });
     } catch (e) {
       res.sendStatus(400).send(e);
     }
