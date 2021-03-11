@@ -11,10 +11,24 @@ router
   })
   // TODO:  add admin check (middleware) for all requests that are not GET
   .post(async (req, res) => {
-    const { title, duration } = req.body;
-    const movie = new Movie({ title, duration });
+    const {
+      title,
+      duration,
+      releaseDate,
+      description,
+      poster,
+      genre,
+    } = req.body;
+    const movie = new Movie({
+      title,
+      duration,
+      releaseDate,
+      description,
+      poster,
+      genre,
+    });
     await movie.save();
-    res.status(200).json({ message: movie.id });
+    res.status(200).json({ message: movie.id, movie: movie });
   });
 
 router
@@ -43,6 +57,18 @@ router
     }
     if (req.body.duration !== undefined) {
       movie.duration = req.body.duration;
+    }
+    if (req.body.releaseDate !== undefined) {
+      movie.releaseDaten = req.body.releaseDate;
+    }
+    if (req.body.description !== undefined) {
+      movie.description = req.body.description;
+    }
+    if (req.body.poster !== undefined) {
+      movie.poster = req.body.poster;
+    }
+    if (req.body.genre !== undefined) {
+      movie.genre = req.body.genre;
     }
     await movie.save();
     res
