@@ -1,5 +1,6 @@
 import express from 'express';
 import Movie from './Movie.js';
+import authMiddleware from '../authentication/authMiddleware.js';
 
 const router = express.Router();
 router
@@ -14,7 +15,7 @@ router
   })
 
   // TODO:  add admin check (middleware) for all requests that are not GET
-  .post(async (req, res) => {
+  .post(authMiddleware, async (req, res) => {
     const {
       title,
       duration,
@@ -41,7 +42,7 @@ router
 
 router
   .route('/:id')
-  .get(async (req, res) => {
+  .get(authMiddleware, async (req, res) => {
     const movie = await Movie.findById(req.params.id);
     try {
       if (movie === undefined) {
@@ -54,7 +55,7 @@ router
       res.status(400).send(e);
     }
   })
-  .put(async (req, res) => {
+  .put(authMiddleware, async (req, res) => {
     const {
       title,
       duration,
@@ -99,7 +100,7 @@ router
       res.status(400).send(e);
     }
   })
-  .delete(async (req, res) => {
+  .delete(authMiddleware, async (req, res) => {
     const movie = await Movie.findByIdAndRemove(req.params.id);
     try {
       if (movie === undefined) {
