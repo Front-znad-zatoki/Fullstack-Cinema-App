@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
     const cinemas = await Cinema.find();
     res.status(200).json(cinemas);
   } catch (e) {
-    res.status(400).send(e);
+    res.status(500).send(e);
   }
 });
 
@@ -22,6 +22,7 @@ router.post('/', async (req, res) => {
     halls,
     hours,
   } = req.body;
+
   try {
     const newCinema = new Cinema({
       country,
@@ -40,30 +41,30 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-  const cinema = await Cinema.findById(req.params.id);
   try {
-    if (cinema === undefined) {
-      return res.status(404).json({
+    const cinema = await Cinema.findById(req.params.id);
+    if (!cinema) {
+      res.status(404).json({
         error: `Cannot find cinema with id: ${req.params.id}`,
       });
     }
     res.status(200).json(cinema);
   } catch (e) {
-    res.status(400).send(e);
+    res.status(500).send(e);
   }
 });
 
 router.delete('/:id', async (req, res) => {
-  const cinema = await Cinema.findByIdAndDelete(req.params.id);
   try {
-    if (cinema === undefined) {
-      return res.status(404).json({
+    const cinema = await Cinema.findByIdAndDelete(req.params.id);
+    if (!cinema) {
+      res.status(404).json({
         error: `Cannot find cinema with id: ${req.params.id}`,
       });
     }
-    return res.status(204).end();
+    res.status(204).end();
   } catch (e) {
-    res.status(400).send(e);
+    res.status(500).send(e);
   }
 });
 
