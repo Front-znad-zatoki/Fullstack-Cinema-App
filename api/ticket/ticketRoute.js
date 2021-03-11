@@ -2,7 +2,6 @@ import express from 'express';
 import Ticket from './Ticket.js';
 import Screening from '../screening/Screening.js';
 import Order from '../order/Order.js';
-// TODO: fix errors
 const router = express.Router();
 
 router
@@ -65,6 +64,7 @@ router
     }
   })
   .put(async (req, res) => {
+    const { screeningId, orderId } = req.body;
     const ticket = await Ticket.findById(req.params.id);
     try {
       if (ticket === undefined) {
@@ -73,7 +73,7 @@ router
         });
         return;
       }
-      if (req.body.screeningId !== undefined) {
+      if (screeningId !== undefined) {
         const screening = await Screening.findById(screeningId);
         if (screening === undefined) {
           res.status(400).json({
@@ -81,7 +81,7 @@ router
           });
           return;
         }
-        ticket.screening = req.body.screeningId;
+        ticket.screening = screeningId;
       }
       if (req.body.row !== undefined) {
         ticket.row = req.body.row;
@@ -89,7 +89,7 @@ router
       if (req.body.column !== undefined) {
         ticket.column = req.body.column;
       }
-      if (req.body.orderId !== undefined) {
+      if (orderId !== undefined) {
         const order = await Order.findById(orderId);
         if (order === undefined) {
           res.status(400).json({
@@ -97,7 +97,7 @@ router
           });
           return;
         }
-        ticket.order = req.body.orderId;
+        ticket.order = orderId;
       }
       await ticket.save();
       res
@@ -110,7 +110,7 @@ router
   .delete(async (req, res) => {
     const ticket = await Ticket.findByIdAndRemove(req.params.id);
     try {
-      if (screening === undefined) {
+      if (ticket === undefined) {
         res.status(404).json({
           error: `Cannot find ticket with id: ${req.params.id}'`,
         });
