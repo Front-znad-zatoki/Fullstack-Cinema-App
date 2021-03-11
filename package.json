@@ -7,7 +7,7 @@
   "scripts": {
     "format": "prettier --config .prettierrc --write \"api/**/*.js\" \"test/**/*.js\" \"**/*.json\" && npm run format --prefix client",
     "eslint": "eslint . --fix --ext .js",
-    "test": "NODE_ENV=development jest",
+    "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "start": "node server.js",
