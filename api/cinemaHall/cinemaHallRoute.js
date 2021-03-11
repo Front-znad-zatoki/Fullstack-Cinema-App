@@ -1,7 +1,13 @@
 import express from 'express';
+// CinemaHall model
 import CinemaHall from './CinemaHall.js';
+import authMiddleware from '../authentication/authMiddleware.js';
 
 const router = express.Router();
+
+// @roote GET api/cinemaHalls
+// @desc Get all cinema halls
+// @access Public
 
 router.get('/', async (req, res) => {
   try {
@@ -12,7 +18,10 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/', async (req, res) => {
+// @roote GET api/cinemaHalls
+// @desc Create a cinema hall
+// @access Admin
+router.post('/', authMiddleware, async (req, res) => {
   const { name, seats, rows, columns, cinema } = req.body;
   try {
     const newCinemaHall = new CinemaHall({
@@ -30,6 +39,9 @@ router.post('/', async (req, res) => {
   }
 });
 
+// @roote GET api/cinemahalls/:id
+// @desc Get a cinema hall
+// @access Public
 router.get('/:id', async (req, res) => {
   try {
     const cinemaHall = await CinemaHall.findById(req.params.id);
@@ -44,7 +56,10 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+// @roote GET api/cinemaHalls/:id
+// @desc Delete a cinema hall
+// @access Admin
+router.delete('/:id', authMiddleware, async (req, res) => {
   try {
     const cinemaHall = await CinemaHall.findByIdAndDelete(
       req.params.id,
