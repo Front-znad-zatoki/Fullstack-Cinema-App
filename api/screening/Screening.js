@@ -16,6 +16,12 @@ const screeningSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  // seat: {
+  //   allSeats:[Objec...],
+  //   emptySeats:[id,row,column],
+  //   reservedSeat:[id/]
+  //   purchasedSeat:[id]
+  // }
 });
 
 export default mongoose.model('Screening', screeningSchema);

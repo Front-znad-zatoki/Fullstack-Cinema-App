@@ -7,5 +7,7 @@ const seatSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'CinemaHall',
   },
+  // row:1
+  // column;9
 });
 export default mongoose.model('Seat', seatSchema);
