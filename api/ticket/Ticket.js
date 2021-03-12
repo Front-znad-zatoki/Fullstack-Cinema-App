@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const ticketSchema = new Schema({
   screening: {
     type: Schema.Types.ObjectId,
-    ref: 'screening',
+    ref: 'Screening',
   },
   row: Number,
   column: Number,

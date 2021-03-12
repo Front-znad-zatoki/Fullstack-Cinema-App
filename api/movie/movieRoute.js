@@ -14,7 +14,6 @@ router
     }
   })
 
-  // TODO:  add admin check (middleware) for all requests that are not GET
   .post(authMiddleware, async (req, res) => {
     const {
       title,
@@ -101,7 +100,7 @@ router
     }
   })
   .delete(authMiddleware, async (req, res) => {
-    const movie = await Movie.findByIdAndRemove(req.params.id);
+    const movie = await Movie.findByIdAndDelete(req.params.id);
     try {
       if (movie === undefined) {
         res.status(404).json({

@@ -104,7 +104,7 @@ router
     }
   })
   .delete(async (req, res) => {
-    const ticket = await Ticket.findByIdAndRemove(req.params.id);
+    const ticket = await Ticket.findByIdAndDelete(req.params.id);
     try {
       if (ticket === undefined) {
         res.status(404).json({

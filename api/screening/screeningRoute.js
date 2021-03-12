@@ -8,7 +8,6 @@ const router = express.Router();
 router
   .route('/')
   .get(async (req, res) => {
-    // TODO: add error handling
     try {
       const screenings = await Screening.find({});
       res.status(200).json(screenings);
