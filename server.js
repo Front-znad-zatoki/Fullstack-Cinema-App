@@ -1,4 +1,5 @@
 import express from 'express';
+import dotenv from 'dotenv';
 import connectDB from './config/mongodb.js';
 import userRoute from './api/user/userRoute.js';
 import authRoute from './api/authentication/authRoute.js';
@@ -8,6 +9,8 @@ import screeningRoute from './api/screening/screeningRoute.js';
 import ticketRoute from './api/ticket/ticketRoute.js';
 import cinemaRoute from './api/cinema/cinemaRoute.js';
 import cinemaHallRoute from './api/cinemaHall/cinemaHallRoute.js';
+
+dotenv.config();
 
 const app = express();
 
@@ -36,7 +39,7 @@ app.use('/api/cinemaHalls', cinemaHallRoute);
 // app.use(express.static('client/build'))
 // TODO: finish deployment config
 // }
-
+console.log(process.env.NODE_ENV);
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
