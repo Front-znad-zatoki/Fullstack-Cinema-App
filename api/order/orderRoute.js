@@ -3,6 +3,7 @@ import Order from './Order.js';
 import User from '../user/User.js';
 import Ticket from '../ticket/Ticket.js';
 import authMiddleware from '../authentication/authMiddleware.js';
+import adminMiddleware from '../admin/adminMiddleware.js';
 
 const router = express.Router();
 
@@ -16,7 +17,7 @@ router
       res.status(400).send(e);
     }
   })
-  .post(authMiddleware, async (req, res) => {
+  .post(authMiddleware, adminMiddleware, async (req, res) => {
     // eslint-disable-next-line object-curly-newline
     const { userId, email, status, tickets } = req.body;
     try {
@@ -67,7 +68,7 @@ router
       res.status(400).send(e);
     }
   })
-  .put(authMiddleware, async (req, res) => {
+  .put(authMiddleware, adminMiddleware, async (req, res) => {
     const { userId, email, status } = req.body;
     const order = await Order.findById(req.params.id);
     try {
@@ -101,7 +102,7 @@ router
       res.status(400).send(e);
     }
   })
-  .delete(authMiddleware, async (req, res) => {
+  .delete(authMiddleware, adminMiddleware, async (req, res) => {
     const ticket = await Ticket.findByIdAndDelete(req.params.id);
     try {
       if (ticket === undefined) {

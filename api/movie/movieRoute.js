@@ -1,6 +1,7 @@
 import express from 'express';
 import Movie from './Movie.js';
 import authMiddleware from '../authentication/authMiddleware.js';
+import adminMiddleware from '../admin/adminMiddleware.js';
 
 const router = express.Router();
 router
@@ -14,7 +15,7 @@ router
     }
   })
 
-  .post(authMiddleware, async (req, res) => {
+  .post(authMiddleware, adminMiddleware, async (req, res) => {
     const {
       title,
       duration,
@@ -54,7 +55,7 @@ router
       res.status(400).send(e);
     }
   })
-  .put(authMiddleware, async (req, res) => {
+  .put(authMiddleware, adminMiddleware, async (req, res) => {
     const {
       title,
       duration,
@@ -99,7 +100,7 @@ router
       res.status(400).send(e);
     }
   })
-  .delete(authMiddleware, async (req, res) => {
+  .delete(authMiddleware, adminMiddleware, async (req, res) => {
     const movie = await Movie.findByIdAndDelete(req.params.id);
     try {
       if (movie === undefined) {
