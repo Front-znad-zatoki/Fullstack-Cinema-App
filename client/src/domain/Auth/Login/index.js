@@ -15,7 +15,10 @@ function Login() {
   const { email, password } = formData;
 
   const onChange = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value,
+    });
     console.log(email, password);
   };
 
