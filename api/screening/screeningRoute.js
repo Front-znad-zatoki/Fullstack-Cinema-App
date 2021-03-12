@@ -2,6 +2,7 @@ import express from 'express';
 import Screening from './Screening.js';
 import Movie from '../movie/Movie.js';
 import CinemaHall from '../cinemaHall/CinemaHall.js';
+import authMiddleware from '../authentication/authMiddleware.js';
 
 const router = express.Router();
 
@@ -15,7 +16,7 @@ router
       res.status(400).send(e);
     }
   })
-  .post(async (req, res) => {
+  .post(authMiddleware, async (req, res) => {
     // eslint-disable-next-line object-curly-newline
     const { movieId, cinemaHallId, price, startDate } = req.body;
     try {
@@ -49,7 +50,7 @@ router
 
 router
   .route('/:id')
-  .get(async (req, res) => {
+  .get(authMiddleware, async (req, res) => {
     const screening = await Screening.findById(req.params.id);
     try {
       if (screening === undefined) {
@@ -63,7 +64,7 @@ router
       res.status(400).send(e);
     }
   })
-  .put(async (req, res) => {
+  .put(authMiddleware, async (req, res) => {
     const screening = await Screening.findById(req.params.id);
     try {
       if (screening === undefined) {
@@ -93,7 +94,7 @@ router
       res.status(400).send(e);
     }
   })
-  .delete(async (req, res) => {
+  .delete(authMiddleware, async (req, res) => {
     const screening = await Screening.findByIdAndRemove(
       req.params.id,
     );

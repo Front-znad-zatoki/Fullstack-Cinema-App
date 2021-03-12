@@ -2,13 +2,13 @@ import express from 'express';
 import Order from './Order.js';
 import User from '../user/User.js';
 import Ticket from '../ticket/Ticket.js';
+import authMiddleware from '../authentication/authMiddleware.js';
 
 const router = express.Router();
 
 router
   .route('/')
   .get(async (req, res) => {
-    // TODO: add error handling
     try {
       const orders = await Order.find({});
       res.status(200).json(orders);
@@ -16,9 +16,7 @@ router
       res.status(400).send(e);
     }
   })
-  // TODO:  add admin check (middleware) for all requests that are not GET
-  .post(async (req, res) => {
-    // TODO: available for authenticated users or / ?
+  .post(authMiddleware, async (req, res) => {
     // eslint-disable-next-line object-curly-newline
     const { userId, email, status, tickets } = req.body;
     try {
@@ -54,7 +52,7 @@ router
 
 router
   .route('/:id')
-  .get(async (req, res) => {
+  .get(authMiddleware, async (req, res) => {
     // TODO: for admin and user who purchased only? to change for all not public routes
     const order = await Order.findById(req.params.id);
     try {
@@ -69,7 +67,7 @@ router
       res.status(400).send(e);
     }
   })
-  .put(async (req, res) => {
+  .put(authMiddleware, async (req, res) => {
     const { userId, email, status } = req.body;
     const order = await Order.findById(req.params.id);
     try {
@@ -103,7 +101,7 @@ router
       res.status(400).send(e);
     }
   })
-  .delete(async (req, res) => {
+  .delete(authMiddleware, async (req, res) => {
     const ticket = await Ticket.findByIdAndDelete(req.params.id);
     try {
       if (ticket === undefined) {
