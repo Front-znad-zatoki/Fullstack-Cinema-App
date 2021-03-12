@@ -70,6 +70,7 @@ router
     }
   })
   .put(async (req, res) => {
+    const { userId, email, status } = req.body;
     const order = await Order.findById(req.params.id);
     try {
       if (order === undefined) {
@@ -78,21 +79,21 @@ router
         });
         return;
       }
-      if (req.body.userId !== undefined) {
-        const user = await User.findById(req.body.userId);
+      if (userId !== undefined) {
+        const user = await User.findById(userId);
         if (user === undefined) {
           res.status(400).json({
             error: `Cannot find user with id: ${req.params.id}'`,
           });
           return;
         }
-        order.user = req.body.userId;
+        order.user = userId;
       }
-      if (req.body.email !== undefined) {
-        order.email = req.body.email;
+      if (email !== undefined) {
+        order.email = email;
       }
-      if (req.body.status !== undefined) {
-        order.status = req.body.status;
+      if (status !== undefined) {
+        order.status = status;
       }
       await order.save();
       res
