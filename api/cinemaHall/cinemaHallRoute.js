@@ -22,11 +22,10 @@ router.get('/', async (req, res) => {
 // @desc Create a cinema hall
 // @access Admin
 router.post('/', authMiddleware, async (req, res) => {
-  const { name, seats, rows, columns, cinema } = req.body;
+  const { name, rows, columns, cinema } = req.body;
   try {
     const newCinemaHall = new CinemaHall({
       name,
-      seats,
       rows,
       columns,
       cinema,
@@ -72,6 +71,40 @@ router.delete('/:id', authMiddleware, async (req, res) => {
     return res.status(204).end();
   } catch (e) {
     res.status(500).send(e);
+  }
+});
+// @roote PUT api/cinemas/:id
+// @desc Change in a Cinema
+// @access Admin
+router.put('/:id', authMiddleware, async (req, res) => {
+  const { name, rows, columns, cinema } = req.body;
+  try {
+    const newCinemaHall = await CinemaHall.findById(req.params.id);
+    if (!newCinemaHall) {
+      res.status(404).json({
+        error: `Cannot find cinema hall with id: ${req.params.id}'`,
+      });
+      return;
+    }
+    if (name !== undefined) {
+      newCinemaHall.name = name;
+    }
+    if (rows !== undefined) {
+      newCinemaHall.rows = rows;
+    }
+    if (columns !== undefined) {
+      newCinemaHall.columns = columns;
+    }
+    if (cinema !== undefined) {
+      newCinemaHall.cinema = cinema;
+    }
+    await newCinemaHall.save();
+    res.status(200).json({
+      message: 'Cinema updated successfully',
+      newCinemaHall,
+    });
+  } catch (e) {
+    res.status(400).send(e);
   }
 });
 

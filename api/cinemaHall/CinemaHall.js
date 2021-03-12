@@ -3,17 +3,12 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const cinemaHallSchema = new Schema({
-  name: Number,
-  seats: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Seat',
-    },
-  ],
-  rows: Number,
-  columns: Number,
+  name: { type: Number, required: true },
+  rows: { type: Number, required: true },
+  columns: { type: Number, required: true },
   cinema: {
     type: Schema.Types.ObjectId,
+    required: true,
     ref: 'Cinema',
   },
 });

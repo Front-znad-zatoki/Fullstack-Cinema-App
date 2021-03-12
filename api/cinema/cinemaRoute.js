@@ -21,15 +21,7 @@ router.get('/', async (req, res) => {
 // @desc Create a Cinema
 // @access Admin
 router.post('/', authMiddleware, async (req, res) => {
-  const {
-    country,
-    city,
-    street,
-    email,
-    phone,
-    halls,
-    hours,
-  } = req.body;
+  const { country, city, street, email, phone, hours } = req.body;
 
   try {
     const newCinema = new Cinema({
@@ -38,7 +30,6 @@ router.post('/', authMiddleware, async (req, res) => {
       street,
       email,
       phone,
-      halls,
       hours,
     });
     await newCinema.save();

@@ -7,11 +7,12 @@ const validateEmail = function (email) {
 };
 
 const cinemaSchema = new mongoose.Schema({
-  country: String,
-  city: String,
-  street: String,
+  country: { type: String, required: true },
+  city: { type: String, required: true },
+  street: { type: String, required: true },
   email: {
     type: String,
+    required: true,
     trim: true,
     lowercase: true,
     validate: [validateEmail, 'invalid email'],
@@ -20,21 +21,17 @@ const cinemaSchema = new mongoose.Schema({
       'Please fill a valid email address',
     ],
   },
-  phone: String,
-  halls: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'CinemaHall',
-    },
-  ],
+  phone: { type: String, required: true },
   hours: {
     open: {
       type: Number,
+      required: true,
       min: 0,
       max: 23,
     },
     close: {
       type: Number,
+      required: true,
       min: 0,
       max: 23,
     },
