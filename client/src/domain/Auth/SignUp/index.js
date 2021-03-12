@@ -17,7 +17,10 @@ function SignUp() {
   const { name, email, password, passwordRepeat } = formData;
 
   const onChange = (event) =>
-    setFormData({ ...formData, [event.target.name]: event.target.value });
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value,
+    });
 
   const onSubmit = (event) => {
     event.preventDefault();
