@@ -9,6 +9,9 @@ const router = express.Router();
 
 router
   .route('/')
+  // @route GET api/screenings
+  // @description Get all screenings
+  // @access public
   .get(async (req, res) => {
     try {
       const screenings = await Screening.find({});
@@ -17,6 +20,9 @@ router
       res.status(400).send(e);
     }
   })
+  // @route POST api/screenings
+  // @description Create a screening
+  // @access admin
   .post(authMiddleware, adminMiddleware, async (req, res) => {
     // eslint-disable-next-line object-curly-newline
     const { movieId, cinemaHallId, price, startDate } = req.body;
@@ -51,6 +57,9 @@ router
 
 router
   .route('/:id')
+  // @route GET api/screenings/id
+  // @description Get a screening
+  // @access user
   .get(authMiddleware, async (req, res) => {
     const screening = await Screening.findById(req.params.id);
     try {
@@ -65,6 +74,9 @@ router
       res.status(400).send(e);
     }
   })
+  // @route PUT api/screenings/id
+  // @description Update a screening
+  // @access admin
   .put(authMiddleware, adminMiddleware, async (req, res) => {
     const screening = await Screening.findById(req.params.id);
     try {
@@ -95,6 +107,9 @@ router
       res.status(400).send(e);
     }
   })
+  // @route DELETE api/screenings/id
+  // @description Delete a screening
+  // @access admin
   .delete(authMiddleware, adminMiddleware, async (req, res) => {
     const screening = await Screening.findByIdAndRemove(
       req.params.id,

@@ -9,6 +9,9 @@ const router = express.Router();
 
 router
   .route('/')
+  // @route GET api/tickets
+  // @description Get all tickets
+  // @access public
   .get(async (req, res) => {
     try {
       const tickets = await Ticket.find({});
@@ -17,6 +20,9 @@ router
       res.status(400).send(e);
     }
   })
+  // @route POST api/tickets
+  // @description Create a ticket
+  // @access admin
   .post(authMiddleware, adminMiddleware, async (req, res) => {
     // eslint-disable-next-line object-curly-newline
     const { screeningId, row, column, orderId } = req.body;
@@ -51,6 +57,9 @@ router
 
 router
   .route('/:id')
+  // @route GET api/tickets/id
+  // @description Get a ticket
+  // @access user
   .get(authMiddleware, async (req, res) => {
     const ticket = await Ticket.findById(req.params.id);
     try {
@@ -65,6 +74,9 @@ router
       res.status(400).send(e);
     }
   })
+  // @route PUT api/tickets/id
+  // @description Update a ticket
+  // @access admin
   .put(authMiddleware, adminMiddleware, async (req, res) => {
     const { screeningId, orderId } = req.body;
     const ticket = await Ticket.findById(req.params.id);
@@ -109,6 +121,9 @@ router
       res.status(400).send(e);
     }
   })
+  // @route DELETE api/tickets/id
+  // @description Delete a ticket
+  // @access admin
   .delete(authMiddleware, adminMiddleware, async (req, res) => {
     const ticket = await Ticket.findByIdAndRemove(req.params.id);
     try {

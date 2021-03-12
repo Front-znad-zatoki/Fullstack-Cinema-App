@@ -9,6 +9,9 @@ const router = express.Router();
 
 router
   .route('/')
+  // @route GET api/orders
+  // @description Get all orders
+  // @access public
   .get(async (req, res) => {
     try {
       const orders = await Order.find({});
@@ -17,6 +20,9 @@ router
       res.status(400).send(e);
     }
   })
+  // @route POST api/orders
+  // @description Create an orders
+  // @access admin
   .post(authMiddleware, adminMiddleware, async (req, res) => {
     // eslint-disable-next-line object-curly-newline
     const { userId, email, status, tickets } = req.body;
@@ -53,6 +59,9 @@ router
 
 router
   .route('/:id')
+  // @route GET api/orders/id
+  // @description Get an order
+  // @access user
   .get(authMiddleware, async (req, res) => {
     // TODO: for admin and user who purchased only? to change for all not public routes
     const order = await Order.findById(req.params.id);
@@ -68,6 +77,9 @@ router
       res.status(400).send(e);
     }
   })
+  // @route PUT api/orders/id
+  // @description Update an order
+  // @access admin
   .put(authMiddleware, adminMiddleware, async (req, res) => {
     const { userId, email, status } = req.body;
     const order = await Order.findById(req.params.id);
@@ -102,6 +114,9 @@ router
       res.status(400).send(e);
     }
   })
+  // @route DELETE api/orders/id
+  // @description Delete an order
+  // @access admin
   .delete(authMiddleware, adminMiddleware, async (req, res) => {
     const ticket = await Ticket.findByIdAndDelete(req.params.id);
     try {

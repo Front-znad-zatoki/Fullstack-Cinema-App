@@ -6,6 +6,9 @@ import adminMiddleware from '../admin/adminMiddleware.js';
 const router = express.Router();
 router
   .route('/')
+  // @route GET api/movies
+  // @description Get all movies
+  // @access public
   .get(async (req, res) => {
     try {
       const movies = await Movie.find({});
@@ -14,7 +17,9 @@ router
       res.status(400).send(e);
     }
   })
-
+  // @route POST api/movies
+  // @description Create a movie
+  // @access admin
   .post(authMiddleware, adminMiddleware, async (req, res) => {
     const {
       title,
@@ -42,6 +47,9 @@ router
 
 router
   .route('/:id')
+  // @route GET api/movies/id
+  // @description get all movies
+  // @access user
   .get(authMiddleware, async (req, res) => {
     const movie = await Movie.findById(req.params.id);
     try {
@@ -55,6 +63,9 @@ router
       res.status(400).send(e);
     }
   })
+  // @route PUT api/movies/id
+  // @description Update a movie
+  // @access admin
   .put(authMiddleware, adminMiddleware, async (req, res) => {
     const {
       title,
@@ -100,6 +111,9 @@ router
       res.status(400).send(e);
     }
   })
+  // @route DELETE api/movies/id
+  // @description Delete a movie
+  // @access admin
   .delete(authMiddleware, adminMiddleware, async (req, res) => {
     const movie = await Movie.findByIdAndDelete(req.params.id);
     try {
