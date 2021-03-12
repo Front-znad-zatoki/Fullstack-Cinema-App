@@ -8,6 +8,7 @@ import screeningRoute from './api/screening/screeningRoute.js';
 import ticketRoute from './api/ticket/ticketRoute.js';
 import cinemaRoute from './api/cinema/cinemaRoute.js';
 import cinemaHallRoute from './api/cinemaHall/cinemaHallRoute.js';
+import seatRoute from './api/seat/seatRoute.js';
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use('/api/screenings', screeningRoute);
 app.use('/api/tickets', ticketRoute);
 app.use('/api/cinemas', cinemaRoute);
 app.use('/api/cinemaHalls', cinemaHallRoute);
+app.use('/api/seats', seatRoute);
 
 // Serve static assets in production
 // if (process.env.NODE_ENV === 'production') {
