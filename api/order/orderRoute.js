@@ -118,8 +118,10 @@ router
   // @description Delete an order
   // @access admin
   .delete(authMiddleware, adminMiddleware, async (req, res) => {
-    const ticket = await Ticket.findByIdAndDelete(req.params.id);
     try {
+      // check if order exists
+      // check order.findById -> order.tickets  -> delete tickets -> delete order
+      const ticket = await Ticket.findByIdAndDelete(req.params.id);
       if (ticket === undefined) {
         res.status(404).json({
           error: `Cannot find ticket with id: ${req.params.id}'`,

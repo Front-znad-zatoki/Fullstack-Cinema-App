@@ -19,7 +19,7 @@ const screeningSchema = new Schema({
   },
   startDate: {
     type: Date,
-    default: Date.now,
+    required: true,
   },
   // seat: {
   // row1: [ {name:1A, state: empty, id: ObjectId}, {name:1A, state: booked, id: ObjectId},  ]
