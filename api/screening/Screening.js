@@ -14,8 +14,8 @@ const screeningSchema = new Schema({
     required: true,
   },
   price: {
-    type: Number,
-    required: true,
+    normal: { type: Number, required: true },
+    reduced: { type: Number },
   },
   startDate: {
     type: Date,
