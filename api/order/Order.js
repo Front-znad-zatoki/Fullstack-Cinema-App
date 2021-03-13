@@ -1,16 +1,13 @@
 import mongoose from 'mongoose';
+import validateEmail from '../utils/validateEmail.js';
 
 const { Schema } = mongoose;
-const validateEmail = function (email) {
-  const re = /^[a-z\d]+[\w\d.-]*@(?:[a-z\d]+[a-z\d-]+\.){1,5}[a-z]{2,6}$/i;
-  return re.test(email);
-};
 
 const orderSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    required: true,
+    // required: true,
   },
   email: {
     type: String,
