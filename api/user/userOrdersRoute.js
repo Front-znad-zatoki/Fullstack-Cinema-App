@@ -97,6 +97,7 @@ router.delete(
       }
       if (!user) return res.status(404).send('User not found');
       await user.save();
+      await order.remove();
       res.status(200).json({
         deletedOrder: order,
         isAuthenticated: true,
