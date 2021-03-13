@@ -114,7 +114,12 @@ router.delete(
 router.post(
   '/',
   authMiddleware,
-  check('status', 'Status is required').notEmpty(),
+  check('status', 'Status is required').trim().notEmpty().isString(),
+  check('screening', 'Screening is required')
+    .trim()
+    .notEmpty()
+    .isString(),
+  check('tickets', 'Ticket is required').notEmpty().isArray(),
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -126,13 +131,26 @@ router.post(
         '-password',
       );
       if (!user) return res.status(404).send('User not found');
+      const { tickets, screening } = req.body;
+      // TODO:  add validation if tickets for this seats and screening already exist
       const order = new Order({
         user: req.user.id,
         email: user.email,
         status: req.body.status,
       });
-
       await order.save();
+      const ticketIds = Order.createOrdersDependencies(
+        tickets,
+        screening,
+        order.id,
+        (err) => {
+          if (err) {
+            return res.status(400).json({
+              msg: 'Can not generate tickets for this order',
+            });
+          }
+        },
+      );
       user.orders.push(order);
       await user.save();
       res.status(200).json({ order: order, isAuthenticated: true });

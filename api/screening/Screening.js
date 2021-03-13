@@ -21,6 +21,14 @@ const screeningSchema = new Schema({
     type: Date,
     required: true,
   },
+  tickets: [
+    {
+      ticket: {
+        type: Schema.Types.ObjectId,
+        ref: 'Ticket',
+      },
+    },
+  ],
   // seat: {
   // row1: [ {name:1A, state: empty, id: ObjectId}, {name:1A, state: booked, id: ObjectId},  ]
   //   allSeats:[Objec...],
