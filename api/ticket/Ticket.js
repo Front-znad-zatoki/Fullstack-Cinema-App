@@ -6,12 +6,19 @@ const ticketSchema = new Schema({
   screening: {
     type: Schema.Types.ObjectId,
     ref: 'Screening',
+    required: true,
   },
   row: Number,
   column: Number,
   order: {
     type: Schema.Types.ObjectId,
     ref: 'Order',
+    required: true,
+  },
+  seat: {
+    type: Schema.Types.ObjectId,
+    ref: 'Seat',
+    required: true,
   },
 });
 

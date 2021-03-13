@@ -22,7 +22,12 @@ const orderSchema = new Schema({
   },
   status: String,
   tickets: {
-    type: Array,
+    type: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Ticket',
+      },
+    ],
     required: true,
   },
 

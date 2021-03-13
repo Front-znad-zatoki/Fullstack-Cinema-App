@@ -42,16 +42,17 @@ router.get(
   async (req, res) => {
     try {
       const user = await User.findById(req.user.id);
-      const order = user
-        .find({
-          orders: {
-            order: req.params.orderId,
-          },
-        })
-        .populate('order')
-        .exec();
-      if (!user) res.status(404).send('User not found');
-      if (!order) res.status(404).send('Order not found');
+      const { orders } = user;
+      const order = await Order.findById(req.params.orderId).populate(
+        'ticket',
+      );
+      const orderIds = orders.map((orderData) => orderData.id);
+      const isUsersOrder = orderIds.includes(req.params.orderId);
+
+      if (!user) return res.status(404).send('User not found');
+      if (!order) return res.status(404).send('Order not found');
+      if (!isUsersOrder) return res.status(404).send('Access denied');
+
       res.status(200).json({ order: order, isAuthenticated: true });
     } catch (err) {
       console.error(err.message);
