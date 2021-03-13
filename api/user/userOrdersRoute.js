@@ -134,21 +134,32 @@ router.post(
       );
       if (!user) return res.status(404).send('User not found');
       const { tickets, screening } = req.body;
-      // TODO:  add validation if tickets for this seats and screening already exist
 
       const screeningToUpdate = await Screening.findById(screening)
         .select('tickets')
-        .populate('ticket');
+        .populate({
+          path: 'tickets',
+          populate: {
+            path: 'seat',
+            model: 'Seat',
+          },
+        });
       if (!screeningToUpdate) {
         return res.status(404).send('Screening not found');
       }
-      console.log(tickets);
+      const occupiedSeats = screeningToUpdate.tickets.map(
+        (ticket) => ticket.seat.name,
+      );
+      const areEmpty = tickets.every(
+        (ticket) => !occupiedSeats.includes(ticket),
+      );
+      if (!areEmpty) return res.status(404).send('Seats are not empty');
       const seats = await Seat.find({
         name: { $in: tickets },
       });
-      // if (!seatToTake) {
-      //   return res.status(404).send('Seat not found');
-      // }
+      if (!seats) {
+        return res.status(404).send('Seats not found');
+      }
       const order = new Order({
         user: req.user.id,
         email: user.email,
