@@ -23,10 +23,8 @@ const screeningSchema = new Schema({
   },
   tickets: [
     {
-      ticket: {
-        type: Schema.Types.ObjectId,
-        ref: 'Ticket',
-      },
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Ticket',
     },
   ],
   // seat: {

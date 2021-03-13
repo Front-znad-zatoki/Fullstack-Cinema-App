@@ -4,6 +4,8 @@ import User from './User.js';
 import authMiddleware from '../authentication/authMiddleware.js';
 import validateObjectId from '../utils/validateObjectId.js';
 import Order from '../order/Order.js';
+import Seat from '../seat/Seat.js';
+import Screening from '../screening/Screening.js';
 
 const router = express.Router();
 
@@ -133,16 +135,30 @@ router.post(
       if (!user) return res.status(404).send('User not found');
       const { tickets, screening } = req.body;
       // TODO:  add validation if tickets for this seats and screening already exist
+
+      const screeningToUpdate = await Screening.findById(screening)
+        .select('tickets')
+        .populate('ticket');
+      if (!screeningToUpdate) {
+        return res.status(404).send('Screening not found');
+      }
+      console.log(tickets);
+      const seats = await Seat.find({
+        name: { $in: tickets },
+      });
+      // if (!seatToTake) {
+      //   return res.status(404).send('Seat not found');
+      // }
       const order = new Order({
         user: req.user.id,
         email: user.email,
         status: req.body.status,
       });
-      await order.save();
-      const ticketIds = Order.createOrdersDependencies(
-        tickets,
+      // await order.save();
+      const ticketsIds = await order.createOrdersDependencies(
+        seats,
         screening,
-        order.id,
+        order,
         (err) => {
           if (err) {
             return res.status(400).json({
@@ -151,6 +167,14 @@ router.post(
           }
         },
       );
+      ticketsIds.forEach((ticketId) => {
+        screeningToUpdate.tickets.push(ticketId);
+        order.tickets.push(ticketId);
+      });
+      // console.log('order: ', order, ': order')
+      // console.log('screa: ', screeningToUpdate, ': screr')
+      await screeningToUpdate.save();
+      await order.save();
       user.orders.push(order);
       await user.save();
       res.status(200).json({ order: order, isAuthenticated: true });

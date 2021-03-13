@@ -24,48 +24,37 @@ const orderSchema = new Schema({
     ],
   },
   status: String,
-  tickets: {
-    type: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Ticket',
-      },
-    ],
-    required: true,
-  },
+  tickets: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Ticket',
+    },
+  ],
 
   // TODO: prepare enum for that field
   // TODO: add tickets array here?
 });
 
-orderSchema.statics.createOrdersDependencies = async function createOrdersDependencies(
-  ticketsData,
+orderSchema.methods.createOrdersDependencies = async function createOrdersDependencies(
+  seats,
   screening,
-  orderId,
+  order,
   cb,
 ) {
   try {
-    const ticketsIds = [];
-    ticketsData.forEach(async (ticketToCreate) => {
-      const screeningToUpdate = await Screening.findById(
-        screening,
-      ).select('tickets');
-      if (!screeningToUpdate) return cb();
-      const seatToTake = await Seat.findOne({
-        name: ticketToCreate.name,
-      }).select('id');
-      if (!seatToTake) return cb();
+    console.log('awaiting before', screening);
+    const promises = seats.map((ticketToCreate) => {
       const newTicket = new Ticket({
-        seat: seatToTake.id,
-        order: orderId,
+        seat: ticketToCreate.id,
+        order: order.id,
         screening: screening,
       });
-      newTicket.save();
-      screeningToUpdate.tickets.push({ ticket: newTicket.id });
-      ticketsIds.push(newTicket.id);
-      screeningToUpdate.save();
+      return newTicket.save();
     });
-    return ticketsIds;
+    console.log(promises);
+    const promisesResolved = await Promise.all(promises);
+    const arrayOfTicketIds = promisesResolved.map((prom) => prom.id);
+    return arrayOfTicketIds;
   } catch (err) {
     return cb(err);
   }
