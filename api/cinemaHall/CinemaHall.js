@@ -37,4 +37,17 @@ cinemaHallSchema.statics.generateSeats = async function generateSeats(
   }
 };
 
+cinemaHallSchema.statics.deleteSeats = async function deleteSeats(
+  cinemaHallId,
+  cb,
+) {
+  try {
+    await Seat.deleteMany({
+      hall: cinemaHallId,
+    });
+  } catch (err) {
+    return cb(err);
+  }
+};
+
 export default mongoose.model('CinemaHall', cinemaHallSchema);

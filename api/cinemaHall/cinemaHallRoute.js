@@ -94,6 +94,14 @@ router.delete(
       const cinemaHall = await CinemaHall.findByIdAndDelete(
         req.params.id,
       );
+
+      CinemaHall.deleteSeats(req.params.id, (err) => {
+        if (err) {
+          return res
+            .status(400)
+            .json({ msg: 'Can not generate seats' });
+        }
+      });
       if (!cinemaHall) {
         return res.status(404).json({
           error: `Cannot find cinema hall with id: ${req.params.id}`,
