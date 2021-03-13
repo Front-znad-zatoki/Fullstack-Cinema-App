@@ -61,8 +61,9 @@ orderSchema.statics.createOrdersDependencies = async function createOrdersDepend
         screening: screening,
       });
       newTicket.save();
-      screeningToUpdate.tickets.push(newTicket.id);
+      screeningToUpdate.tickets.push({ ticket: newTicket.id });
       ticketsIds.push(newTicket.id);
+      screeningToUpdate.save();
     });
     return ticketsIds;
   } catch (err) {
