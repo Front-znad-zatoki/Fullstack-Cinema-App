@@ -151,9 +151,28 @@ router.post(
       const occupiedSeats = screeningToUpdate.tickets.map(
         (ticket) => [ticket.seat.row, ticket.seat.column],
       );
+      console.log('taken: ', occupiedSeats, 'END');
+      console.log('to check: ', tickets, 'END');
+      // eslint-disable-next-line arrow-body-style
+      const isSpaceOccupied = ([row, column]) => {
+        return occupiedSeats.some(
+          ([occupiedSeatRow, occupiedSeatColumn]) => {
+            let result = false;
+            if (
+              // eslint-disable-next-line operator-linebreak
+              occupiedSeatRow === row &&
+              occupiedSeatColumn === column
+            ) {
+              result = true;
+            }
+            return result;
+          },
+        );
+      };
       const areEmpty = tickets.every(
-        (ticket) => !occupiedSeats.includes(ticket),
+        (ticket) => !isSpaceOccupied(ticket),
       );
+      console.log('are empty: ', areEmpty, 'END');
       if (!areEmpty) {
         return res.status(404).send('Seats are not empty');
       }
