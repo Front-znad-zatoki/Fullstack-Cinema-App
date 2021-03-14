@@ -4,6 +4,8 @@ import bcryptjs from 'bcryptjs';
 import User from './User.js';
 import authMiddleware from '../authentication/authMiddleware.js';
 import userOrderRoute from './userOrdersRoute.js';
+import transporter from '../../mail/transporter.js';
+import getMailOptions from '../../mail/mailOptions.js';
 
 const router = express.Router();
 router.use('/orders', userOrderRoute);
@@ -15,6 +17,18 @@ router.get('/', authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
     if (!user) res.status(404).res.json({ msg: 'User not found' });
+    const emailOptions = getMailOptions(
+      user.email,
+      'Got profile',
+      'Test msg',
+    );
+    transporter.sendMail(emailOptions, (error, info) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(`Email sent: ${info.response}`);
+      }
+    });
     res.status(200).json({ user: user, isAuthenticated: true });
   } catch (err) {
     console.error(err.message);
