@@ -145,27 +145,24 @@ router.post(
             model: 'Seat',
           },
         });
-      console.log(screeningToUpdate);
       if (!screeningToUpdate) {
         return res.status(404).send('Screening not found');
       }
       const occupiedSeats = screeningToUpdate.tickets.map(
         (ticket) => [ticket.seat.row, ticket.seat.column],
       );
-      console.log(occupiedSeats);
       const areEmpty = tickets.every(
         (ticket) => !occupiedSeats.includes(ticket),
       );
-      console.log(areEmpty);
       if (!areEmpty) {
         return res.status(404).send('Seats are not empty');
       }
       const seats = await Promise.all(
-        tickets.map((ticketData) => {
+        tickets.map(([rowNr, columnNr]) => {
           const seat = Seat.findOne({
             hall: screeningToUpdate.cinemaHall.id,
-            row: ticketData[0],
-            column: ticketData[1],
+            row: rowNr,
+            column: columnNr,
           });
           return seat;
         }),
