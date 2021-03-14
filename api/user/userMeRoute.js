@@ -17,18 +17,6 @@ router.get('/', authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
     if (!user) res.status(404).res.json({ msg: 'User not found' });
-    const emailOptions = getMailOptions(
-      user.email,
-      'Got profile',
-      'Test msg',
-    );
-    transporter.sendMail(emailOptions, (error, info) => {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log(`Email sent: ${info.response}`);
-      }
-    });
     res.status(200).json({ user: user, isAuthenticated: true });
   } catch (err) {
     console.error(err.message);
@@ -45,6 +33,18 @@ router.delete('/', authMiddleware, async (req, res) => {
       '-password',
     );
     if (!user) res.status(404).res.json({ msg: 'User not found' });
+    const emailOptions = getMailOptions(
+      user.email,
+      'Account Deleted',
+      'Thank you for being with us!',
+    );
+    transporter.sendMail(emailOptions, (error, info) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(`Email sent: ${info.response}`);
+      }
+    });
     res.status(200).json({ user: user, isAuthenticated: false });
   } catch (err) {
     console.error(err.message);
