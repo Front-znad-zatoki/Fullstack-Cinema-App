@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import Screening from '../screening/Screening.js';
-import Seat from '../seat/Seat.js';
 import Ticket from '../ticket/Ticket.js';
 import validateEmail from '../utils/validateEmail.js';
 
@@ -10,7 +9,6 @@ const orderSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    // required: true,
   },
   email: {
     type: String,
@@ -31,8 +29,7 @@ const orderSchema = new Schema({
     },
   ],
 
-  // TODO: prepare enum for that field
-  // TODO: add tickets array here?
+  // TODO: prepare enum for status field
 });
 
 orderSchema.methods.createOrdersDependencies = async function createOrdersDependencies(
@@ -59,14 +56,41 @@ orderSchema.methods.createOrdersDependencies = async function createOrdersDepend
 };
 
 orderSchema.post('save', (doc) => {
-  // console.log(doc);
-  console.log('post save');
+  console.log('post save', doc);
 });
 
-orderSchema.post('remove', { query: true, document: true }, (doc) => {
-  console.log(doc.tickets);
-  // TODO: add tickets delete logic
-  console.log('post remove');
-});
+orderSchema.post(
+  'remove',
+  { query: true, document: true },
+  async (doc) => {
+    try {
+      const [ticketsToRemove, screeningToUpdate] = doc.tickets.reduce(
+        (acc, cur) => {
+          acc[0].push(cur.id);
+          if (!acc[1].includes(cur.screening)) {
+            acc[1].push(cur.screening);
+          }
+          return acc;
+        },
+        [[], []],
+      );
+      await Ticket.deleteMany({
+        _id: {
+          $in: ticketsToRemove,
+        },
+      });
+
+      await Screening.findByIdAndUpdate(screeningToUpdate[0], {
+        $pull: {
+          tickets: {
+            $in: ticketsToRemove,
+          },
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+);
 
 export default mongoose.model('Order', orderSchema);

@@ -4,12 +4,12 @@ const { Schema } = mongoose;
 
 const ticketSchema = new Schema({
   screening: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Screening',
     required: true,
   },
   order: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Order',
     required: true,
   },
