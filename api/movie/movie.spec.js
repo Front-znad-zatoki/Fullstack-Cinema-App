@@ -44,3 +44,23 @@ test('GET /api/movies', async () => {
       expect(response.body[0].description).toBe(movie.description);
     });
 });
+
+test('GET /api/movies/:id', async () => {
+  const movie = await Movie.create({
+    title: 'Movie1',
+    duration: 100,
+    releaseDate: '01-02-2020',
+    description: 'Description',
+    poster: '...jpg',
+    genre: 'thriller',
+  });
+
+  await supertest(app)
+    .get(`/api/movies/${movie.id}`)
+    .expect(200)
+    .then((response) => {
+      expect(response.body._id).toBe(movie.id);
+      expect(response.body.title).toBe(movie.title);
+      expect(response.body.poster).toBe(movie.poster);
+    });
+});
