@@ -113,6 +113,12 @@ router.delete(
 // @route    POST api/users/me/orders/
 // @desc     Add new order
 // @access   Private
+// @example req.body:
+// @{
+// @  "status": "pending",
+// @  "tickets": [[0,0],[1,0]],
+// @  "screening": "604cd23fc5d64540d07eaece"
+// @}
 router.post(
   '/',
   authMiddleware,
