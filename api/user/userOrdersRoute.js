@@ -6,6 +6,8 @@ import validateObjectId from '../utils/validateObjectId.js';
 import Order from '../order/Order.js';
 import Seat from '../seat/Seat.js';
 import Screening from '../screening/Screening.js';
+import transporter from '../../mail/transporter.js';
+import getMailOptions from '../../mail/mailOptions.js';
 
 const router = express.Router();
 
@@ -88,7 +90,7 @@ router.delete(
             _id: req.body.orderId,
           },
         },
-      }).select('orders');
+      }).select('orders email');
       const userOrders = user.orders;
       if (
         !userOrders.some(
@@ -100,6 +102,19 @@ router.delete(
       if (!user) return res.status(404).send('User not found');
       await user.save();
       await order.remove();
+
+      const emailOptions = getMailOptions(
+        user.email,
+        'Order Deleted',
+        `Your order number: ${order.id} was successfully deleted`,
+      );
+      transporter.sendMail(emailOptions, (error, info) => {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log(`Email sent: ${info.response}`);
+        }
+      });
       res.status(200).json({
         deletedOrder: order,
         isAuthenticated: true,
@@ -218,6 +233,18 @@ router.post(
       await order.save();
       user.orders.push(order);
       await user.save();
+      const emailOptions = getMailOptions(
+        user.email,
+        'Order Placed',
+        `Your order number: ${order.id} was successfully placed`,
+      );
+      transporter.sendMail(emailOptions, (error, info) => {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log(`Email sent: ${info.response}`);
+        }
+      });
       res.status(200).json({ order: order, isAuthenticated: true });
     } catch (err) {
       console.error(err.message);
