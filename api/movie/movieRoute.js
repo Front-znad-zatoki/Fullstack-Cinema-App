@@ -50,7 +50,7 @@ router
   // @route GET api/movies/id
   // @description get all movies
   // @access user
-  .get(authMiddleware, async (req, res) => {
+  .get(async (req, res) => {
     const movie = await Movie.findById(req.params.id);
     try {
       if (movie === undefined) {
@@ -111,6 +111,7 @@ router
       res.status(400).send(e);
     }
   })
+
   // @route DELETE api/movies/id
   // @description Delete a movie
   // @access admin
