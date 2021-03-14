@@ -1,6 +1,5 @@
 import express from 'express';
 import userRoute from '../api/user/userRoute.js';
-import authRoute from '../api/authentication/authRoute.js';
 import movieRoute from '../api/movie/movieRoute.js';
 import orderRoute from '../api/order/orderRoute.js';
 import screeningRoute from '../api/screening/screeningRoute.js';
@@ -15,7 +14,6 @@ app.use(express.json());
 
 // Define Routes
 app.use('/api/users', userRoute);
-app.use('/api/auth', authRoute);
 app.use('/api/movies', movieRoute);
 app.use('/api/orders', orderRoute);
 
