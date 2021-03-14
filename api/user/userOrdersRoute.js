@@ -157,10 +157,9 @@ router.post(
       const occupiedSeats = screeningToUpdate.tickets.map(
         (ticket) => [ticket.seat.row, ticket.seat.column],
       );
-      console.log('taken: ', occupiedSeats, 'END');
-      console.log('to check: ', tickets, 'END');
       // eslint-disable-next-line arrow-body-style
       const isSpaceOccupied = ([row, column]) => {
+        if (occupiedSeats.length === 0) return false;
         return occupiedSeats.some(
           ([occupiedSeatRow, occupiedSeatColumn]) => {
             let result = false;
@@ -178,7 +177,6 @@ router.post(
       const areEmpty = tickets.every(
         (ticket) => !isSpaceOccupied(ticket),
       );
-      console.log('are empty: ', areEmpty, 'END');
       if (!areEmpty) {
         return res.status(404).send('Seats are not empty');
       }
