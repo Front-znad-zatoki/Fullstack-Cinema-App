@@ -14,13 +14,19 @@ const screeningSchema = new Schema({
     required: true,
   },
   price: {
-    type: Number,
-    required: true,
+    normal: { type: Number, required: true },
+    reduced: { type: Number },
   },
   startDate: {
     type: Date,
     required: true,
   },
+  tickets: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Ticket',
+    },
+  ],
   // seat: {
   // row1: [ {name:1A, state: empty, id: ObjectId}, {name:1A, state: booked, id: ObjectId},  ]
   //   allSeats:[Objec...],

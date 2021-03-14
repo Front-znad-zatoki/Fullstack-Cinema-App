@@ -37,7 +37,28 @@ router.post(
       });
       // TODO: find cinema, check if hall exists if(hallExists){bad request, hall exists}
       await newCinemaHall.save();
-      res.status(201).json({ msg: 'New cinema hall created' }).end();
+
+      // TODO: generate seats
+      CinemaHall.generateSeats(
+        newCinemaHall.id,
+        rows,
+        columns,
+        (err) => {
+          if (err) {
+            return res
+              .status(400)
+              .json({ msg: 'Can not generate seats' });
+          }
+        },
+      );
+
+      res
+        .status(201)
+        .json({
+          msg: 'New cinema hall created',
+          cinemaHall: newCinemaHall,
+        })
+        .end();
     } catch (e) {
       res.status(400).send(e);
     }
@@ -78,6 +99,17 @@ router.delete(
           error: `Cannot find cinema hall with id: ${req.params.id}`,
         });
       }
+      // TODO: delete all screenings
+      // TODO: delete all tickets for screening, orders, send emails
+
+      CinemaHall.deleteSeats(req.params.id, (err) => {
+        if (err) {
+          return res
+            .status(400)
+            .json({ msg: 'Can not delete seats' });
+        }
+      });
+
       return res
         .status(200)
         .json({ msg: 'Cinema hall deleted' })

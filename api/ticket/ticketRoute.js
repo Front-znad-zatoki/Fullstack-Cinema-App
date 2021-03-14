@@ -14,7 +14,7 @@ router
   // @access public
   .get(async (req, res) => {
     try {
-      const tickets = await Ticket.find({});
+      const tickets = await Ticket.find().select('-order');
       res.status(200).json(tickets);
     } catch (e) {
       res.status(400).send(e);
