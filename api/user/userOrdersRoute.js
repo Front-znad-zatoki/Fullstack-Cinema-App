@@ -69,61 +69,55 @@ router.get(
 // @desc     Delete order
 // @access   Private
 // TODO: check after orders merged, connect with orders
-router.delete(
-  '/',
-  authMiddleware,
-  check('orderId', 'Something wrong with the order').notEmpty(),
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
+router.delete('/:id', authMiddleware, async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
 
-    try {
-      const order = await Order.findById(req.body.orderId)
-        .populate()
-        .exec();
-      if (!order) return res.status(404).send('Order not found');
-      const user = await User.findByIdAndUpdate(req.user.id, {
-        $pull: {
-          orders: {
-            _id: req.body.orderId,
-          },
+  try {
+    const order = await Order.findById(req.params.id)
+      .populate('tickets')
+      .exec();
+    console.log(order);
+    if (!order) return res.status(404).send('Order not found');
+    const user = await User.findByIdAndUpdate(req.user.id, {
+      $pull: {
+        orders: {
+          _id: req.params.id,
         },
-      }).select('orders email');
-      const userOrders = user.orders;
-      if (
-        !userOrders.some(
-          (orderItem) => orderItem.id === req.body.orderId,
-        )
-      ) {
-        return res.status(404).send('Order not found');
-      }
-      if (!user) return res.status(404).send('User not found');
-      await user.save();
-      await order.remove();
-
-      const emailOptions = getMailOptions(
-        user.email,
-        'Order Deleted',
-        `Your order number: ${order.id} was successfully deleted`,
-      );
-      transporter.sendMail(emailOptions, (error, info) => {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log(`Email sent: ${info.response}`);
-        }
-      });
-      res.status(200).json({
-        deletedOrder: order,
-        isAuthenticated: true,
-      });
-    } catch (err) {
-      res.status(500).send('Server Error');
+      },
+    }).select('orders email');
+    const userOrders = user.orders;
+    if (
+      !userOrders.some((orderItem) => orderItem.id === req.params.id)
+    ) {
+      return res.status(404).send('Order not found');
     }
-  },
-);
+    if (!user) return res.status(404).send('User not found');
+    await user.save();
+    await order.remove();
+
+    // const emailOptions = getMailOptions(
+    //   user.email,
+    //   'Order Deleted',
+    //   `Your order number: ${order.id} was successfully deleted`,
+    // );
+    // transporter.sendMail(emailOptions, (error, info) => {
+    //   if (error) {
+    //     console.log(error);
+    //   } else {
+    //     console.log(`Email sent: ${info.response}`);
+    //   }
+    // });
+    res.status(200).json({
+      deletedOrder: order,
+      isAuthenticated: true,
+    });
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
 
 // @route    POST api/users/me/orders/
 // @desc     Add new order
@@ -233,18 +227,18 @@ router.post(
       await order.save();
       user.orders.push(order);
       await user.save();
-      const emailOptions = getMailOptions(
-        user.email,
-        'Order Placed',
-        `Your order number: ${order.id} was successfully placed`,
-      );
-      transporter.sendMail(emailOptions, (error, info) => {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log(`Email sent: ${info.response}`);
-        }
-      });
+      // const emailOptions = getMailOptions(
+      //   user.email,
+      //   'Order Placed',
+      //   `Your order number: ${order.id} was successfully placed`,
+      // );
+      // transporter.sendMail(emailOptions, (error, info) => {
+      //   if (error) {
+      //     console.log(error);
+      //   } else {
+      //     console.log(`Email sent: ${info.response}`);
+      //   }
+      // });
       res.status(200).json({ order: order, isAuthenticated: true });
     } catch (err) {
       console.error(err.message);

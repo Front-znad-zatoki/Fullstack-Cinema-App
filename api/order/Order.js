@@ -63,10 +63,50 @@ orderSchema.post('save', (doc) => {
   console.log('post save');
 });
 
-orderSchema.post('remove', { query: true, document: true }, (doc) => {
-  console.log(doc.tickets);
-  // TODO: add tickets delete logic
-  console.log('post remove');
-});
+orderSchema.post(
+  'remove',
+  { query: true, document: true },
+  async (doc) => {
+    try {
+      console.log('ordered tickets were: ', doc.tickets);
+      const [ticketsToRemove, screeningToUpdate] = doc.tickets.reduce(
+        (acc, cur) => {
+          acc[0].push(cur.id);
+          console.log(typeof cur.id);
+          console.log(typeof cur.screening);
+          if (!acc[1].includes(cur.screening)) {
+            acc[1].push(cur.screening);
+          }
+          return acc;
+        },
+        [[], []],
+      );
+      console.log(ticketsToRemove);
+      console.log(screeningToUpdate);
+      const tickets = await Ticket.deleteMany({
+        _id: {
+          $in: ticketsToRemove,
+        },
+      });
+      console.log('Deleted tickets number: ', tickets.deletedCount);
+
+      const screening = await Screening.findByIdAndUpdate(
+        screeningToUpdate[0],
+        {
+          $pull: {
+            tickets: {
+              $in: ticketsToRemove,
+            },
+          },
+        },
+      );
+      console.log(screening);
+      await screening.save();
+      console.log('post remove');
+    } catch (err) {
+      console.log(err);
+    }
+  },
+);
 
 export default mongoose.model('Order', orderSchema);
