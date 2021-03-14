@@ -42,7 +42,6 @@ orderSchema.methods.createOrdersDependencies = async function createOrdersDepend
   cb,
 ) {
   try {
-    console.log('awaiting before', screening);
     const promises = seats.map((ticketToCreate) => {
       const newTicket = new Ticket({
         seat: ticketToCreate.id,
@@ -51,7 +50,6 @@ orderSchema.methods.createOrdersDependencies = async function createOrdersDepend
       });
       return newTicket.save();
     });
-    console.log(promises);
     const promisesResolved = await Promise.all(promises);
     const arrayOfTicketIds = promisesResolved.map((prom) => prom.id);
     return arrayOfTicketIds;

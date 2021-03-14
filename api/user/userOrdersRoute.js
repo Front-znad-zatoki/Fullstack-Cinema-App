@@ -153,7 +153,9 @@ router.post(
       const areEmpty = tickets.every(
         (ticket) => !occupiedSeats.includes(ticket),
       );
-      if (!areEmpty) return res.status(404).send('Seats are not empty');
+      if (!areEmpty) {
+        return res.status(404).send('Seats are not empty');
+      }
       const seats = await Seat.find({
         name: { $in: tickets },
       });
@@ -165,7 +167,6 @@ router.post(
         email: user.email,
         status: req.body.status,
       });
-      // await order.save();
       const ticketsIds = await order.createOrdersDependencies(
         seats,
         screening,
@@ -182,8 +183,6 @@ router.post(
         screeningToUpdate.tickets.push(ticketId);
         order.tickets.push(ticketId);
       });
-      // console.log('order: ', order, ': order')
-      // console.log('screa: ', screeningToUpdate, ': screr')
       await screeningToUpdate.save();
       await order.save();
       user.orders.push(order);

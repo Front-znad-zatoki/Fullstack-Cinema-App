@@ -8,8 +8,6 @@ const ticketSchema = new Schema({
     ref: 'Screening',
     required: true,
   },
-  row: Number,
-  column: Number,
   order: {
     type: Schema.Types.ObjectId,
     ref: 'Order',
