@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import Screening from '../screening/Screening.js';
-import Seat from '../seat/Seat.js';
 import Ticket from '../ticket/Ticket.js';
 import validateEmail from '../utils/validateEmail.js';
 
@@ -10,7 +9,6 @@ const orderSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    // required: true,
   },
   email: {
     type: String,
@@ -31,8 +29,7 @@ const orderSchema = new Schema({
     },
   ],
 
-  // TODO: prepare enum for that field
-  // TODO: add tickets array here?
+  // TODO: prepare enum for status field
 });
 
 orderSchema.methods.createOrdersDependencies = async function createOrdersDependencies(
@@ -59,8 +56,7 @@ orderSchema.methods.createOrdersDependencies = async function createOrdersDepend
 };
 
 orderSchema.post('save', (doc) => {
-  // console.log(doc);
-  console.log('post save');
+  console.log('post save', doc);
 });
 
 orderSchema.post(
@@ -68,12 +64,9 @@ orderSchema.post(
   { query: true, document: true },
   async (doc) => {
     try {
-      console.log('ordered tickets were: ', doc.tickets);
       const [ticketsToRemove, screeningToUpdate] = doc.tickets.reduce(
         (acc, cur) => {
           acc[0].push(cur.id);
-          console.log(typeof cur.id);
-          console.log(typeof cur.screening);
           if (!acc[1].includes(cur.screening)) {
             acc[1].push(cur.screening);
           }
@@ -81,28 +74,19 @@ orderSchema.post(
         },
         [[], []],
       );
-      console.log(ticketsToRemove);
-      console.log(screeningToUpdate);
-      const tickets = await Ticket.deleteMany({
+      await Ticket.deleteMany({
         _id: {
           $in: ticketsToRemove,
         },
       });
-      console.log('Deleted tickets number: ', tickets.deletedCount);
 
-      const screening = await Screening.findByIdAndUpdate(
-        screeningToUpdate[0],
-        {
-          $pull: {
-            tickets: {
-              $in: ticketsToRemove,
-            },
+      await Screening.findByIdAndUpdate(screeningToUpdate[0], {
+        $pull: {
+          tickets: {
+            $in: ticketsToRemove,
           },
         },
-      );
-      console.log(screening);
-      await screening.save();
-      console.log('post remove');
+      });
     } catch (err) {
       console.log(err);
     }
