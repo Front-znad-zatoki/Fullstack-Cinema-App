@@ -136,7 +136,8 @@ router.post(
       const { tickets, screening } = req.body;
 
       const screeningToUpdate = await Screening.findById(screening)
-        .select('tickets')
+        .select('tickets cinemaHall')
+        .populate({ path: 'cinemaHall' })
         .populate({
           path: 'tickets',
           populate: {
@@ -144,21 +145,31 @@ router.post(
             model: 'Seat',
           },
         });
+      console.log(screeningToUpdate);
       if (!screeningToUpdate) {
         return res.status(404).send('Screening not found');
       }
       const occupiedSeats = screeningToUpdate.tickets.map(
-        (ticket) => ticket.seat.name,
+        (ticket) => [ticket.seat.row, ticket.seat.column],
       );
+      console.log(occupiedSeats);
       const areEmpty = tickets.every(
         (ticket) => !occupiedSeats.includes(ticket),
       );
+      console.log(areEmpty);
       if (!areEmpty) {
         return res.status(404).send('Seats are not empty');
       }
-      const seats = await Seat.find({
-        name: { $in: tickets },
-      });
+      const seats = await Promise.all(
+        tickets.map((ticketData) => {
+          const seat = Seat.findOne({
+            hall: screeningToUpdate.cinemaHall.id,
+            row: ticketData[0],
+            column: ticketData[1],
+          });
+          return seat;
+        }),
+      );
       if (!seats) {
         return res.status(404).send('Seats not found');
       }
