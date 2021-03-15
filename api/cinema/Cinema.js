@@ -1,17 +1,17 @@
+/* eslint-disable no-await-in-loop */
 import mongoose from 'mongoose';
+import validateEmail from '../utils/validateEmail.js';
+import CinemaHall from '../cinemaHall/CinemaHall.js';
 
 const { Schema } = mongoose;
-const validateEmail = function (email) {
-  const re = /^[a-z\d]+[\w\d.-]*@(?:[a-z\d]+[a-z\d-]+\.){1,5}[a-z]{2,6}$/i;
-  return re.test(email);
-};
 
-const cinemaSchema = new mongoose.Schema({
+const cinemaSchema = new Schema({
   country: { type: String, required: true },
   city: { type: String, required: true },
-  street: { type: String, required: true },
+  street: { type: String, required: true, unique: true },
   email: {
     type: String,
+    unique: true,
     required: true,
     trim: true,
     lowercase: true,
@@ -21,7 +21,7 @@ const cinemaSchema = new mongoose.Schema({
       'Please fill a valid email address',
     ],
   },
-  phone: { type: String, required: true },
+  phone: { type: String, required: true, unique: true },
   hours: {
     open: {
       type: Number,
@@ -37,4 +37,17 @@ const cinemaSchema = new mongoose.Schema({
     },
   },
 });
+cinemaSchema.statics.deleteCinemaHalls = async function deleteCinemaHalls(
+  cinemaId,
+  cb,
+) {
+  try {
+    await CinemaHall.deleteMany({
+      cinema: cinemaId,
+    });
+  } catch (err) {
+    return cb(err);
+  }
+};
+
 export default mongoose.model('Cinema', cinemaSchema);

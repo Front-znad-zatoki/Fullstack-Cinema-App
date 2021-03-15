@@ -1,5 +1,6 @@
 import express from 'express';
-// CinemaHall model
+import { check, validationResult } from 'express-validator';
+// Seat model
 import Seat from './Seat.js';
 import authMiddleware from '../authentication/authMiddleware.js';
 import adminMiddleware from '../admin/adminMiddleware.js';
@@ -26,15 +27,26 @@ router.post(
   '/',
   authMiddleware,
   adminMiddleware,
+  check('row', 'Row is required').notEmpty().isInt(),
+  check('column', 'Column is required').notEmpty().isInt(),
   async (req, res) => {
-    const { hall } = req.body;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const { hall, row, column } = req.body;
     try {
       const seat = new Seat({
         hall,
+        row,
+        column,
       });
 
       await seat.save();
-      res.status(201).end();
+      res
+        .status(201)
+        .json({ msg: 'New seat hall created', seat: seat })
+        .end();
     } catch (e) {
       res.status(400).send(e);
     }
@@ -73,7 +85,7 @@ router.delete(
           error: `Cannot find seat with id: ${req.params.id}`,
         });
       }
-      return res.status(204).end();
+      return res.status(200).json({ msg: 'Seat deleted' }).end();
     } catch (e) {
       res.status(500).send(e);
     }
@@ -88,7 +100,7 @@ router.put(
   authMiddleware,
   adminMiddleware,
   async (req, res) => {
-    const { hall } = req.body;
+    const { hall, row, column } = req.body;
     try {
       const seat = await Seat.findById(req.params.id);
       if (!seat) {
@@ -99,6 +111,12 @@ router.put(
       }
       if (hall !== undefined) {
         seat.hall = hall;
+      }
+      if (row !== undefined) {
+        seat.row = row;
+      }
+      if (column !== undefined) {
+        seat.column = column;
       }
 
       await seat.save();

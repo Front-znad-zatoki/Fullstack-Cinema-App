@@ -1,4 +1,5 @@
 import express from 'express';
+import { check, validationResult } from 'express-validator';
 // CinemaHall model
 import CinemaHall from './CinemaHall.js';
 import authMiddleware from '../authentication/authMiddleware.js';
@@ -26,7 +27,16 @@ router.post(
   '/',
   authMiddleware,
   adminMiddleware,
+  check('name', 'Country is required').notEmpty().isString().trim(),
+  check('rows', 'Number of rows is required').notEmpty().isInt(),
+  check('columns', 'Number of columns is required')
+    .notEmpty()
+    .isInt(),
   async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
     const { name, rows, columns, cinema } = req.body;
     try {
       const newCinemaHall = new CinemaHall({
@@ -82,7 +92,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// @route DELETE api/cinemaHalls/:id
+// @route DELETE api/cinemahalls/:id
 // @desc Delete a cinema hall
 // @access Admin
 router.delete(
@@ -99,7 +109,6 @@ router.delete(
           error: `Cannot find cinema hall with id: ${req.params.id}`,
         });
       }
-      // TODO: delete all screenings
       // TODO: delete all tickets for screening, orders, send emails
 
       CinemaHall.deleteSeats(req.params.id, (err) => {
@@ -107,6 +116,13 @@ router.delete(
           return res
             .status(400)
             .json({ msg: 'Can not delete seats' });
+        }
+      });
+      CinemaHall.deleteScreenings(req.params.id, (err) => {
+        if (err) {
+          return res
+            .status(400)
+            .json({ msg: 'Can not delete screenings' });
         }
       });
 
@@ -120,7 +136,7 @@ router.delete(
   },
 );
 
-// @route PUT api/cinemas/:id
+// @route PUT api/cinemahalls/:id
 // @desc Change in a CinemaHall
 // @access Admin
 router.put(

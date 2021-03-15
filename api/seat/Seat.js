@@ -16,9 +16,6 @@ const seatSchema = new Schema({
     type: Number,
     required: true,
   },
-  name: {
-    type: String,
-  },
 });
 
 export default mongoose.model('Seat', seatSchema);
