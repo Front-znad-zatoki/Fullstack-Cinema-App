@@ -71,7 +71,7 @@ router
                     ),
                   },
                 },
-                // { cinemaHallId: cinemaHallId }, this solution is not working
+                // TODO: validate hall { cinemaHallId: cinemaHallId }, this solution didn't work
               ],
             },
             {
@@ -84,7 +84,7 @@ router
                     ),
                   },
                 },
-                // { cinemaHallId: cinemaHallId }, this solution is not working
+                // TODO: validate hall { cinemaHallId: cinemaHallId }, this solution didn't work
               ],
             },
           ],
