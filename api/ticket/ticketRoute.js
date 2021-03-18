@@ -2,6 +2,7 @@ import express from 'express';
 import Ticket from './Ticket.js';
 import Screening from '../screening/Screening.js';
 import Order from '../order/Order.js';
+import Seat from '../seat/Seat.js';
 import authMiddleware from '../authentication/authMiddleware.js';
 import adminMiddleware from '../admin/adminMiddleware.js';
 
@@ -25,10 +26,11 @@ router
   // @access admin
   .post(authMiddleware, adminMiddleware, async (req, res) => {
     // eslint-disable-next-line object-curly-newline
-    const { screeningId, row, column, orderId } = req.body;
+    const { screeningId, orderId, seatId } = req.body;
     try {
       const screening = await Screening.findById(screeningId);
       const order = await Order.findById(orderId);
+      const seat = await Seat.findById(seatId);
       if (screening === undefined) {
         res.status(400).json({
           error: `Cannot find screening with id: ${req.params.id}'`,
@@ -41,12 +43,17 @@ router
         });
         return;
       }
+      if (seat === undefined) {
+        res.status(400).json({
+          error: `Cannot find seat with id: ${req.params.id}'`,
+        });
+        return;
+      }
 
       const ticket = new Ticket({
         screening: screeningId,
-        row,
-        column,
         order: orderId,
+        seat: seatId,
       });
       await ticket.save();
       res.status(200).json({ message: ticket.id });
@@ -78,7 +85,7 @@ router
   // @description Update a ticket
   // @access admin
   .put(authMiddleware, adminMiddleware, async (req, res) => {
-    const { screeningId, orderId } = req.body;
+    const { screeningId, orderId, seatId } = req.body;
     const ticket = await Ticket.findById(req.params.id);
     try {
       if (ticket === undefined) {
@@ -97,12 +104,6 @@ router
         }
         ticket.screening = screeningId;
       }
-      if (req.body.row !== undefined) {
-        ticket.row = req.body.row;
-      }
-      if (req.body.column !== undefined) {
-        ticket.column = req.body.column;
-      }
       if (orderId !== undefined) {
         const order = await Order.findById(orderId);
         if (order === undefined) {
@@ -112,6 +113,16 @@ router
           return;
         }
         ticket.order = orderId;
+      }
+      if (seatId !== undefined) {
+        const seat = await Seat.findById(seatId);
+        if (seat === undefined) {
+          res.status(400).json({
+            error: `Cannot find order with id: ${req.params.id}'`,
+          });
+          return;
+        }
+        ticket.seat = seatId;
       }
       await ticket.save();
       res
