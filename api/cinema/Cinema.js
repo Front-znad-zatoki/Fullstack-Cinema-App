@@ -43,7 +43,7 @@ cinemaSchema.statics.deleteCinemaHalls = async function deleteCinemaHalls(
 ) {
   try {
     await CinemaHall.deleteMany({
-      cinema: cinemaId,
+      cinemaId: cinemaId,
     });
   } catch (err) {
     return cb(err);

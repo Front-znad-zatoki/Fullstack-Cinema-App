@@ -1,7 +1,7 @@
 import express from 'express';
 import { check, validationResult } from 'express-validator';
-// Seat model
 import Seat from './Seat.js';
+import CinemaHall from '../cinemaHall/CinemaHall.js';
 import authMiddleware from '../authentication/authMiddleware.js';
 import adminMiddleware from '../admin/adminMiddleware.js';
 
@@ -29,23 +29,36 @@ router.post(
   adminMiddleware,
   check('row', 'Row is required').notEmpty().isInt(),
   check('column', 'Column is required').notEmpty().isInt(),
+  check('hallId', 'HallId is required').notEmpty().trim(),
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const { hall, row, column } = req.body;
+    const { hallId, row, column } = req.body;
     try {
-      const seat = new Seat({
-        hall,
+      const cinemaHall = await CinemaHall.findById(hallId);
+      if (!cinemaHall) {
+        res.status(404).json({
+          msg: `Cannot find cinema hall with id: ${req.params.id}'`,
+        });
+      }
+      const seat = await CinemaHall.findOne({ row, column, hallId });
+      if (seat) {
+        return res
+          .status(404)
+          .json({ errors: [{ msg: 'Seat already exists' }] });
+      }
+      const newSeat = new Seat({
+        hallId,
         row,
         column,
       });
 
-      await seat.save();
+      await newSeat.save();
       res
         .status(201)
-        .json({ msg: 'New seat hall created', seat: seat })
+        .json({ msg: 'New seat created', seat: newSeat })
         .end();
     } catch (e) {
       res.status(400).send(e);
