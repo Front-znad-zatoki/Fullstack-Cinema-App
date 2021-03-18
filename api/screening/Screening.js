@@ -21,6 +21,10 @@ const screeningSchema = new Schema({
     type: Date,
     required: true,
   },
+  endDate: {
+    type: Date,
+    required: true,
+  },
   tickets: [
     {
       type: mongoose.Schema.Types.ObjectId,
