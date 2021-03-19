@@ -7,6 +7,8 @@ import authMiddleware from '../authentication/authMiddleware.js';
 import adminMiddleware from '../admin/adminMiddleware.js';
 
 const router = express.Router();
+const modifyDate = (startDate, minutes) =>
+  new Date(startDate.getTime() + minutes * 60000);
 
 router
   .route('/')
@@ -58,34 +60,21 @@ router
             error: `Cannot find cinemaHall with id: ${req.params.id}'`,
           });
         }
-
         const conflictingScreenings = await Screening.find({
           $or: [
             {
-              $and: [
-                { startDate: { $gte: startDate } },
-                {
-                  startDate: {
-                    $lte: new Date(
-                      startDate.getTime() + movie.duration * 60000,
-                    ),
-                  },
-                },
-                { cinemaHall: cinemaHallId },
-              ],
+              startDate: {
+                $gte: startDate,
+                $lte: modifyDate(startDate, movie.duration + 10),
+              },
+              cinemaHall: cinemaHallId,
             },
             {
-              $and: [
-                { endDate: { $gte: startDate } },
-                {
-                  endDate: {
-                    $lte: new Date(
-                      startDate.getTime() + movie.duration * 60000,
-                    ),
-                  },
-                },
-                { cinemaHall: cinemaHallId },
-              ],
+              endDate: {
+                $gte: modifyDate(startDate, -10),
+                $lte: modifyDate(startDate, movie.duration),
+              },
+              cinemaHall: cinemaHallId,
             },
           ],
         });
@@ -101,9 +90,7 @@ router
           cinemaHall: cinemaHallId,
           price,
           startDate,
-          endDate: new Date(
-            startDate.getTime() + movie.duration * 60000,
-          ),
+          endDate: modifyDate(startDate, movie.duration),
         });
         await screening.save();
         return res.status(200).json({ message: screening.id });
