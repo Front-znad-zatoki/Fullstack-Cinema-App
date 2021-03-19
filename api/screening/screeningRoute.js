@@ -71,7 +71,7 @@ router
                     ),
                   },
                 },
-                // TODO: validate hall { cinemaHallId: cinemaHallId }, this solution didn't work
+                { cinemaHall: cinemaHallId },
               ],
             },
             {
@@ -84,7 +84,7 @@ router
                     ),
                   },
                 },
-                // TODO: validate hall { cinemaHallId: cinemaHallId }, this solution didn't work
+                { cinemaHall: cinemaHallId },
               ],
             },
           ],
