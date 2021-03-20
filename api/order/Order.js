@@ -9,6 +9,7 @@ const orderSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
+    unique: false,
   },
   email: {
     type: String,
@@ -57,38 +58,16 @@ orderSchema.methods.createOrdersDependencies = async function createOrdersDepend
   }
 };
 
-orderSchema.post('save', (doc) => {
-  console.log('post save', doc);
-});
+// orderSchema.post('save', (doc) => {
+//   console.log('post save', doc);
+// });
 
 orderSchema.post(
   'remove',
   { query: true, document: true },
   async (doc) => {
     try {
-      const [ticketsToRemove, screeningToUpdate] = doc.tickets.reduce(
-        (acc, cur) => {
-          acc[0].push(cur.id);
-          if (!acc[1].includes(cur.screening)) {
-            acc[1].push(cur.screening);
-          }
-          return acc;
-        },
-        [[], []],
-      );
-      await Ticket.deleteMany({
-        _id: {
-          $in: ticketsToRemove,
-        },
-      });
-
-      await Screening.findByIdAndUpdate(screeningToUpdate[0], {
-        $pull: {
-          tickets: {
-            $in: ticketsToRemove,
-          },
-        },
-      });
+      await Ticket.deleteMany({ order: doc.id });
     } catch (err) {
       console.log(err);
     }

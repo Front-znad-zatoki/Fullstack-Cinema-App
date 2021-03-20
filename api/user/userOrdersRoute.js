@@ -8,6 +8,7 @@ import Seat from '../seat/Seat.js';
 import Screening from '../screening/Screening.js';
 import transporter from '../../mail/transporter.js';
 import getMailOptions from '../../mail/mailOptions.js';
+import Ticket from '../ticket/Ticket.js';
 
 const router = express.Router();
 
@@ -148,23 +149,22 @@ router.post(
       );
       if (!user) return res.status(404).send('User not found');
       const { tickets, screening } = req.body;
-
       const screeningToUpdate = await Screening.findById(screening)
-        .select('tickets cinemaHall')
-        .populate({ path: 'cinemaHall' })
-        .populate({
-          path: 'tickets',
-          populate: {
-            path: 'seat',
-            model: 'Seat',
-          },
-        });
+        .select('cinemaHall')
+        .populate({ path: 'cinemaHall' });
       if (!screeningToUpdate) {
         return res.status(404).send('Screening not found');
       }
-      const occupiedSeats = screeningToUpdate.tickets.map(
-        (ticket) => [ticket.seat.row, ticket.seat.column],
-      );
+      const existingTickets = await Ticket.find({
+        screening: screeningToUpdate.id,
+      }).populate({
+        path: 'seat',
+        model: 'Seat',
+      });
+      const occupiedSeats = existingTickets.map(({ seat }) => [
+        seat.row,
+        seat.column,
+      ]);
       // eslint-disable-next-line arrow-body-style
       const isSpaceOccupied = ([row, column]) => {
         if (occupiedSeats.length === 0) return false;
@@ -219,10 +219,8 @@ router.post(
         },
       );
       ticketsIds.forEach((ticketId) => {
-        screeningToUpdate.tickets.push(ticketId);
         order.tickets.push(ticketId);
       });
-      await screeningToUpdate.save();
       await order.save();
       user.orders.push(order);
       await user.save();
