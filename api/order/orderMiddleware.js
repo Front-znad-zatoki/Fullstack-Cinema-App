@@ -2,9 +2,9 @@ import jsonwebtoken from 'jsonwebtoken';
 import config from 'config';
 
 export default function (req, res, next) {
-  // Get token from header
+  // Get token from stored cookies
   const token = req.cookies.access_token;
-  // Check if not token, make anonymous order
+  // Check: if not token, make anonymous order
   if (!token) {
     req.isAuthenticated = false;
     req.user = undefined;
@@ -16,12 +16,13 @@ export default function (req, res, next) {
       token,
       config.get('jwtSecret'),
       (error, decoded) => {
-        // if token is not valid, proceed not authenticated
+        // if token is not valid, proceed anonymously
         if (error) {
           req.isAuthenticated = false;
           req.user = undefined;
           return next();
         }
+        // else proceed authenticated
         req.isAuthenticated = true;
         req.user = decoded.user;
         next();

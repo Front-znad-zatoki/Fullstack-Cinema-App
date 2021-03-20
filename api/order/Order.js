@@ -8,7 +8,6 @@ const orderSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    unique: false,
   },
   email: {
     type: String,

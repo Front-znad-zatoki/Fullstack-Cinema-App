@@ -84,7 +84,6 @@ router
           seat.column,
         ]);
         // Check if any of the seats that the order is placed for is occupied
-        // eslint-disable-next-line arrow-body-style
         // Define function to check if space is occupied
         const isSpaceOccupied = ([row, column]) => {
           if (occupiedSeats.length === 0) return false;
@@ -118,6 +117,9 @@ router
               row: rowNr,
               column: columnNr,
             });
+            if (!seat) {
+              return res.status(404).send('Seat not found');
+            }
             return seat;
           }),
         );
@@ -125,7 +127,7 @@ router
           return res.status(404).send('Seats not found');
         }
 
-        // If all data are ok, create order
+        // If all data is ok, create order
         const order = new Order({
           email,
           status,
