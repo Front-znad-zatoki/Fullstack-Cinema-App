@@ -32,8 +32,6 @@ const orderSchema = new Schema({
       ref: 'Ticket',
     },
   ],
-
-  // TODO: prepare enum for status field
 });
 
 orderSchema.methods.createOrdersDependencies = async function createOrdersDependencies(

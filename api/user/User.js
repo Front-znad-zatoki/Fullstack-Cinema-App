@@ -35,14 +35,14 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  // orders: [
-  //   {
-  //     order: {
-  //       type: mongoose.Schema.Types.ObjectId,
-  //       ref: 'order',
-  //     },
-  //   },
-  // ],
+  orders: [
+    {
+      order: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'order',
+      },
+    },
+  ],
   phone: {
     type: String,
     minLength: 7,
