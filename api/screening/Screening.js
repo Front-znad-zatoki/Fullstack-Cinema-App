@@ -27,7 +27,6 @@ const screeningSchema = new Schema({
   //     ref: 'Ticket',
   //   },
   // ],
-
 });
 
 export default mongoose.model('Screening', screeningSchema);

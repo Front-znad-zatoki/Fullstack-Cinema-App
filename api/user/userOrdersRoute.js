@@ -28,7 +28,7 @@ router.get(
         email: user.email,
       });
       if (!user) res.status(404).send('User not found');
-      console.log(orders)
+      console.log(orders);
       res
         .status(200)
         .json({ orders: user.orders, isAuthenticated: true });
