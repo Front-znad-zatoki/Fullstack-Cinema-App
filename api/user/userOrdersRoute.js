@@ -2,13 +2,9 @@ import express from 'express';
 import { check, validationResult } from 'express-validator';
 import User from './User.js';
 import authMiddleware from '../authentication/authMiddleware.js';
-import validateObjectId from '../utils/validateObjectId.js';
 import Order from '../order/Order.js';
-import Seat from '../seat/Seat.js';
-import Screening from '../screening/Screening.js';
 import transporter from '../../mail/transporter.js';
 import getMailOptions from '../../mail/mailOptions.js';
-import Ticket from '../ticket/Ticket.js';
 
 const router = express.Router();
 
@@ -118,130 +114,5 @@ router.delete('/:id', authMiddleware, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
-
-// @route    POST api/users/me/orders/
-// @desc     Add new order
-// @access   Private
-// @example req.body:
-// @{
-// @  "status": "pending",
-// @  "tickets": [[0,0],[1,0]],
-// @  "screening": "604cd23fc5d64540d07eaece"
-// @}
-router.post(
-  '/',
-  authMiddleware,
-  check('status', 'Status is required').trim().notEmpty().isString(),
-  check('screening', 'Screening is required')
-    .trim()
-    .notEmpty()
-    .isString(),
-  check('tickets', 'Ticket is required').notEmpty().isArray(),
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
-    try {
-      const user = await User.findById(req.user.id).select(
-        '-password',
-      );
-      if (!user) return res.status(404).send('User not found');
-      const { tickets, screening } = req.body;
-      const screeningToUpdate = await Screening.findById(screening)
-        .select('cinemaHall')
-        .populate({ path: 'cinemaHall' });
-      if (!screeningToUpdate) {
-        return res.status(404).send('Screening not found');
-      }
-      const existingTickets = await Ticket.find({
-        screening: screeningToUpdate.id,
-      }).populate({
-        path: 'seat',
-        model: 'Seat',
-      });
-      const occupiedSeats = existingTickets.map(({ seat }) => [
-        seat.row,
-        seat.column,
-      ]);
-      // eslint-disable-next-line arrow-body-style
-      const isSpaceOccupied = ([row, column]) => {
-        if (occupiedSeats.length === 0) return false;
-        return occupiedSeats.some(
-          ([occupiedSeatRow, occupiedSeatColumn]) => {
-            let result = false;
-            if (
-              // eslint-disable-next-line operator-linebreak
-              occupiedSeatRow === row &&
-              occupiedSeatColumn === column
-            ) {
-              result = true;
-            }
-            return result;
-          },
-        );
-      };
-      const areEmpty = tickets.every(
-        (ticket) => !isSpaceOccupied(ticket),
-      );
-      if (!areEmpty) {
-        return res.status(404).send('Seats are not empty');
-      }
-      const seats = await Promise.all(
-        tickets.map(([rowNr, columnNr]) => {
-          const seat = Seat.findOne({
-            hall: screeningToUpdate.cinemaHall.id,
-            row: rowNr,
-            column: columnNr,
-          });
-          return seat;
-        }),
-      );
-      if (!seats) {
-        return res.status(404).send('Seats not found');
-      }
-      const order = new Order({
-        user: req.user.id,
-        email: user.email,
-        status: req.body.status,
-      });
-      const ticketsIds = await order.createOrdersDependencies(
-        seats,
-        screening,
-        order,
-        (err) => {
-          if (err) {
-            return res.status(400).json({
-              msg: 'Can not generate tickets for this order',
-            });
-          }
-        },
-      );
-      ticketsIds.forEach((ticketId) => {
-        order.tickets.push(ticketId);
-      });
-      await order.save();
-      user.orders.push(order);
-      await user.save();
-      const emailOptions = getMailOptions(
-        user.email,
-        'Order Placed',
-        `Your order number: ${order.id} was successfully placed`,
-      );
-      transporter.sendMail(emailOptions, (error, info) => {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log(`Email sent: ${info.response}`);
-        }
-      });
-      res.status(200).json({ order: order, isAuthenticated: true });
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server Error');
-    }
-  },
-);
 
 export default router;
