@@ -21,7 +21,11 @@ const orderSchema = new Schema({
       'Please fill a valid email address',
     ],
   },
-  status: String,
+  status: {
+    type: String,
+    enum: ['booked', 'paid', 'cancelled', 'pending'],
+    required: true,
+  },
   tickets: [
     {
       type: mongoose.Schema.Types.ObjectId,

@@ -24,7 +24,11 @@ router.get(
   async (req, res) => {
     try {
       const user = await User.findById(req.user.id).select('orders');
+      const orders = await Order.find({
+        email: user.email,
+      });
       if (!user) res.status(404).send('User not found');
+      console.log(orders)
       res
         .status(200)
         .json({ orders: user.orders, isAuthenticated: true });
