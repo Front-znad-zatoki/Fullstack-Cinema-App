@@ -3,15 +3,13 @@ import { check, validationResult } from 'express-validator';
 import User from './User.js';
 import authMiddleware from '../authentication/authMiddleware.js';
 import Order from '../order/Order.js';
-import transporter from '../../mail/transporter.js';
-import getMailOptions from '../../mail/mailOptions.js';
+import sendEmail from '../../mail/sendEmail.js';
 
 const router = express.Router();
 
 // @route    GET api/users/me/orders
 // @desc     get orders
 // @access   Private
-// TODO: check after orders merged
 router.get(
   '/',
   authMiddleware,
@@ -35,7 +33,6 @@ router.get(
 // @route    GET api/users/me/orders/:orderId
 // @desc     get orders
 // @access   Private
-// TODO: check after orders merged
 router.get(
   '/:orderId',
   authMiddleware,
@@ -45,7 +42,10 @@ router.get(
       const user = await User.findById(req.user.id);
       const { orders } = user;
       const order = await Order.findById(req.params.orderId).populate(
-        'ticket',
+        {
+          path: 'tickets',
+          model: 'Ticket',
+        },
       );
       const orderIds = orders.map((orderData) => orderData.id);
       const isUsersOrder = orderIds.includes(req.params.orderId);
@@ -65,7 +65,6 @@ router.get(
 // @route    DELETE api/users/me/orders/:id
 // @desc     Delete order
 // @access   Private
-// TODO: check after orders merged, connect with orders
 router.delete('/:id', authMiddleware, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -73,10 +72,13 @@ router.delete('/:id', authMiddleware, async (req, res) => {
   }
 
   try {
+    // Check if order exists
     const order = await Order.findById(req.params.id)
       .populate('tickets')
       .exec();
     if (!order) return res.status(404).send('Order not found');
+
+    // Check if user exists and remove order from the list of orders
     const user = await User.findByIdAndUpdate(req.user.id, {
       $pull: {
         orders: {
@@ -85,27 +87,22 @@ router.delete('/:id', authMiddleware, async (req, res) => {
       },
     }).select('orders email');
     const userOrders = user.orders;
+
+    // check if this order belongs to this user
     if (
       !userOrders.some((orderItem) => orderItem.id === req.params.id)
     ) {
       return res.status(404).send('Order not found');
     }
     if (!user) return res.status(404).send('User not found');
+
+    // Save results
     await user.save();
     await order.remove();
 
-    const emailOptions = getMailOptions(
-      user.email,
-      'Order Deleted',
-      `Your order number: ${order.id} was successfully deleted`,
-    );
-    transporter.sendMail(emailOptions, (error, info) => {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log(`Email sent: ${info.response}`);
-      }
-    });
+    // Send notifications
+    sendEmail(user.email, order.id, 'deleted');
+
     res.status(200).json({
       deletedOrder: order,
       isAuthenticated: true,

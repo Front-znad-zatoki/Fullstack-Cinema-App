@@ -48,10 +48,6 @@ const userSchema = new mongoose.Schema({
     minLength: 7,
     maxlength: 20,
   },
-  // TODO: add avatar
-  // avatar: {
-  //   type: String,
-  // },
 });
 
 export default mongoose.model('User', userSchema);

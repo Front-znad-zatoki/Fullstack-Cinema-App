@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import Screening from '../screening/Screening.js';
 import Ticket from '../ticket/Ticket.js';
 import validateEmail from '../utils/validateEmail.js';
 
@@ -57,10 +56,6 @@ orderSchema.methods.createOrdersDependencies = async function createOrdersDepend
     return cb(err);
   }
 };
-
-// orderSchema.post('save', (doc) => {
-//   console.log('post save', doc);
-// });
 
 orderSchema.post(
   'remove',

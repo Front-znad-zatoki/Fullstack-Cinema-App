@@ -6,10 +6,9 @@ import Ticket from '../ticket/Ticket.js';
 import authMiddleware from '../authentication/authMiddleware.js';
 import adminMiddleware from '../admin/adminMiddleware.js';
 import orderMiddleware from './orderMiddleware.js';
-import transporter from '../../mail/transporter.js';
-import getMailOptions from '../../mail/mailOptions.js';
 import Seat from '../seat/Seat.js';
 import Screening from '../screening/Screening.js';
+import sendEmail from '../../mail/sendEmail.js';
 
 const router = express.Router();
 
@@ -86,6 +85,7 @@ router
         ]);
         // Check if any of the seats that the order is placed for is occupied
         // eslint-disable-next-line arrow-body-style
+        // Define function to check if space is occupied
         const isSpaceOccupied = ([row, column]) => {
           if (occupiedSeats.length === 0) return false;
           return occupiedSeats.some(
@@ -102,12 +102,15 @@ router
             },
           );
         };
+        // Create a variable that holds the information if seats are empty
         const areEmpty = tickets.every(
           (ticket) => !isSpaceOccupied(ticket),
         );
         if (!areEmpty) {
           return res.status(404).send('Seats are not empty');
         }
+
+        // Check if seats exist and create tuples for further tickets creation
         const seats = await Promise.all(
           tickets.map(([rowNr, columnNr]) => {
             const seat = Seat.findOne({
@@ -158,18 +161,8 @@ router
         }
 
         // Send email with notifications
-        const emailOptions = getMailOptions(
-          email,
-          'Order Placed',
-          `Your order number: ${order.id} was successfully placed`,
-        );
-        transporter.sendMail(emailOptions, (error, info) => {
-          if (error) {
-            console.log(error);
-          } else {
-            console.log(`Email sent: ${info.response}`);
-          }
-        });
+        sendEmail(email, order.id, 'placed');
+
         res.status(200).json({ msg: 'POSTED', order: order });
       } catch (e) {
         res.status(400).send({ msg: 'Error placing order' });
@@ -213,19 +206,9 @@ router
 
       // Get email of the client and send notification
       const { email } = order;
-      const emailOptions = getMailOptions(
-        email,
-        'Order Deleted',
-        `Your order number: ${order.id} was successfully deleted`,
-      );
-      transporter.sendMail(emailOptions, (error, info) => {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log(`Email sent: ${info.response}`);
-        }
-      });
+      sendEmail(email, order.id, 'deleted');
 
+      // Remove order from users order if user exists
       const userId = order.user;
       if (userId) {
         const user = await User.findByIdAndUpdate(userId, {
@@ -238,7 +221,7 @@ router
         await user.save();
       }
 
-      res.status(204).json(order);
+      res.status(204).json({ msg: 'Order deleted' });
     } catch (e) {
       res.status(400).send(e);
     }

@@ -16,6 +16,7 @@ export default function (req, res, next) {
       token,
       config.get('jwtSecret'),
       (error, decoded) => {
+        // if token is not valid, proceed not authenticated
         if (error) {
           req.isAuthenticated = false;
           req.user = undefined;
@@ -27,7 +28,7 @@ export default function (req, res, next) {
       },
     );
   } catch (err) {
-    console.error('something wrong with auth middleware');
+    console.error('something wrong with order middleware');
     res.status(500).json({ msg: 'Server Error' });
   }
 }

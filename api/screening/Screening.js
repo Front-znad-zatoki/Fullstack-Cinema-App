@@ -21,12 +21,6 @@ const screeningSchema = new Schema({
     type: Date,
     required: true,
   },
-  // tickets: [
-  //   {
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: 'Ticket',
-  //   },
-  // ],
 });
 
 export default mongoose.model('Screening', screeningSchema);
