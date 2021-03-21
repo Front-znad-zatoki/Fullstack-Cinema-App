@@ -9,7 +9,6 @@ describe('JavaScript sample test', () => {
     });
   });
 });
-
 /* import mongoose from 'mongoose';
 import supertest from 'supertest';
 

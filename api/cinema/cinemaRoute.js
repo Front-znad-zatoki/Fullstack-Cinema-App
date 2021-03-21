@@ -2,7 +2,6 @@ import express from 'express';
 // Cinema model
 import { check, validationResult } from 'express-validator';
 import Cinema from './Cinema.js';
-import CinemaHall from '../cinemaHall/CinemaHall.js';
 import authMiddleware from '../authentication/authMiddleware.js';
 import adminMiddleware from '../admin/adminMiddleware.js';
 
