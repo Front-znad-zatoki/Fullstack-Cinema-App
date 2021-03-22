@@ -121,22 +121,6 @@ router.delete(
           error: `Cannot find cinema hall with id: ${req.params.id}`,
         });
       }
-      // TODO: delete all tickets for screening, orders, send emails
-
-      /* CinemaHall.deleteSeats(req.params.id, (err) => {
-        if (err) {
-          return res
-            .status(400)
-            .json({ msg: 'Can not delete seats' });
-        }
-      });
-      CinemaHall.deleteScreenings(req.params.id, (err) => {
-        if (err) {
-          return res
-            .status(400)
-            .json({ msg: 'Can not delete screenings' });
-        }
-      }); */
 
       return res
         .status(200)

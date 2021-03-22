@@ -37,17 +37,16 @@ const cinemaSchema = new Schema({
     },
   },
 });
-cinemaSchema.statics.deleteCinemaHalls = async function deleteCinemaHalls(
-  cinemaId,
-  cb,
-) {
-  try {
-    await CinemaHall.deleteMany({
-      cinemaId: cinemaId,
-    });
-  } catch (err) {
-    return cb(err);
-  }
-};
+cinemaSchema.post(
+  'findOneAndDelete',
+  { query: true, document: true },
+  async (doc) => {
+    try {
+      await CinemaHall.deleteMany({ cinemaId: doc.id });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+);
 
 export default mongoose.model('Cinema', cinemaSchema);

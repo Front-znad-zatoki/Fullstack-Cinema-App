@@ -105,13 +105,6 @@ router.delete(
           error: `Cannot find cinema with id: ${req.params.id}`,
         });
       }
-      Cinema.deleteCinemaHalls(req.params.id, (err) => {
-        if (err) {
-          return res
-            .status(400)
-            .json({ msg: 'Can not delete cinema halls' });
-        }
-      });
       res.status(200).json({ msg: 'Cinema deleted' }).end();
     } catch (e) {
       res.status(500).send(e);

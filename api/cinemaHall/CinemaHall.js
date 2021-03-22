@@ -38,7 +38,7 @@ cinemaHallSchema.statics.generateSeats = async function generateSeats(
   }
 };
 cinemaHallSchema.post(
-  'remove',
+  'findOneAndDelete',
   { query: true, document: true },
   async (doc) => {
     try {
@@ -48,29 +48,16 @@ cinemaHallSchema.post(
     }
   },
 );
-/* cinemaHallSchema.statics.deleteSeats = async function deleteSeats(
-  cinemaHallId,
-  cb,
-) {
-  try {
-    await Seat.deleteMany({
-      hallId: cinemaHallId,
-    });
-  } catch (err) {
-    return cb(err);
-  }
-};
-cinemaHallSchema.statics.deleteScreenings = async function deleteScreenings(
-  cinemaHallId,
-  cb,
-) {
-  try {
-    await Screening.deleteMany({
-      cinemaHall: cinemaHallId,
-    });
-  } catch (err) {
-    return cb(err);
-  }
-}; */
+cinemaHallSchema.post(
+  'findOneAndDelete',
+  { query: true, document: true },
+  async (doc) => {
+    try {
+      await Screening.deleteMany({ cinemaHall: doc.id });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+);
 
 export default mongoose.model('CinemaHall', cinemaHallSchema);

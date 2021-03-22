@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import Screening from '../screening/Screening.js';
 
 const movieSchema = new mongoose.Schema({
   title: {
@@ -30,5 +31,16 @@ const movieSchema = new mongoose.Schema({
     trim: true,
   },
 });
+movieSchema.post(
+  'findOneAndDelete',
+  { query: true, document: true },
+  async (doc) => {
+    try {
+      await Screening.deleteMany({ movie: doc.id });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+);
 
 export default mongoose.model('Movie', movieSchema);
