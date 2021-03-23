@@ -88,6 +88,8 @@ router
             .json({ error: 'Conflicting screenings found.' });
         }
 
+        // TODO: Verify screening hours with cinema working hours
+
         const screening = new Screening({
           movie: movieId,
           cinemaHall: cinemaHallId,
