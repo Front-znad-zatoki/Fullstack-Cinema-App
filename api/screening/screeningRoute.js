@@ -5,10 +5,9 @@ import Movie from '../movie/Movie.js';
 import CinemaHall from '../cinemaHall/CinemaHall.js';
 import authMiddleware from '../authentication/authMiddleware.js';
 import adminMiddleware from '../admin/adminMiddleware.js';
+import modifyDate from '../utils/modifyDate.js';
 
 const router = express.Router();
-const modifyDate = (startDate, minutes) =>
-  new Date(startDate.getTime() + minutes * 60000);
 
 router
   .route('/')
