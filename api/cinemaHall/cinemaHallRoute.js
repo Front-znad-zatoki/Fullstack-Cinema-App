@@ -1,6 +1,8 @@
 import express from 'express';
+import { check, validationResult } from 'express-validator';
 // CinemaHall model
 import CinemaHall from './CinemaHall.js';
+import Cinema from '../cinema/Cinema.js';
 import authMiddleware from '../authentication/authMiddleware.js';
 import adminMiddleware from '../admin/adminMiddleware.js';
 
@@ -26,19 +28,39 @@ router.post(
   '/',
   authMiddleware,
   adminMiddleware,
+  check('name', 'Name is required').notEmpty().isString().trim(),
+  check('rows', 'Number of rows is required').notEmpty().isInt(),
+  check('columns', 'Number of columns is required')
+    .notEmpty()
+    .isInt(),
+  check('cinemaId', 'CinemaId is required').notEmpty().trim(),
   async (req, res) => {
-    const { name, rows, columns, cinema } = req.body;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const { name, rows, columns, cinemaId } = req.body;
     try {
+      const cinema = await Cinema.findById(cinemaId);
+      if (!cinema) {
+        res.status(404).json({
+          msg: `Cannot find cinema with id: ${req.params.id}'`,
+        });
+      }
+      const hall = await CinemaHall.findOne({ name, cinemaId });
+      if (hall) {
+        return res
+          .status(404)
+          .json({ errors: [{ msg: 'Cinema hall already exists' }] });
+      }
       const newCinemaHall = new CinemaHall({
         name,
         rows,
         columns,
-        cinema,
+        cinemaId,
       });
-      // TODO: find cinema, check if hall exists if(hallExists){bad request, hall exists}
       await newCinemaHall.save();
 
-      // TODO: generate seats
       CinemaHall.generateSeats(
         newCinemaHall.id,
         rows,
@@ -82,7 +104,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// @route DELETE api/cinemaHalls/:id
+// @route DELETE api/cinemahalls/:id
 // @desc Delete a cinema hall
 // @access Admin
 router.delete(
@@ -99,16 +121,6 @@ router.delete(
           error: `Cannot find cinema hall with id: ${req.params.id}`,
         });
       }
-      // TODO: delete all screenings
-      // TODO: delete all tickets for screening, orders, send emails
-
-      CinemaHall.deleteSeats(req.params.id, (err) => {
-        if (err) {
-          return res
-            .status(400)
-            .json({ msg: 'Can not delete seats' });
-        }
-      });
 
       return res
         .status(200)
@@ -120,7 +132,7 @@ router.delete(
   },
 );
 
-// @route PUT api/cinemas/:id
+// @route PUT api/cinemahalls/:id
 // @desc Change in a CinemaHall
 // @access Admin
 router.put(

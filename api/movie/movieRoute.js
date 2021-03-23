@@ -1,4 +1,5 @@
 import express from 'express';
+import { check, validationResult } from 'express-validator';
 import Movie from './Movie.js';
 import authMiddleware from '../authentication/authMiddleware.js';
 import adminMiddleware from '../admin/adminMiddleware.js';
@@ -20,30 +21,59 @@ router
   // @route POST api/movies
   // @description Create a movie
   // @access admin
-  .post(authMiddleware, adminMiddleware, async (req, res) => {
-    const {
-      title,
-      duration,
-      releaseDate,
-      description,
-      poster,
-      genre,
-    } = req.body;
-    try {
-      const movie = new Movie({
+  .post(
+    authMiddleware,
+    adminMiddleware,
+    check('title', 'Please enter a title')
+      .trim()
+      .notEmpty()
+      .isString(),
+    check('duration', 'Please enter a duration').notEmpty().isFloat(),
+    check('releaseDate', 'Please enter a release date')
+      .trim()
+      .isISO8601()
+      .toDate(),
+    check('description', 'Please enter a description')
+      .trim()
+      .notEmpty()
+      .isString(),
+    check('poster', 'Poster is required')
+      .trim()
+      .notEmpty()
+      .isString(),
+    check('genre', 'Please enter a genre')
+      .trim()
+      .notEmpty()
+      .isString(),
+    async (req, res) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+      const {
         title,
         duration,
         releaseDate,
         description,
         poster,
         genre,
-      });
-      await movie.save();
-      res.status(200).json({ message: movie.id });
-    } catch (e) {
-      res.status(400).send(e);
-    }
-  });
+      } = req.body;
+      try {
+        const movie = new Movie({
+          title,
+          duration,
+          releaseDate,
+          description,
+          poster,
+          genre,
+        });
+        await movie.save();
+        res.status(200).json({ message: movie.id });
+      } catch (e) {
+        res.status(400).send(e);
+      }
+    },
+  );
 
 router
   .route('/:id')
