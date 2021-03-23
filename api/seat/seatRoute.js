@@ -73,6 +73,7 @@ router.delete(
           error: `Cannot find seat with id: ${req.params.id}`,
         });
       }
+      // TODO: delete all orders and tickets with this seat
       return res.status(204).end();
     } catch (e) {
       res.status(500).send(e);
