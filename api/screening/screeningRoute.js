@@ -3,9 +3,13 @@ import { check, validationResult } from 'express-validator';
 import Screening from './Screening.js';
 import Movie from '../movie/Movie.js';
 import CinemaHall from '../cinemaHall/CinemaHall.js';
+import Ticket from '../ticket/Ticket.js';
+import Order from '../order/Order.js';
+import User from '../user/User.js';
 import authMiddleware from '../authentication/authMiddleware.js';
 import adminMiddleware from '../admin/adminMiddleware.js';
 import modifyDate from '../utils/modifyDate.js';
+import sendEmail from '../../mail/sendEmail.js';
 
 const router = express.Router();
 
@@ -162,6 +166,18 @@ router
           error: `Cannot find screening with id: ${req.params.id}'`,
         });
       }
+      const tickets = await Ticket.find({
+        id: { $in: screening.tickets },
+      });
+      const orders = await Order.find({
+        id: { $in: tickets.map((ticket) => ticket.order) },
+      });
+
+      orders.forEach(async (order) => {
+        const user = await User.findById(order.user);
+        sendEmail(user.email, order.id, 'deleted');
+      });
+
       return res.status(204).json(screening);
     } catch (e) {
       return res.status(400).send(e);
