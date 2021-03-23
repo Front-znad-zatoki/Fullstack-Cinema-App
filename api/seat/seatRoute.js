@@ -1,6 +1,7 @@
 import express from 'express';
-// CinemaHall model
+import { check, validationResult } from 'express-validator';
 import Seat from './Seat.js';
+import CinemaHall from '../cinemaHall/CinemaHall.js';
 import authMiddleware from '../authentication/authMiddleware.js';
 import adminMiddleware from '../admin/adminMiddleware.js';
 
@@ -26,15 +27,39 @@ router.post(
   '/',
   authMiddleware,
   adminMiddleware,
+  check('row', 'Row is required').notEmpty().isInt(),
+  check('column', 'Column is required').notEmpty().isInt(),
+  check('hallId', 'HallId is required').notEmpty().trim(),
   async (req, res) => {
-    const { hall } = req.body;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const { hallId, row, column } = req.body;
     try {
-      const seat = new Seat({
-        hall,
+      const cinemaHall = await CinemaHall.findById(hallId);
+      if (!cinemaHall) {
+        res.status(404).json({
+          msg: `Cannot find cinema hall with id: ${req.params.id}'`,
+        });
+      }
+      const seat = await CinemaHall.findOne({ row, column, hallId });
+      if (seat) {
+        return res
+          .status(404)
+          .json({ errors: [{ msg: 'Seat already exists' }] });
+      }
+      const newSeat = new Seat({
+        hallId,
+        row,
+        column,
       });
 
-      await seat.save();
-      res.status(201).end();
+      await newSeat.save();
+      res
+        .status(201)
+        .json({ msg: 'New seat created', seat: newSeat })
+        .end();
     } catch (e) {
       res.status(400).send(e);
     }
@@ -73,8 +98,7 @@ router.delete(
           error: `Cannot find seat with id: ${req.params.id}`,
         });
       }
-      // TODO: delete all orders and tickets with this seat
-      return res.status(204).end();
+      return res.status(200).json({ msg: 'Seat deleted' }).end();
     } catch (e) {
       res.status(500).send(e);
     }
@@ -89,7 +113,7 @@ router.put(
   authMiddleware,
   adminMiddleware,
   async (req, res) => {
-    const { hall } = req.body;
+    const { hall, row, column } = req.body;
     try {
       const seat = await Seat.findById(req.params.id);
       if (!seat) {
@@ -100,6 +124,12 @@ router.put(
       }
       if (hall !== undefined) {
         seat.hall = hall;
+      }
+      if (row !== undefined) {
+        seat.row = row;
+      }
+      if (column !== undefined) {
+        seat.column = column;
       }
 
       await seat.save();

@@ -1,14 +1,15 @@
 /* eslint-disable no-await-in-loop */
 import mongoose from 'mongoose';
 import Seat from '../seat/Seat.js';
+import Screening from '../screening/Screening.js';
 
 const { Schema } = mongoose;
 
 const cinemaHallSchema = new Schema({
-  name: { type: Number, required: true },
+  name: { type: String, required: true },
   rows: { type: Number, required: true },
   columns: { type: Number, required: true },
-  cinema: {
+  cinemaId: {
     type: Schema.Types.ObjectId,
     required: true,
     ref: 'Cinema',
@@ -25,7 +26,7 @@ cinemaHallSchema.statics.generateSeats = async function generateSeats(
     for (let i = 0; i < rows; i += 1) {
       for (let j = 0; j < columns; j += 1) {
         const seat = new Seat({
-          hall: cinemaHallId,
+          hallId: cinemaHallId,
           row: i,
           column: j,
         });
@@ -36,18 +37,27 @@ cinemaHallSchema.statics.generateSeats = async function generateSeats(
     return cb(err);
   }
 };
-
-cinemaHallSchema.statics.deleteSeats = async function deleteSeats(
-  cinemaHallId,
-  cb,
-) {
-  try {
-    await Seat.deleteMany({
-      hall: cinemaHallId,
-    });
-  } catch (err) {
-    return cb(err);
-  }
-};
+cinemaHallSchema.post(
+  'findOneAndDelete',
+  { query: true, document: true },
+  async (doc) => {
+    try {
+      await Seat.deleteMany({ hallId: doc.id });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+);
+cinemaHallSchema.post(
+  'findOneAndDelete',
+  { query: true, document: true },
+  async (doc) => {
+    try {
+      await Screening.deleteMany({ cinemaHall: doc.id });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+);
 
 export default mongoose.model('CinemaHall', cinemaHallSchema);

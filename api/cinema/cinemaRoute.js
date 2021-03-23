@@ -1,5 +1,6 @@
 import express from 'express';
 // Cinema model
+import { check, validationResult } from 'express-validator';
 import Cinema from './Cinema.js';
 import authMiddleware from '../authentication/authMiddleware.js';
 import adminMiddleware from '../admin/adminMiddleware.js';
@@ -28,7 +29,28 @@ router.post(
   '/',
   authMiddleware,
   adminMiddleware,
+  check('country', 'Country is required')
+    .notEmpty()
+    .isString()
+    .trim(),
+  check('city', 'City is required').notEmpty().isString().trim(),
+  check('street', 'Street is required').notEmpty().isString().trim(),
+  check('email', 'Please include a valid email')
+    .isEmail()
+    .trim()
+    .normalizeEmail(),
+  check('phone', 'Phone is required').notEmpty().isString().trim(),
+  check('hours.open', 'Opening hour is required (0-23)')
+    .notEmpty()
+    .isFloat({ min: 0, max: 23 }),
+  check('hours.close', 'Closing tima is required (0-23)')
+    .notEmpty()
+    .isFloat({ min: 0, max: 23 }),
   async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
     const { country, city, street, email, phone, hours } = req.body;
 
     try {
@@ -41,7 +63,10 @@ router.post(
         hours,
       });
       await newCinema.save();
-      res.status(201).json({ msg: 'New cinema created' }).end();
+      res
+        .status(201)
+        .json({ msg: 'New cinema created', cinema: newCinema })
+        .end();
     } catch (e) {
       res.status(400).send(e);
     }
@@ -80,7 +105,7 @@ router.delete(
           error: `Cannot find cinema with id: ${req.params.id}`,
         });
       }
-      res.status(204).json({ msg: 'Cinema deleted' }).end();
+      res.status(200).json({ msg: 'Cinema deleted' }).end();
     } catch (e) {
       res.status(500).send(e);
     }
