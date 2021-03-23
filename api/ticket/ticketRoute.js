@@ -11,8 +11,8 @@ router
   .route('/')
   // @route GET api/tickets
   // @description Get all tickets
-  // @access public
-  .get(async (req, res) => {
+  // @access admin
+  .get(authMiddleware, adminMiddleware, async (req, res) => {
     try {
       const tickets = await Ticket.find().select('-order');
       res.status(200).json(tickets);
@@ -69,6 +69,7 @@ router
         });
         return;
       }
+      // TODO: check if ticket belongs to user
       res.status(200).json(ticket);
     } catch (e) {
       res.status(400).send(e);
@@ -113,6 +114,7 @@ router
         }
         ticket.order = orderId;
       }
+      // TODO: analyze how could the ticket be changed, maybe remove PUT method
       await ticket.save();
       res
         .status(200)
