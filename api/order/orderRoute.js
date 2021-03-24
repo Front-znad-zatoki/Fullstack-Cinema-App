@@ -107,7 +107,7 @@ router
         if (!areEmpty) {
           return res.status(404).send('Seats are not empty');
         }
-        console.log(areEmpty)
+        console.log(areEmpty);
         // Check if seats exist and create tuples for further tickets creation
         const seats = await Promise.all(
           tickets.map(([rowNr, columnNr]) => {
@@ -125,7 +125,7 @@ router
         if (!seats) {
           return res.status(404).send('Seats not found');
         }
-        console.log(seats)
+        console.log(seats);
         // If all data is ok, create order
         const order = new Order({
           email,
