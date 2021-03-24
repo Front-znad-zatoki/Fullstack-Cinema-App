@@ -5,38 +5,41 @@ import CinemaHall from '../cinemaHall/CinemaHall.js';
 
 const { Schema } = mongoose;
 
-const cinemaSchema = new Schema({
-  country: { type: String, required: true },
-  city: { type: String, required: true },
-  street: { type: String, required: true, unique: true },
-  email: {
-    type: String,
-    unique: true,
-    required: true,
-    trim: true,
-    lowercase: true,
-    validate: [validateEmail, 'invalid email'],
-    match: [
-      /^[a-z\d]+[\w\d.-]*@(?:[a-z\d]+[a-z\d-]+\.){1,5}[a-z]{2,6}$/i,
-      'Please fill a valid email address',
-    ],
-  },
-  phone: { type: String, required: true, unique: true },
-  hours: {
-    open: {
-      type: Number,
+const cinemaSchema = new Schema(
+  {
+    country: { type: String, required: true },
+    city: { type: String, required: true },
+    street: { type: String, required: true, unique: true },
+    email: {
+      type: String,
+      unique: true,
       required: true,
-      min: 0,
-      max: 23,
+      trim: true,
+      lowercase: true,
+      validate: [validateEmail, 'invalid email'],
+      match: [
+        /^[a-z\d]+[\w\d.-]*@(?:[a-z\d]+[a-z\d-]+\.){1,5}[a-z]{2,6}$/i,
+        'Please fill a valid email address',
+      ],
     },
-    close: {
-      type: Number,
-      required: true,
-      min: 0,
-      max: 23,
+    phone: { type: String, required: true, unique: true },
+    hours: {
+      open: {
+        type: Number,
+        required: true,
+        min: 0,
+        max: 23,
+      },
+      close: {
+        type: Number,
+        required: true,
+        min: 0,
+        max: 23,
+      },
     },
   },
-});
+  { timestamps: true },
+);
 cinemaSchema.post(
   'findOneAndDelete',
   { query: true, document: true },
