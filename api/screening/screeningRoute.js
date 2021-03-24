@@ -50,17 +50,18 @@ router
       }
       // eslint-disable-next-line object-curly-newline
       const { movieId, cinemaHallId, price, startDate } = req.body;
+      console.log(movieId, cinemaHallId);
       try {
         const movie = await Movie.findById(movieId);
         const cinemaHall = await CinemaHall.findById(cinemaHallId);
         if (movie === undefined) {
           return res.status(400).json({
-            error: `Cannot find movie with id: ${req.params.id}'`,
+            error: `Cannot find movie with id: ${movieId}'`,
           });
         }
         if (cinemaHall === undefined) {
           return res.status(400).json({
-            error: `Cannot find cinemaHall with id: ${req.params.id}'`,
+            error: `Cannot find cinemaHall with id: ${cinemaHallId}'`,
           });
         }
         const conflictingScreenings = await Screening.find({
@@ -91,14 +92,14 @@ router
         // TODO: Verify screening hours with cinema working hours
 
         const screening = new Screening({
-          movie: movieId,
-          cinemaHall: cinemaHallId,
+          movieId: movieId,
+          cinemaHallId: cinemaHallId,
           price,
           startDate,
           endDate: modifyDate(startDate, movie.duration),
         });
         await screening.save();
-        return res.status(200).json({ message: screening.id });
+        return res.status(200).json({ message: screening });
       } catch (e) {
         return res.status(400).send(e);
       }

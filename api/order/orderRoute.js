@@ -62,11 +62,10 @@ router
         const userPlacingOrder = isAuthenticated
           ? await User.findById(user.id).select('email orders')
           : undefined;
-
         // Get screening for which the order was placed
         const screeningChosen = await Screening.findById(screening)
-          .select('cinemaHall')
-          .populate({ path: 'cinemaHall' });
+          .select('cinemaHallId')
+          .populate({ path: 'cinemaHallId' });
         // If the screening doesn't exist send 404
         if (!screeningChosen) {
           return res.status(404).send('Screening not found');
@@ -108,12 +107,12 @@ router
         if (!areEmpty) {
           return res.status(404).send('Seats are not empty');
         }
-
+        console.log(areEmpty);
         // Check if seats exist and create tuples for further tickets creation
         const seats = await Promise.all(
           tickets.map(([rowNr, columnNr]) => {
             const seat = Seat.findOne({
-              hall: screeningChosen.cinemaHall.id,
+              hallId: screeningChosen.cinemaHallId.id,
               row: rowNr,
               column: columnNr,
             });
@@ -126,7 +125,7 @@ router
         if (!seats) {
           return res.status(404).send('Seats not found');
         }
-
+        console.log(seats);
         // If all data is ok, create order
         const order = new Order({
           email,
@@ -223,7 +222,7 @@ router
         await user.save();
       }
 
-      res.status(204).json({ msg: 'Order deleted' });
+      res.status(200).json({ msg: 'Order deleted', order: order });
     } catch (e) {
       res.status(400).send(e);
     }

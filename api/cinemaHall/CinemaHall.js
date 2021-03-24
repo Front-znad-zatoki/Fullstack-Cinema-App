@@ -5,16 +5,19 @@ import Screening from '../screening/Screening.js';
 
 const { Schema } = mongoose;
 
-const cinemaHallSchema = new Schema({
-  name: { type: String, required: true },
-  rows: { type: Number, required: true },
-  columns: { type: Number, required: true },
-  cinemaId: {
-    type: Schema.Types.ObjectId,
-    required: true,
-    ref: 'Cinema',
+const cinemaHallSchema = new Schema(
+  {
+    name: { type: String, required: true },
+    rows: { type: Number, required: true },
+    columns: { type: Number, required: true },
+    cinemaId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'Cinema',
+    },
   },
-});
+  { timestamps: true },
+);
 
 cinemaHallSchema.statics.generateSeats = async function generateSeats(
   cinemaHallId,
