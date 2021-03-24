@@ -4,34 +4,37 @@ import validateEmail from '../utils/validateEmail.js';
 
 const { Schema } = mongoose;
 
-const orderSchema = new Schema({
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-  },
-  email: {
-    type: String,
-    required: true,
-    trim: true,
-    lowercase: true,
-    validate: [validateEmail, 'invalid email'],
-    match: [
-      /^[a-z\d]+[\w\d.-]*@(?:[a-z\d]+[a-z\d-]+\.){1,5}[a-z]{2,6}$/i,
-      'Please fill a valid email address',
+const orderSchema = new Schema(
+  {
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
+    email: {
+      type: String,
+      required: true,
+      trim: true,
+      lowercase: true,
+      validate: [validateEmail, 'invalid email'],
+      match: [
+        /^[a-z\d]+[\w\d.-]*@(?:[a-z\d]+[a-z\d-]+\.){1,5}[a-z]{2,6}$/i,
+        'Please fill a valid email address',
+      ],
+    },
+    status: {
+      type: String,
+      enum: ['booked', 'paid', 'cancelled', 'pending'],
+      required: true,
+    },
+    tickets: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Ticket',
+      },
     ],
   },
-  status: {
-    type: String,
-    enum: ['booked', 'paid', 'cancelled', 'pending'],
-    required: true,
-  },
-  tickets: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Ticket',
-    },
-  ],
-});
+  { timestamps: true },
+);
 
 orderSchema.methods.createOrdersDependencies = async function createOrdersDependencies(
   seats,
