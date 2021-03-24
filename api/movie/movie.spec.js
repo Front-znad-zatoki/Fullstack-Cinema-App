@@ -73,4 +73,5 @@ test('GET /api/movies/:id', async () => {
       expect(response.body.title).toBe(movie.title);
       expect(response.body.poster).toBe(movie.poster);
     });
-}); */
+});
+ */
