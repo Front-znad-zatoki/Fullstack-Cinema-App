@@ -64,7 +64,7 @@ router
           : undefined;
         // Get screening for which the order was placed
         const screeningChosen = await Screening.findById(screening)
-          .select('cinemaHall')
+          .select('cinemaHallId')
           .populate({ path: 'cinemaHallId' });
         // If the screening doesn't exist send 404
         if (!screeningChosen) {
@@ -222,7 +222,7 @@ router
         await user.save();
       }
 
-      res.status(204).json({ msg: 'Order deleted' });
+      res.status(200).json({ msg: 'Order deleted', order: order });
     } catch (e) {
       res.status(400).send(e);
     }
