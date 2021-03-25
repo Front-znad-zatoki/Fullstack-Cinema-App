@@ -4,6 +4,7 @@ import AppTheme from '../../context/Theme/themeColors';
 import MovieList from '../MovieList';
 import './style.scss';
 import MovieSlider from '../MovieSlider';
+import Seat from '../Seat';
 
 function Landing() {
   const theme = useContext(ThemeContext)[0];
@@ -19,6 +20,7 @@ function Landing() {
       Rendering Landing Page
       <MovieSlider />
       <MovieList />
+      <Seat />
     </div>
   );
 }
