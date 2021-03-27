@@ -41,7 +41,7 @@ function MovieView({ match }) {
           <strong>description:</strong> {description}
         </p>
         <h4>We're playing now in:</h4>
-        <button id="back">
+        <button>
           <Link to="/movies">Back</Link>
         </button>
       </div>
