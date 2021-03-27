@@ -20,16 +20,18 @@ export const register = async (formData, dispatch) => {
       type: REGISTER_SUCCESS,
       payload: res.data,
     });
-    console.log('registered');
+    console.log('registered', res);
+    return true;
   } catch (err) {
     const { errors } = err.response.data;
     if (errors) {
       errors.forEach((error) => alert(error.msg, 'Something went wrong'));
     }
-    console.log('not registered');
+    console.log('not registered', errors);
     dispatch({
       type: REGISTER_FAIL,
     });
+    return false;
   }
 };
 
