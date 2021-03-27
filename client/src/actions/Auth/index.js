@@ -22,11 +22,10 @@ export const register = async (formData, dispatch) => {
     });
     console.log('registered');
   } catch (err) {
-    // const { errors } = err.response.data;
-
-    // if (errors) {
-    //   errors.forEach((error) => console.log(error.msg, 'Something went wrong'));
-    // }
+    const { errors } = err.response.data;
+    if (errors) {
+      errors.forEach((error) => alert(error.msg, 'Something went wrong'));
+    }
     console.log('not registered');
     dispatch({
       type: REGISTER_FAIL,

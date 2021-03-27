@@ -12,12 +12,13 @@ function SignUp() {
   const currentTheme = AppTheme[theme];
   const [formData, setFormData] = useState({
     name: '',
+    surname: '',
     email: '',
     password: '',
     passwordRepeat: '',
   });
 
-  const { name, email, password, passwordRepeat } = formData;
+  const { name, surname, email, password, passwordRepeat } = formData;
 
   const onChange = (event) =>
     setFormData({
@@ -29,10 +30,9 @@ function SignUp() {
     event.preventDefault();
     if (password !== passwordRepeat) {
       alert('Passwords are not the same');
+      return;
     }
-    register({ name, email, password }, dispatchUserContext);
-    console.log({ name, email, password });
-    // return ;
+    register({ name, surname, email, password }, dispatchUserContext);
   };
 
   // TODO: add context to retrieve info if the user is already authenticated
@@ -60,6 +60,17 @@ function SignUp() {
             required
           />
         </div>
+        <div className="signup__form-group">
+          <input
+            type="text"
+            placeholder="Surname"
+            name="surname"
+            value={surname}
+            onChange={onChange}
+            required
+          />
+        </div>
+
         <div className="signup__form-group">
           <input
             type="email"
