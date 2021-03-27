@@ -49,6 +49,7 @@
     "prettier/prettier": ["error", { "endOfLine": "auto" }],
     "compat/compat": "off",
     "react/jsx-props-no-spreading": "warn",
-    "react/button-has-type": "off"
+    "react/button-has-type": "off",
+    "consistent-return": "warn"
   }
 }

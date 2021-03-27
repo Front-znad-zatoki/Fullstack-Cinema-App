@@ -3,8 +3,11 @@ import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ThemeContext } from '../../../context/Theme';
 import AppTheme from '../../../context/Theme/themeColors';
+import { register } from '../../../actions/Auth';
+import { AuthContext } from '../../../context/Auth';
 
 function SignUp() {
+  const { userContext, dispatchUserContext } = useContext(AuthContext);
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
   const [formData, setFormData] = useState({
@@ -22,12 +25,14 @@ function SignUp() {
       [event.target.name]: event.target.value,
     });
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
     if (password !== passwordRepeat) {
       alert('Passwords are not the same');
     }
+    register({ name, email, password }, dispatchUserContext);
     console.log({ name, email, password });
+    // return ;
   };
 
   // TODO: add context to retrieve info if the user is already authenticated
@@ -52,6 +57,7 @@ function SignUp() {
             name="name"
             value={name}
             onChange={onChange}
+            required
           />
         </div>
         <div className="signup__form-group">
@@ -61,6 +67,7 @@ function SignUp() {
             name="email"
             value={email}
             onChange={onChange}
+            required
           />
         </div>
         <div className="signup__form-group">
@@ -70,6 +77,7 @@ function SignUp() {
             name="password"
             value={password}
             onChange={onChange}
+            required
           />
         </div>
         <div className="signup__form-group">
@@ -79,6 +87,7 @@ function SignUp() {
             name="passwordRepeat"
             value={passwordRepeat}
             onChange={onChange}
+            required
           />
         </div>
         <button type="submit" className="button--submit">

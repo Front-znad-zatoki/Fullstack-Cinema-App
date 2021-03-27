@@ -223,16 +223,16 @@ router.delete(
   },
 );
 
-router.get('/authenticated', authMiddleware, async (req, res) => {
-  try {
-    const { id, isAdmin } = req.user;
-    res
-      .status(200)
-      .json({ isAuthenticated: true, user: { id, isAdmin } });
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
-  }
-});
+// router.get('/authenticated', authMiddleware, async (req, res) => {
+//   try {
+//     const { id, isAdmin } = req.user;
+//     res
+//       .status(200)
+//       .json({ isAuthenticated: true, user: { id, isAdmin } });
+//   } catch (err) {
+//     console.error(err.message);
+//     res.status(500).send('Server Error');
+//   }
+// });
 
 export default router;

@@ -7,14 +7,7 @@ import {
   ACCOUNT_DELETED,
 } from '../../actions/types';
 
-const initialState = {
-  token: localStorage.getItem('token'),
-  isAuthenticated: null,
-  loading: true,
-  user: null,
-};
-
-function authReducer(state = initialState, action) {
+function authReducer(state, action) {
   const { type, payload } = action;
 
   switch (type) {
@@ -34,13 +27,6 @@ function authReducer(state = initialState, action) {
         loading: false,
       };
     case ACCOUNT_DELETED:
-      return {
-        ...state,
-        token: null,
-        isAuthenticated: false,
-        loading: false,
-        user: null,
-      };
     case AUTH_ERROR:
     case LOGOUT:
       return {

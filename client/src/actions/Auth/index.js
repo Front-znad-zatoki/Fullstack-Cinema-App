@@ -1,3 +1,4 @@
+// import useUsersDispatcher from '../../hooks/useUsersDispatch';
 import api from '../../services/Api';
 import {
   REGISTER_SUCCESS,
@@ -10,9 +11,10 @@ import {
 } from '../types';
 
 // Register User
-export const register = (formData) => async (dispatch) => {
+export const register = async (formData, dispatch) => {
+  console.log('registering');
   try {
-    const res = await api.post('/users', formData);
+    const res = await api.post('/users/signup', formData);
 
     dispatch({
       type: REGISTER_SUCCESS,
@@ -20,12 +22,12 @@ export const register = (formData) => async (dispatch) => {
     });
     console.log('registered');
   } catch (err) {
-    const { errors } = err.response.data;
+    // const { errors } = err.response.data;
 
-    if (errors) {
-      errors.forEach((error) => console.log(error.msg, 'danger'));
-    }
-
+    // if (errors) {
+    //   errors.forEach((error) => console.log(error.msg, 'Something went wrong'));
+    // }
+    console.log('not registered');
     dispatch({
       type: REGISTER_FAIL,
     });

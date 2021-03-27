@@ -1,22 +1,27 @@
-import { createContext, useEffect, useState } from 'react';
-import { SUCCESS, FAIL } from '../../actions/types';
-import { checkIfIsAuthenticated } from '../../actions/Auth/index';
+import { createContext, useEffect, useReducer, useState } from 'react';
+import authReducer from './authReducer';
 
 export const AuthContext = createContext();
 
+const initialState = {
+  isAuthenticated: null,
+  loading: true,
+  user: null,
+};
+
 const AuthContextProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // const [user, setUser] = useState(null);
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
   // const [isLoaded, setIsLoaded] = useState(false);
+  const [userContext, dispatchUserContext] = useReducer(
+    authReducer,
+    initialState,
+  );
 
   return (
-    <div>
-      <AuthContext.Provider
-        value={{ user, setUser, isAuthenticated, setIsAuthenticated }}
-      >
-        {children}
-      </AuthContext.Provider>
-    </div>
+    <AuthContext.Provider value={{ userContext, dispatchUserContext }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 
