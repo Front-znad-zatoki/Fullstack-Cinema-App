@@ -3,23 +3,48 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import poster from '../../assets/moviePosters/noTimeToDiePoster.jpg';
 import { MoviesContext } from '../../context/Movies';
+import { ThemeContext } from '../../context/Theme';
+import AppTheme from '../../context/Theme/themeColors';
 
 function MovieView({ match }) {
   const { currentlyPlaying } = useContext(MoviesContext);
+  const theme = useContext(ThemeContext)[0];
+  const currentTheme = AppTheme[theme];
   const movie = currentlyPlaying.filter(
     (item) => item.title === match.params.title,
   );
-  const { title, duration } = movie[0];
+  const { title, duration, genre, description } = movie[0];
   return (
-    <div className="movie__view">
-      <div className="movie__image-container">
-        <img className="movie__image" src={poster} alt="Movie poster" />
+    <div
+      className="movie__view"
+      style={{
+        backgroundColor: `${currentTheme.backgroundColor}`,
+        color: `${currentTheme.textColor}`,
+      }}
+    >
+      <div className="movie__view__container">
+        <img
+          className="movie__view__container__image"
+          src={poster}
+          alt="Movie poster"
+        />
       </div>
-      <div>{title}</div>
-      <div>{duration}</div>
-      <button id="back">
-        <Link to="/movies">Back</Link>
-      </button>
+      <div className="movie__view__details">
+        <h3>{title}</h3>
+        <p>
+          <strong>duration:</strong> {duration}
+        </p>
+        <p>
+          <strong>genre:</strong> {genre}
+        </p>
+        <p>
+          <strong>description:</strong> {description}
+        </p>
+        <h4>We're playing now in:</h4>
+        <button id="back">
+          <Link to="/movies">Back</Link>
+        </button>
+      </div>
     </div>
   );
 }
