@@ -22,6 +22,11 @@ router.post(
     .isString()
     .trim()
     .isLength({ min: 5, max: 50 }),
+  check('surname', 'Surname is required of 5 or more characters')
+    .notEmpty()
+    .isString()
+    .trim()
+    .isLength({ min: 5, max: 50 }),
   check('email', 'Please include a valid email')
     .isEmail()
     .trim()
@@ -39,7 +44,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, email, password, isAdmin } = req.body;
+    const { name, surname, email, password, isAdmin } = req.body;
 
     try {
       let user = await User.findOne({ email });
@@ -51,6 +56,7 @@ router.post(
 
       user = new User({
         name,
+        surname,
         email,
         password,
         isAdmin,
@@ -88,7 +94,6 @@ router.post(
             .status(200);
         },
       );
-      // res.status(200).send('User Created!');
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server error');

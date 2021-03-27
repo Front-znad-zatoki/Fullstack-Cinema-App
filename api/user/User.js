@@ -7,6 +7,12 @@ const userSchema = new mongoose.Schema({
     minLength: 5,
     maxlength: 50,
   },
+  surname: {
+    type: String,
+    required: true,
+    minLength: 5,
+    maxlength: 50,
+  },
   email: {
     type: String,
     required: true,
@@ -42,10 +48,6 @@ const userSchema = new mongoose.Schema({
     minLength: 7,
     maxlength: 20,
   },
-  // TODO: add avatar
-  // avatar: {
-  //   type: String,
-  // },
 });
 
 export default mongoose.model('User', userSchema);

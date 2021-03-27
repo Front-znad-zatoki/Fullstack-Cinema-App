@@ -7,8 +7,11 @@ import Login from '../../domain/Auth/Login';
 import MovieList from '../../domain/MovieList';
 import { ThemeContext } from '../../context/Theme';
 import Navbar from '../Navbar/index';
+import MovieDetails from '../../domain/MovieDetails/index';
+import MovieSlider from '../../domain/MovieSlider';
 import MoviesContextProvider from '../../context/Movies';
 import AuthContextProvider from '../../context/Auth';
+import moviesMock from '../../mock/moviesMock';
 
 function App() {
   const themeHook = useState('light');

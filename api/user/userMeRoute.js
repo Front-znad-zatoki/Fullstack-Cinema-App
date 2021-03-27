@@ -4,6 +4,8 @@ import bcryptjs from 'bcryptjs';
 import User from './User.js';
 import authMiddleware from '../authentication/authMiddleware.js';
 import userOrderRoute from './userOrdersRoute.js';
+import transporter from '../../mail/transporter.js';
+import getMailOptions from '../../mail/mailOptions.js';
 
 const router = express.Router();
 router.use('/orders', userOrderRoute);
@@ -31,6 +33,18 @@ router.delete('/', authMiddleware, async (req, res) => {
       '-password',
     );
     if (!user) res.status(404).res.json({ msg: 'User not found' });
+    const emailOptions = getMailOptions(
+      user.email,
+      'Account Deleted',
+      'Thank you for being with us!',
+    );
+    transporter.sendMail(emailOptions, (error, info) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(`Email sent: ${info.response}`);
+      }
+    });
     res.status(200).json({ user: user, isAuthenticated: false });
   } catch (err) {
     console.error(err.message);
@@ -63,7 +77,6 @@ router.put(
       ).select('-password');
       if (!user) res.status(404).send('User not found');
       await user.save();
-
       res.status(200).json({ user: user, isAuthenticated: true });
     } catch (err) {
       console.error(err.message);
