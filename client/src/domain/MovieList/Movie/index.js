@@ -6,7 +6,7 @@ function Movie({ movie }) {
   return (
     <li key={movie.id} className="movie__item">
       {/* TODO: link to specific movie by id? slug? */}
-      <Link className="movie__image-container" to="/movies/">
+      <Link className="movie__image-container" to={`/movies/${movie.title}`}>
         <img className="movie__image" src={poster} alt="Movie poster" />
       </Link>
       <h3 className="movie__title">{movie.title}</h3>

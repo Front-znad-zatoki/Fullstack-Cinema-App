@@ -5,6 +5,7 @@ import Landing from '../../domain/Landing';
 import SignUp from '../../domain/Auth/SignUp';
 import Login from '../../domain/Auth/Login';
 import MovieList from '../../domain/MovieList';
+import MovieView from '../../domain/MovieView';
 import { ThemeContext } from '../../context/Theme';
 import Navbar from '../Navbar/index';
 import MovieDetails from '../../domain/MovieDetails/index';
@@ -26,6 +27,8 @@ function App() {
               <Switch>
                 {/* http://localhost:3000/movies */}
                 <Route exact path="/movies" component={MovieList} />
+                {/* http://localhost:3000/movies/id */}
+                <Route exact path="/movies/:title" component={MovieView} />
                 {/* http://localhost:3000/signup */}
                 <Route exact path="/signup" component={SignUp} />
                 {/* http://localhost:3000/login */}
