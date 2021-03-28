@@ -5,6 +5,11 @@
   outline: none;
   border: none;
 }
+.occupied {
+  background: black;
+  color: white;
+}
+
 .selected {
   background: green;
 }
