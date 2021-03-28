@@ -1,10 +1,10 @@
 import React from 'react';
-// import Slider from 'react-slick';
+import Slider from 'react-slick';
 import poster1 from '../../assets/moviePosters/adamsApples.jpg';
 import poster2 from '../../assets/moviePosters/avatar.jpg';
 import poster3 from '../../assets/moviePosters/noTimeToDiePoster.jpg';
-// import 'slick-carousel/slick/slick.css';
-// import 'slick-carousel/slick/slick-theme.css';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 function MovieSlider() {
   const settings = {
@@ -20,7 +20,6 @@ function MovieSlider() {
   return (
     <div className="slider">
       <h2>Coming up</h2>
-      {/* 
       <Slider {...settings}>
         {posters.map((poster) => {
           console.log(poster);
@@ -30,7 +29,7 @@ function MovieSlider() {
             </div>
           );
         })}
-      </Slider> */}
+      </Slider>
     </div>
   );
 }
