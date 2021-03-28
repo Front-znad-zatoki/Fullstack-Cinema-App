@@ -1,15 +1,15 @@
 .hall__seat {
   width: 20px;
   height: 20px;
-  background: grey;
   outline: none;
   border: none;
+  background: green;
+  color: white;
 }
 .occupied {
-  background: black;
-  color: white;
+  background: grey;
 }
 
 .selected {
-  background: green;
+  background: orange;
 }
