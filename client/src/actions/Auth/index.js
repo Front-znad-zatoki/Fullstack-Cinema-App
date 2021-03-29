@@ -8,6 +8,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  LOGOUT_FAIL,
 } from '../types';
 
 // Register User
@@ -36,14 +37,72 @@ export const register = async (formData, dispatch) => {
 };
 
 // Logout
-export const logout = () => ({ type: LOGOUT });
+export const logout = async (dispatch) => {
+  try {
+    await api.post('/users/logout');
+    dispatch({
+      type: LOGOUT,
+    });
+  } catch (err) {
+    const { errors } = err.response.data;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(alert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: LOGOUT_FAIL,
+    });
+  }
+};
 
 // check if authenticated after page init
 export const checkIfIsAuthenticated = () => {
   try {
-    // const res = await api.get('/users/authenticated');
+    // TODO: get cookies
     console.log('checking if cookie exists');
   } catch {
     console.log('no cookies');
+  }
+};
+
+// Login User
+export const login = async (formData, dispatch) => {
+  const { email, password } = formData;
+  const body = { email, password };
+
+  try {
+    const res = await api.post('/users/login', body);
+
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: res.data,
+    });
+  } catch (err) {
+    const { errors } = err.response.data;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(alert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: LOGIN_FAIL,
+    });
+  }
+};
+
+// Load User
+export const loadUser = async (dispatch) => {
+  try {
+    const res = await api.get('/users/me');
+
+    dispatch({
+      type: USER_LOADED,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
   }
 };

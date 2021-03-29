@@ -1,6 +1,6 @@
 import './style.scss';
-import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import { ThemeContext } from '../../../context/Theme';
 import AppTheme from '../../../context/Theme/themeColors';
 import { register } from '../../../actions/Auth';
@@ -13,7 +13,7 @@ function SignUp({ history }) {
   const { isAuthenticated, user } = userContext;
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
-  const [alert, setAlert] = useState(null);
+  const [alertMsg, setAlertMsg] = useState(null);
   const initialState = {
     name: '',
     surname: '',
@@ -38,27 +38,21 @@ function SignUp({ history }) {
       alert('Passwords are not the same');
       return;
     }
+
     const isRegistered = await register(
       { name, surname, email, password },
       dispatchUserContext,
     );
     if (!isRegistered) {
       console.log('nope no can do');
-      setAlert('Could not register user. Try again');
+      setAlertMsg('Could not register user. Try again');
       return;
     }
     // resetForm();
-    // console.log(data);
-    console.log(userContext);
-    history.push('/');
+    console.log(user);
   };
 
-  // TODO: add context to retrieve info if the user is already authenticated
-  // if (isAuthenticated) {
-  //   return <Redirect to="/user/me" />;
-  // }
-
-  return (
+  return isAuthenticated ? (
     <div
       className="signup"
       style={{
@@ -66,11 +60,9 @@ function SignUp({ history }) {
         color: `${currentTheme.textColor}`,
       }}
     >
-      <h1>Sign Up</h1>
-      {alert ? <Message message={alert} /> : null}
-      <div>
-        <p>{userContext.user ? userContext.user.id : null}</p>
-      </div>
+      <h2>Sign Up</h2>
+      {alertMsg ? <Message message={alertMsg} /> : null}
+
       <form className="signup__form" onSubmit={onSubmit}>
         <div className="signup__form-group">
           <input
@@ -131,6 +123,8 @@ function SignUp({ history }) {
         Already have an account? <Link to="/login">Sign In</Link>
       </p>
     </div>
+  ) : (
+    <Redirect to="/" />
   );
 }
 

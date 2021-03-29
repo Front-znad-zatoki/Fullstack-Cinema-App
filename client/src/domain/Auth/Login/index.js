@@ -1,10 +1,16 @@
 import './style.scss';
 import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { ThemeContext } from '../../../context/Theme';
 import AppTheme from '../../../context/Theme/themeColors';
+import { AuthContext } from '../../../context/Auth';
+import Message from '../../../components/Message';
+import { login } from '../../../actions/Auth';
 
-function Login() {
+function Login({ history }) {
+  const { userContext, dispatchUserContext } = useContext(AuthContext);
+  const { isAuthenticated, user } = userContext;
+  const [alertMsg, setAlertMsg] = useState(null);
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
   const [formData, setFormData] = useState({
@@ -22,17 +28,18 @@ function Login() {
     console.log(email, password);
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
+    const isLoggedIn = await login({ email, password }, dispatchUserContext);
+    if (!isLoggedIn) {
+      console.log('nope no can do');
+      setAlertMsg('Could not login user. Try again');
+      return;
+    }
     console.log(email, password);
   };
 
-  // TODO: add context to retrieve info if the user is already authenticated
-  // if (isAuthenticated) {
-  //   return <Redirect to="/user/me" />;
-  // }
-
-  return (
+  return isAuthenticated ? (
     <div
       className="auth"
       style={{
@@ -40,7 +47,8 @@ function Login() {
         color: `${currentTheme.textColor}`,
       }}
     >
-      <h1>Login</h1>
+      {isAuthenticated ? history.push('/') : <h2>Login</h2>}
+      {alertMsg ? <Message message={alertMsg} /> : null}
       <form className="auth__form" onSubmit={onSubmit}>
         <div className="auth__form-group">
           <input
@@ -71,6 +79,8 @@ function Login() {
         Don't have an account? <Link to="/signup">Sign Up</Link>
       </p>
     </div>
+  ) : (
+    <Redirect to="/" />
   );
 }
 
