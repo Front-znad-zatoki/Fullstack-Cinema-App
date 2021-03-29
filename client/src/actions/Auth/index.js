@@ -39,10 +39,11 @@ export const register = async (formData, dispatch) => {
 // Logout
 export const logout = async (dispatch) => {
   try {
-    await api.post('/users/logout');
+    await api.get('/users/logout');
     dispatch({
       type: LOGOUT,
     });
+    return true;
   } catch (err) {
     const { errors } = err.response.data;
 
@@ -53,6 +54,7 @@ export const logout = async (dispatch) => {
     dispatch({
       type: LOGOUT_FAIL,
     });
+    return false;
   }
 };
 

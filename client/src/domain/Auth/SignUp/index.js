@@ -23,7 +23,7 @@ function SignUp({ history }) {
   };
   const [formData, setFormData] = useState(initialState);
   const { name, surname, email, password, passwordRepeat } = formData;
-
+  console.log(isAuthenticated);
   const onChange = (event) =>
     setFormData({
       ...formData,
@@ -52,7 +52,7 @@ function SignUp({ history }) {
     console.log(user);
   };
 
-  return isAuthenticated ? (
+  return !isAuthenticated ? (
     <div
       className="signup"
       style={{
