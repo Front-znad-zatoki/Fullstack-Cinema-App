@@ -10,9 +10,6 @@ const initialState = {
 };
 
 const AuthContextProvider = ({ children }) => {
-  // const [user, setUser] = useState(null);
-  // const [isAuthenticated, setIsAuthenticated] = useState(false);
-  // const [isLoaded, setIsLoaded] = useState(false);
   const [userContext, dispatchUserContext] = useReducer(
     authReducer,
     initialState,

@@ -44,12 +44,10 @@ function SignUp({ history }) {
       dispatchUserContext,
     );
     if (!isRegistered) {
-      console.log('nope no can do');
       setAlertMsg('Could not register user. Try again');
       return;
     }
-    // resetForm();
-    console.log(user);
+    resetForm();
   };
 
   return !isAuthenticated ? (

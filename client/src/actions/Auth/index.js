@@ -24,7 +24,6 @@ export const register = async (formData, dispatch) => {
       type: REGISTER_SUCCESS,
       payload: res.data,
     });
-    console.log('registered', res);
     source.cancel();
     return true;
   } catch (err) {
@@ -32,7 +31,6 @@ export const register = async (formData, dispatch) => {
     if (errors) {
       errors.forEach((error) => alert(error.msg, 'Something went wrong'));
     }
-    console.log('not registered', errors);
     dispatch({
       type: REGISTER_FAIL,
     });
@@ -70,13 +68,10 @@ export const logout = async (dispatch) => {
 export const checkIfIsAuthenticated = async (dispatch) => {
   try {
     const source = CancelToken.source();
-    console.log('checking if cookie exists');
     const res = await api.get('/users/authenticated', {
       cancelToken: source.token,
     });
-    console.log(res);
     if (res.data.isAuthenticated === true) {
-      console.log('was 200');
       dispatch({
         type: USER_LOADED,
         payload: res.data,
@@ -84,7 +79,6 @@ export const checkIfIsAuthenticated = async (dispatch) => {
       source.cancel();
       return true;
     }
-    console.log('no user');
     dispatch({
       type: AUTH_ERROR,
     });

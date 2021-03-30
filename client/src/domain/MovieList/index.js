@@ -14,9 +14,6 @@ function MovieList() {
   const mongoMovies = useFetchedData('api/movies');
 
   useEffect(() => {
-    // console.log(movies);
-    // console.log(mongoMovies);
-    // console.log('using effect', incoming, currentlyPlaying);
     dispatch({
       type: 'SUCCESS',
       payload: 'action dispatched from useEffect',

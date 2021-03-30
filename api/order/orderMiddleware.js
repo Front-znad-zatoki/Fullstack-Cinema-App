@@ -4,7 +4,6 @@ import config from 'config';
 export default function (req, res, next) {
   // Get token from stored cookies
   const token = req.cookies.access_token;
-  console.log(token);
   // Check: if not token, make anonymous order
   if (!token) {
     req.isAuthenticated = false;
@@ -21,7 +20,6 @@ export default function (req, res, next) {
         if (error) {
           req.isAuthenticated = false;
           req.user = undefined;
-          console.log('token not valid');
           return next();
         }
         // else proceed authenticated

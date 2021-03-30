@@ -13,6 +13,7 @@ function Landing() {
   const { userContext, dispatchUserContext } = useContext(AuthContext);
   const { isAuthenticated } = userContext;
 
+  // TODO: move authentication to prescreening
   // const handleOnClick = () => {
   //   checkIfIsAuthenticated(dispatchUserContext);
   // };

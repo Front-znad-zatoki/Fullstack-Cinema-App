@@ -71,36 +71,15 @@ function Navbar() {
       </Link>
       <div className="">
         <ul className="navbar__list">
+          <Link to="/movies">
+            <li className="navbar__list-item">Movies</li>
+          </Link>
           {!isAuthenticated ? unauthenticatedNavBar() : authenticatedNavBar()}
         </ul>
         <ThemeToggler />
       </div>
     </nav>
   );
-  // return (
-  //   <nav className="navbar">
-  //     <h1>
-  //       <span className="fas fa-video" /> 'FZZ Cinemas'
-  //     </h1>
-  //     <ul>
-  //       <li>
-  //         <Link to="/">Home</Link>
-  //       </li>
-  //       <li>
-  //         <Link to="/movies">Movies</Link>
-  //       </li>
-  //       <li>
-  //         <Link to="/signup">SignUp</Link>
-  //       </li>
-  //       <li>
-  //         <Link to="/login">Login</Link>
-  //       </li>
-  //       <li>
-  //         <ThemeToggler />
-  //       </li>
-  //     </ul>
-  //   </nav>
-  // );
 }
 
 export default Navbar;
