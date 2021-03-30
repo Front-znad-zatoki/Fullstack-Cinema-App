@@ -7,6 +7,7 @@ import User from './User.js';
 import authMiddleware from '../authentication/authMiddleware.js';
 import adminMiddleware from '../admin/adminMiddleware.js';
 import userMeRoute from './userMeRoute.js';
+import orderMiddleware from '../order/orderMiddleware.js';
 
 const router = express.Router();
 
@@ -78,7 +79,7 @@ router.post(
         payload,
         config.get('jwtSecret'),
         {
-          expiresIn: 36000,
+          expiresIn: '1h',
         },
         (err, token) => {
           if (err) throw err;
@@ -143,7 +144,7 @@ router.post(
       jsonwebtoken.sign(
         payload,
         config.get('jwtSecret'),
-        { expiresIn: '36000' },
+        { expiresIn: '1h' },
         (err, token) => {
           if (err) throw err;
           res
@@ -223,16 +224,22 @@ router.delete(
   },
 );
 
-// router.get('/authenticated', authMiddleware, async (req, res) => {
-//   try {
-//     const { id, isAdmin } = req.user;
-//     res
-//       .status(200)
-//       .json({ isAuthenticated: true, user: { id, isAdmin } });
-//   } catch (err) {
-//     console.error(err.message);
-//     res.status(500).send('Server Error');
-//   }
-// });
+router.get('/authenticated', orderMiddleware, async (req, res) => {
+  try {
+    console.log(req.user);
+    if (!req.user) {
+      return res
+        .status(200)
+        .json({ isAuthenticated: false, user: null });
+    }
+    const { id, isAdmin } = req.user;
+    res
+      .status(200)
+      .json({ isAuthenticated: true, user: { id, isAdmin } });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
 export default router;

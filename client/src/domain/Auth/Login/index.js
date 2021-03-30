@@ -1,5 +1,5 @@
 import './style.scss';
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { ThemeContext } from '../../../context/Theme';
 import AppTheme from '../../../context/Theme/themeColors';
@@ -7,7 +7,7 @@ import { AuthContext } from '../../../context/Auth';
 import Message from '../../../components/Message';
 import { login } from '../../../actions/Auth';
 
-function Login({ history }) {
+function Login(props) {
   const { userContext, dispatchUserContext } = useContext(AuthContext);
   const { isAuthenticated } = userContext;
   const [alertMsg, setAlertMsg] = useState(null);
@@ -19,6 +19,11 @@ function Login({ history }) {
   });
 
   const { email, password } = formData;
+  useEffect(() => {
+    return () => {
+      console.log(isAuthenticated);
+    };
+  }, [isAuthenticated]);
 
   const onChange = (event) => {
     setFormData({
@@ -30,6 +35,8 @@ function Login({ history }) {
   const onSubmit = async (event) => {
     event.preventDefault();
     const isLoggedIn = await login({ email, password }, dispatchUserContext);
+    props.history.goBack();
+
     if (!isLoggedIn) {
       setAlertMsg('Could not login user. Try again');
     }

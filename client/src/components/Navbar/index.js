@@ -19,7 +19,7 @@ function Navbar() {
       alert('Could not log out user. Try again');
     }
   };
-  console.log(isAuthenticated);
+  // console.log(isAuthenticated);
   const unauthenticatedNavBar = () => {
     return (
       <>

@@ -1,4 +1,5 @@
-// import useUsersDispatcher from '../../hooks/useUsersDispatch';
+import cookies from 'js-cookies';
+import { CancelToken } from 'axios';
 import api from '../../services/Api';
 import {
   REGISTER_SUCCESS,
@@ -15,13 +16,17 @@ import {
 export const register = async (formData, dispatch) => {
   console.log('registering');
   try {
-    const res = await api.post('/users/signup', formData);
+    const source = CancelToken.source();
+    const res = await api.post('/users/signup', formData, {
+      cancelToken: source.token,
+    });
 
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data,
     });
     console.log('registered', res);
+    source.cancel();
     return true;
   } catch (err) {
     const { errors } = err.response.data;
@@ -39,10 +44,14 @@ export const register = async (formData, dispatch) => {
 // Logout
 export const logout = async (dispatch) => {
   try {
-    await api.get('/users/logout');
+    const source = CancelToken.source();
+    await api.get('/users/logout', {
+      cancelToken: source.token,
+    });
     dispatch({
       type: LOGOUT,
     });
+    source.cancel();
     return true;
   } catch (err) {
     const { errors } = err.response.data;
@@ -59,12 +68,30 @@ export const logout = async (dispatch) => {
 };
 
 // check if authenticated after page init
-export const checkIfIsAuthenticated = () => {
+export const checkIfIsAuthenticated = async (dispatch) => {
   try {
-    // TODO: get cookies
+    const source = CancelToken.source();
     console.log('checking if cookie exists');
+    const res = await api.get('/users/authenticated', {
+      cancelToken: source.token,
+    });
+    console.log(res);
+    if (res.data.isAuthenticated === true) {
+      console.log('was 200');
+      dispatch({
+        type: USER_LOADED,
+        payload: res.data,
+      });
+      source.cancel();
+      return true;
+    }
+    console.log('no user');
+    dispatch({
+      type: AUTH_ERROR,
+    });
+    return false;
   } catch {
-    console.log('no cookies');
+    console.log('Cannot fetch at the moment');
   }
 };
 
@@ -74,12 +101,16 @@ export const login = async (formData, dispatch) => {
   const body = { email, password };
 
   try {
-    const res = await api.post('/users/login', body);
+    const source = CancelToken.source();
+    const res = await api.post('/users/login', body, {
+      cancelToken: source.token,
+    });
 
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,
     });
+    source.cancel();
   } catch (err) {
     const { errors } = err.response.data;
 
@@ -96,12 +127,16 @@ export const login = async (formData, dispatch) => {
 // Load User
 export const loadUser = async (dispatch) => {
   try {
-    const res = await api.get('/users/me');
+    const source = CancelToken.source();
+    const res = await api.get('/users/me', {
+      cancelToken: source.token,
+    });
 
     dispatch({
       type: USER_LOADED,
       payload: res.data,
     });
+    source.cancel();
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,

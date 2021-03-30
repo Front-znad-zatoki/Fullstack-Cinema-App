@@ -4,7 +4,7 @@ const useFetchedData = (url) => {
   const [fetchedData, setFetchedData] = useState();
   useEffect(() => {
     async function fetchData() {
-      console.log('fetching');
+      // console.log('fetching');
       const data = await fetch(url).then((res) => res.json());
       setFetchedData(data);
     }
