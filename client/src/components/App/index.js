@@ -5,6 +5,7 @@ import Landing from '../../domain/Landing';
 import SignUp from '../../domain/Auth/SignUp';
 import Login from '../../domain/Auth/Login';
 import MovieList from '../../domain/MovieList';
+import MovieView from '../../domain/MovieView';
 import { ThemeContext } from '../../context/Theme';
 import Navbar from '../Navbar/index';
 import MovieDetails from '../../domain/MovieDetails/index';
