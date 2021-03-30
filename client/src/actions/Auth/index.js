@@ -1,4 +1,3 @@
-import cookies from 'js-cookies';
 import { CancelToken } from 'axios';
 import api from '../../services/Api';
 import {
