@@ -14,6 +14,7 @@ import MoviesContextProvider from '../../context/Movies';
 import AuthContextProvider from '../../context/Auth';
 import moviesMock from '../../mock/moviesMock';
 import UserDashboard from '../../domain/User';
+import OrderList from '../../domain/Orders/OrderList';
 
 function App() {
   const themeHook = useState('light');
@@ -35,6 +36,8 @@ function App() {
                   <Route exact path="/login" component={Login} />
                   {/* http://localhost:3000/users/me */}
                   <Route exact path="/users/me" component={UserDashboard} />
+                  {/* http://localhost:3000/users/me */}
+                  <Route exact path="/users/me/orders" component={OrderList} />
                   {/* http://localhost:3000/reservation/pre/:screeningId */}
                   {/* <Route path='/reservation/pre/:screeningId' component={ ReservationPreview }/> */}
                   {/* http://localhost:3000/reservation/chooseSeats/:screeningId */}

@@ -6,7 +6,10 @@ export const AuthContext = createContext();
 const initialState = {
   isAuthenticated: null,
   loading: true,
-  user: null,
+  user: {
+    id: null,
+    isAdmin: null,
+  },
 };
 
 const AuthContextProvider = ({ children }) => {

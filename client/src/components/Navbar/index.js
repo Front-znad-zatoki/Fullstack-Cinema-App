@@ -39,7 +39,7 @@ function Navbar(props) {
         <Link to="/users/me">
           <li className="navbar__list-item">Me</li>
         </Link>
-        <Link to="/users/orders">
+        <Link to="/users/me/orders">
           <li className="navbar__list-item">Orders</li>
         </Link>
         {user.isAdmin ? (

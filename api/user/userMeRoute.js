@@ -153,4 +153,70 @@ router.put(
   },
 );
 
+// @route    PUT api/users/me/email
+// @desc     Update profile
+// @access   Private
+router.put(
+  '/',
+  authMiddleware,
+  check('email', 'Insert correct email address')
+    .notEmpty()
+    .isEmail()
+    .normalizeEmail()
+    .trim(),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      const user = await User.findOneAndUpdate(
+        req.user.id,
+        { email: req.body.email },
+        { new: true },
+      ).select('-password');
+      if (!user) res.status(404).send('User not found');
+      await user.save();
+      res.status(200).json({ user: user, isAuthenticated: true });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  },
+);
+
+// @route    PUT api/users/me/name
+// @desc     Update name
+// @access   Private
+router.put(
+  '/name',
+  authMiddleware,
+  check('surname', 'Surame is required')
+    .notEmpty()
+    .isString()
+    .trim()
+    .isLength({ min: 5, max: 255 }),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      const user = await User.findOneAndUpdate(
+        req.user.id,
+        { surname: req.body.surname },
+        { new: true },
+      ).select('-password');
+      if (!user) res.status(404).send('User not found');
+      await user.save();
+      res.status(200).json({ user: user, isAuthenticated: true });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  },
+);
+
 export default router;
