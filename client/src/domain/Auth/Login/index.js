@@ -1,10 +1,16 @@
 import './style.scss';
-import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import { ThemeContext } from '../../../context/Theme';
 import AppTheme from '../../../context/Theme/themeColors';
+import { AuthContext } from '../../../context/Auth';
+import Message from '../../../components/Message';
+import { login } from '../../../actions/Auth';
 
-function Login() {
+function Login(props) {
+  const { userContext, dispatchUserContext } = useContext(AuthContext);
+  const { isAuthenticated } = userContext;
+  const [alertMsg, setAlertMsg] = useState(null);
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
   const [formData, setFormData] = useState({
@@ -13,26 +19,30 @@ function Login() {
   });
 
   const { email, password } = formData;
+  useEffect(() => {
+    return () => {
+      console.log(isAuthenticated);
+    };
+  }, [isAuthenticated]);
 
   const onChange = (event) => {
     setFormData({
       ...formData,
       [event.target.name]: event.target.value,
     });
-    console.log(email, password);
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
-    console.log(email, password);
+    const isLoggedIn = await login({ email, password }, dispatchUserContext);
+    props.history.goBack();
+
+    if (!isLoggedIn) {
+      setAlertMsg('Could not login user. Try again');
+    }
   };
 
-  // TODO: add context to retrieve info if the user is already authenticated
-  // if (isAuthenticated) {
-  //   return <Redirect to="/user/me" />;
-  // }
-
-  return (
+  return !isAuthenticated ? (
     <div
       className="auth"
       style={{
@@ -40,7 +50,8 @@ function Login() {
         color: `${currentTheme.textColor}`,
       }}
     >
-      <h1>Login</h1>
+      <h2>Login</h2>
+      {alertMsg ? <Message message={alertMsg} /> : null}
       <form className="auth__form" onSubmit={onSubmit}>
         <div className="auth__form-group">
           <input
@@ -62,15 +73,16 @@ function Login() {
             minLength="5"
           />
         </div>
-        {/* TODO: add submit logic */}
         <button type="submit" className="button--submit">
           Login
         </button>
       </form>
       <p className="auth__redirect">
-        Don't have an account? <Link to="/signup">Sign Up</Link>
+        Do not have an account? <Link to="/signup">Sign Up</Link>
       </p>
     </div>
+  ) : (
+    <Redirect to="/" />
   );
 }
 

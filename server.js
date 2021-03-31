@@ -22,7 +22,6 @@ connectDB();
 
 // Cookies handling
 app.use(cookieParser());
-
 // Init Middleware (not body-parser anymore)
 app.use(express.json());
 
