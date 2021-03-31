@@ -4,6 +4,7 @@ import AppTheme from '../../context/Theme/themeColors';
 import MovieList from '../MovieList';
 import './style.scss';
 import MovieSlider from '../MovieSlider';
+import CinemaHall from '../../components/CinemaHall';
 
 function Landing() {
   const theme = useContext(ThemeContext)[0];
@@ -17,6 +18,7 @@ function Landing() {
       }}
     >
       Rendering Landing Page
+      <CinemaHall />
       <MovieSlider />
       <MovieList />
     </div>

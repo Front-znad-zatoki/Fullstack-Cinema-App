@@ -1,6 +1,7 @@
 /* eslint-disable no-plusplus */
 import React from 'react';
 import Seat from '../Seat';
+import './style.scss';
 
 const CinemaHall = () => {
   const nrOfRows = 7;
@@ -17,11 +18,12 @@ const CinemaHall = () => {
 
   return (
     <div>
+      <div className="cinema__hall__screen">Screen this way!</div>
       <ul>
         {rowsInLetter.map((row) => {
           return (
-            <li key={row}>
-              <p>{row}</p>
+            <li className="cinema__hall__row" key={row}>
+              <div>{row}</div>
               {columns.map((column) => {
                 return (
                   <Seat
@@ -31,6 +33,7 @@ const CinemaHall = () => {
                   />
                 );
               })}
+              <div>{row}</div>
             </li>
           );
         })}
