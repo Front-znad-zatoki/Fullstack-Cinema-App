@@ -1,7 +1,8 @@
 /* eslint-disable no-plusplus */
-import React from 'react';
+import React, { useContext } from 'react';
 import Seat from '../Seat';
 import './style.scss';
+import ReservationProvider from '../../context/Reservation';
 
 const CinemaHall = () => {
   const nrOfRows = 7;
@@ -17,28 +18,30 @@ const CinemaHall = () => {
   }
 
   return (
-    <div>
-      <div className="cinema__hall__screen">Screen this way!</div>
-      <ul>
-        {rowsInLetter.map((row) => {
-          return (
-            <li className="cinema__hall__row" key={row}>
-              <div>{row}</div>
-              {columns.map((column) => {
-                return (
-                  <Seat
-                    key={`${row}${column}`}
-                    id={`${row}${column}`}
-                    seatNr={column}
-                  />
-                );
-              })}
-              <div>{row}</div>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
+    <ReservationProvider>
+      <div>
+        <div className="cinema__hall__screen">Screen this way!</div>
+        <ul>
+          {rowsInLetter.map((row) => {
+            return (
+              <li className="cinema__hall__row" key={row}>
+                <div>{row}</div>
+                {columns.map((column) => {
+                  return (
+                    <Seat
+                      key={`${row}${column}`}
+                      seatNr={`${row}${column}`}
+                      columnNr={column}
+                    />
+                  );
+                })}
+                <div>{row}</div>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </ReservationProvider>
   );
 };
 export default CinemaHall;
