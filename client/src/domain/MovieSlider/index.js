@@ -22,7 +22,6 @@ function MovieSlider() {
       <h2>Coming up</h2>
       <Slider {...settings}>
         {posters.map((poster) => {
-          console.log(poster);
           return (
             <div key={poster} className="slider_container">
               <img className="slider_container_img" src={poster} alt="" />

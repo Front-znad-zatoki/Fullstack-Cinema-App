@@ -7,7 +7,7 @@ import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
 import ThemeToggler from '../ThemeToggler';
 
-function Navbar() {
+function Navbar(props) {
   const { userContext, dispatchUserContext } = useContext(AuthContext);
   const { isAuthenticated, user } = userContext;
   const theme = useContext(ThemeContext)[0];
