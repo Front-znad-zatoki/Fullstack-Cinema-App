@@ -7,8 +7,8 @@ const initialState = {
   isAuthenticated: null,
   loading: true,
   user: {
-    id: null,
-    isAdmin: null,
+    id: undefined,
+    isAdmin: undefined,
   },
 };
 

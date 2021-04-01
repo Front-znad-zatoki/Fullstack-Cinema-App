@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { loadUser, logout } from '../../../actions/Auth';
@@ -14,13 +15,19 @@ function OrderList({ callback }) {
   const currentTheme = AppTheme[theme];
   console.log(userContext);
   // TODO: add action logic
+
   const getOrders = () => {
     console.log('getting orders', user.orders);
   };
   useEffect(() => {
     getOrders(dispatchUserContext);
   }, []);
-
+  const userOrders = user.orders
+    ? user.orders.map((order) => {
+        console.log(order._id);
+        return <OrderItem key={order._id} id={order._id} />;
+      })
+    : undefined;
   return (
     <div
       className="navbar"
@@ -30,11 +37,7 @@ function OrderList({ callback }) {
       }}
     >
       <h2>Orders</h2>
-      <ul>
-        {user.orders.map((order) => {
-          return <OrderItem key={order.id} id={order.id} />;
-        })}
-      </ul>
+      <ul>{userOrders}</ul>
     </div>
   );
 }
