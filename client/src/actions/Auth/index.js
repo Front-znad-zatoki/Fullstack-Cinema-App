@@ -13,7 +13,6 @@ import {
 
 // Register User
 export const register = async (formData, dispatch) => {
-  console.log('registering');
   try {
     const source = CancelToken.source();
     const res = await api.post('/users/signup', formData, {
@@ -27,14 +26,16 @@ export const register = async (formData, dispatch) => {
     source.cancel();
     return true;
   } catch (err) {
-    const { errors } = err.response.data;
-    if (errors) {
-      errors.forEach((error) => alert(error.msg, 'Something went wrong'));
+    if (err.response) {
+      const { errors } = err.response.data;
+      if (errors) {
+        errors.forEach((error) => alert(error.msg, 'Something went wrong'));
+      }
+      dispatch({
+        type: REGISTER_FAIL,
+      });
+      return false;
     }
-    dispatch({
-      type: REGISTER_FAIL,
-    });
-    return false;
   }
 };
 
@@ -51,16 +52,18 @@ export const logout = async (dispatch) => {
     source.cancel();
     return true;
   } catch (err) {
-    const { errors } = err.response.data;
+    if (err.response) {
+      const { errors } = err.response.data;
 
-    if (errors) {
-      errors.forEach((error) => dispatch(alert(error.msg, 'danger')));
+      if (errors) {
+        errors.forEach((error) => dispatch(alert(error.msg, 'danger')));
+      }
+
+      dispatch({
+        type: LOGOUT_FAIL,
+      });
+      return false;
     }
-
-    dispatch({
-      type: LOGOUT_FAIL,
-    });
-    return false;
   }
 };
 
@@ -105,15 +108,17 @@ export const login = async (formData, dispatch) => {
     });
     source.cancel();
   } catch (err) {
-    const { errors } = err.response.data;
+    if (err.response) {
+      const { errors } = err.response.data;
 
-    if (errors) {
-      errors.forEach((error) => dispatch(alert(error.msg, 'danger')));
+      if (errors) {
+        errors.forEach((error) => dispatch(alert(error.msg, 'danger')));
+      }
+
+      dispatch({
+        type: LOGIN_FAIL,
+      });
     }
-
-    dispatch({
-      type: LOGIN_FAIL,
-    });
   }
 };
 

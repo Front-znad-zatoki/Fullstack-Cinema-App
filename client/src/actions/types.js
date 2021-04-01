@@ -15,4 +15,4 @@ export const GET_ORDERS = 'GET_ORDERS';
 export const GET_ORDER = 'GET_ORDER';
 export const ORDER_ERROR = 'ORDER_ERROR';
 export const DELETE_ORDER = 'DELETE_ORDER';
-export const ADD_ORDER = 'ADD_POST';
+export const ADD_ORDER = 'ADD_ORDER';

@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import './style.scss';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { logout } from '../../actions/Auth';
 import { AuthContext } from '../../context/Auth';
 import { ThemeContext } from '../../context/Theme';
@@ -18,8 +18,8 @@ function Navbar(props) {
     if (!isLoggedOut) {
       alert('Could not log out user. Try again');
     }
+    return <Redirect to="/movies" />;
   };
-  // console.log(isAuthenticated);
   const unauthenticatedNavBar = () => {
     return (
       <>
@@ -39,10 +39,7 @@ function Navbar(props) {
         <Link to="/users/me">
           <li className="navbar__list-item">Me</li>
         </Link>
-        <Link to="/users/me/orders">
-          <li className="navbar__list-item">Orders</li>
-        </Link>
-        {user.isAdmin ? (
+        {user && user.isAdmin ? (
           <Link to="/admin">
             <li className="navbar__list-item">Admin</li>
           </Link>

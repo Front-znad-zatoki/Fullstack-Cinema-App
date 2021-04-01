@@ -1,6 +1,6 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import { loadUser, logout } from '../../actions/Auth';
+import { loadUser } from '../../actions/Auth';
 import { AuthContext } from '../../context/Auth';
 import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
@@ -12,7 +12,6 @@ export default function UserDashboard() {
   const { isAuthenticated, user } = userContext;
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
-  console.log(userContext);
   useEffect(() => {
     loadUser(dispatchUserContext);
   }, []);
@@ -42,25 +41,26 @@ export default function UserDashboard() {
       <ul className="profile__list">
         <UserListItem
           title="Name"
-          text={user.name}
+          text={user ? user.name : ''}
           callback={handleNameChange}
         />
         <UserListItem
           title="Surname"
-          text={user.surname}
+          text={user ? user.surname : ''}
           callback={handleSurnameChange}
         />
         <UserListItem
           title="Email"
-          text={user.email}
+          text={user ? user.email : ''}
           callback={handleEmailChange}
         />
         <UserListItem
           title="Phone"
-          text={user.phone}
+          text={user ? user.phone : ''}
           callback={handlePhoneChange}
         />
       </ul>
+      {user ? <OrderList /> : null}
     </div>
   ) : (
     <Redirect to="/login" />

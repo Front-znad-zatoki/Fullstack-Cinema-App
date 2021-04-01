@@ -16,7 +16,7 @@
     "import/extensions": "off",
     "object-curly-newline": "warn",
     "consistent-return": "warn",
-    "no-underscore-dangle":"warn"
+    "no-underscore-dangle": "warn"
   },
   "env": {
     "browser": true,
