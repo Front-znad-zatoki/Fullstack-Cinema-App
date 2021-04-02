@@ -15,7 +15,8 @@ function OrderItem({ id }) {
       try {
         if (!isCancelled) {
           const res = await getUsersOrder(id);
-          setDetails(res.data);
+          console.log(res);
+          if (res && res.data) setDetails(res.data);
         }
       } catch (err) {
         if (!isCancelled) throw err;

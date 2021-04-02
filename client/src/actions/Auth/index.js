@@ -56,7 +56,7 @@ export const logout = async (dispatch) => {
       const { errors } = err.response.data;
 
       if (errors) {
-        errors.forEach((error) => dispatch(alert(error.msg, 'danger')));
+        errors.forEach((error) => alert(error.msg, 'danger'));
       }
 
       dispatch({
@@ -112,12 +112,14 @@ export const login = async (formData, dispatch) => {
       const { errors } = err.response.data;
 
       if (errors) {
-        errors.forEach((error) => dispatch(alert(error.msg, 'danger')));
+        errors.forEach((error) => alert(error.msg, 'danger'));
       }
 
       dispatch({
         type: LOGIN_FAIL,
+        payload: null,
       });
+      alert('Login failed');
     }
   }
 };

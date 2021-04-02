@@ -11,7 +11,7 @@ function OrderList({ callback }) {
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
   // TODO: add action logic
-
+  console.log(user.orders);
   const userOrders = user.orders
     ? user.orders.map((order) => {
         return <OrderItem key={order._id} id={order._id} />;
