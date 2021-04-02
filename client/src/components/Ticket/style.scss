@@ -1,7 +1,20 @@
+@import '../../styles/variables';
 .ticket {
+  width: 300px;
+  height: 200px;
+  border: black solid;
+  background: $color-primary;
+  color: $text-color-primary;
   &__heading {
   }
   &__details {
+    background: $color-primary;
+  }
+  &__button {
+    .selected {
+      background: linear-gradient(270deg, #6e093a 1.67%, #bf1063 100%);
+      color: #fff;
+    }
   }
   &__type {
   }
