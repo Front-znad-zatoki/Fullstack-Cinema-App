@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react';
-
-import { getUsersOrder } from '../../../actions/Orders';
+import { useEffect, useState, useContext } from 'react';
+import { AuthContext } from '../../../context/Auth';
+import { getUsersOrder, deleteUsersOrder } from '../../../actions/Orders';
 import OrderDetails from '../OrderDetails';
+import { loadUser } from '../../../actions/Auth';
 
-function OrderItem({ id }) {
+function OrderItem({ id, callback }) {
   // TODO: prepare async action to send delete request and get details
+  const { userContext, dispatchUserContext } = useContext(AuthContext);
+  const { isAuthenticated, user } = userContext;
   const [showDetails, setShowDetails] = useState(false);
   const [details, setDetails] = useState({ id });
 
@@ -14,7 +17,6 @@ function OrderItem({ id }) {
       try {
         if (!isCancelled) {
           const res = await getUsersOrder(id);
-          console.log(res);
           if (res && res.data) setDetails(res.data);
         }
       } catch (err) {
@@ -27,14 +29,11 @@ function OrderItem({ id }) {
     };
   }, []);
 
-  const deleteOrder = () => {
-    console.log('deleteing order');
-  };
-  const handleOrderDelete = async () => {
-    deleteOrder();
-  };
   const handleShowDetails = async () => {
     setShowDetails((prevState) => !prevState);
+  };
+  const handleDelete = async () => {
+    callback(id, dispatchUserContext);
   };
   return (
     <li className="order__list-item">
@@ -42,7 +41,7 @@ function OrderItem({ id }) {
         Rendering order item
         {id}: <span className="order__list-item--bold" />
       </p>
-      <button onClick={handleOrderDelete}>Delete order: {id} </button>
+      <button onClick={handleDelete}>Delete order: {id} </button>
       <button onClick={handleShowDetails}>
         {showDetails ? 'Hide Details' : 'Show Details'}
       </button>

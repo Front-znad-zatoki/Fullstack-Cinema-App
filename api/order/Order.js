@@ -60,7 +60,7 @@ orderSchema.methods.createOrdersDependencies = async function createOrdersDepend
 };
 
 orderSchema.post(
-  'findOneAndDelete',
+  'remove',
   { query: true, document: true },
   async (doc) => {
     try {

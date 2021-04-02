@@ -6,6 +6,7 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   ACCOUNT_DELETED,
+  DELETE_ORDER,
 } from '../../actions/types';
 
 function authReducer(state, action) {
@@ -13,19 +14,13 @@ function authReducer(state, action) {
 
   switch (type) {
     case USER_LOADED:
+    case REGISTER_SUCCESS:
+    case LOGIN_SUCCESS:
       return {
         ...state,
         isAuthenticated: true,
         loading: false,
         user: payload.user,
-      };
-    case REGISTER_SUCCESS:
-    case LOGIN_SUCCESS:
-      return {
-        ...state,
-        ...payload.user,
-        isAuthenticated: true,
-        loading: false,
       };
     case ACCOUNT_DELETED:
     case AUTH_ERROR:
