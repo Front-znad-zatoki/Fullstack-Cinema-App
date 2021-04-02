@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import api from '../../../services/Api';
 
 import { getUsersOrder } from '../../../actions/Orders';
 import OrderDetails from '../OrderDetails';

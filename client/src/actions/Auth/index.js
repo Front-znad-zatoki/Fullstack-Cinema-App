@@ -31,11 +31,16 @@ export const register = async (formData, dispatch) => {
       if (errors) {
         errors.forEach((error) => alert(error.msg, 'Something went wrong'));
       }
-      dispatch({
-        type: REGISTER_FAIL,
-      });
-      return false;
     }
+    if (err.request) {
+      console.log(err.request);
+    } else {
+      console.log('Error', err.message);
+    }
+    dispatch({
+      type: REGISTER_FAIL,
+    });
+    return false;
   }
 };
 
@@ -58,12 +63,16 @@ export const logout = async (dispatch) => {
       if (errors) {
         errors.forEach((error) => alert(error.msg, 'danger'));
       }
-
-      dispatch({
-        type: LOGOUT_FAIL,
-      });
-      return false;
     }
+    if (err.request) {
+      console.log(err.request);
+    } else {
+      console.log('Error', err.message);
+    }
+    dispatch({
+      type: LOGOUT_FAIL,
+    });
+    return false;
   }
 };
 
@@ -86,8 +95,17 @@ export const checkIfIsAuthenticated = async (dispatch) => {
       type: AUTH_ERROR,
     });
     return false;
-  } catch {
-    console.log('Cannot fetch at the moment');
+  } catch (err) {
+    if (err.response) {
+      console.log(err.response.data);
+      console.log(err.response.status);
+      console.log(err.response.headers);
+    } else if (err.request) {
+      console.log(err.request);
+    } else {
+      console.log('Error', err.message);
+    }
+    console.log(err.config);
   }
 };
 
@@ -114,13 +132,17 @@ export const login = async (formData, dispatch) => {
       if (errors) {
         errors.forEach((error) => alert(error.msg, 'danger'));
       }
-
-      dispatch({
-        type: LOGIN_FAIL,
-        payload: null,
-      });
-      alert('Login failed');
+    } else if (err.request) {
+      console.log(err.request);
+    } else {
+      console.log('Error', err.message);
     }
+    console.log(err.config);
+    dispatch({
+      type: LOGIN_FAIL,
+      payload: null,
+    });
+    alert('Login failed');
   }
 };
 
@@ -138,6 +160,16 @@ export const loadUser = async (dispatch) => {
     });
     source.cancel();
   } catch (err) {
+    if (err.response) {
+      console.log(err.response.data);
+      console.log(err.response.status);
+      console.log(err.response.headers);
+    } else if (err.request) {
+      console.log(err.request);
+    } else {
+      console.log('Error', err.message);
+    }
+    console.log(err.config);
     dispatch({
       type: AUTH_ERROR,
     });
