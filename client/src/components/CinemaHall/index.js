@@ -18,30 +18,28 @@ const CinemaHall = () => {
   }
 
   return (
-    <ReservationProvider>
-      <div>
-        <div className="cinema__hall__screen">Screen this way!</div>
-        <ul>
-          {rowsInLetter.map((row) => {
-            return (
-              <li className="cinema__hall__row" key={row}>
-                <div>{row}</div>
-                {columns.map((column) => {
-                  return (
-                    <Seat
-                      key={`${row}${column}`}
-                      seatNr={`${row}${column}`}
-                      columnNr={column}
-                    />
-                  );
-                })}
-                <div>{row}</div>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    </ReservationProvider>
+    <div>
+      <div className="cinema__hall__screen">Screen this way!</div>
+      <ul>
+        {rowsInLetter.map((row) => {
+          return (
+            <li className="cinema__hall__row" key={row}>
+              <p>{row}</p>
+              {columns.map((column) => {
+                return (
+                  <Seat
+                    key={`${row}${column}`}
+                    seatNr={`${row}${column}`}
+                    columnNr={column}
+                  />
+                );
+              })}
+              <p>{row}</p>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 };
 export default CinemaHall;

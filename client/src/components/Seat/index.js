@@ -1,31 +1,25 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import './style.scss';
 import { ReservationContext } from '../../context/Reservation';
 
 const Seat = ({ columnNr, seatNr }) => {
-  const [selectedSeats, setSelectedSeats, tickets, setTickets] = useContext(
-    ReservationContext,
-  );
-  // TO DO gest variables from props
+  const [reservation, dispatch] = useContext(ReservationContext);
+
   const occupied = false;
-  // TO DO move the handle function to the parent component
   const handleSeatSelected = (e) => {
     e.target.classList.toggle('selected');
-    if (selectedSeats.includes(seatNr)) {
-      const newSelectedSeats = selectedSeats.filter((seat) => {
-        return seat !== seatNr;
-      });
-      setSelectedSeats((prevselectedSeats) => [newSelectedSeats]);
-      setTickets((prevTickets) => prevTickets - 1);
+    if (reservation.selectedSeats.includes(e.target.name)) {
+      dispatch({ type: 'REMOVE_SEAT', payload: e.target.name });
+      dispatch({ type: 'REMOVE_TICKET', payload: 1 });
     } else {
-      setSelectedSeats((prevSelectedSeats) => [...prevSelectedSeats, seatNr]);
-      setTickets((prevTickets) => prevTickets + 1);
+      dispatch({ type: 'ADD_SEAT', payload: e.target.name });
+      dispatch({ type: 'ADD_TICKET', payload: 1 });
     }
   };
-  console.log(selectedSeats, tickets);
+  console.log(reservation.selectedSeats, reservation.totalTickets);
   return (
     <button
-      seatNr={seatNr}
+      name={seatNr}
       disabled={occupied}
       className={occupied ? 'hall__seat occupied' : 'hall__seat'}
       onClick={handleSeatSelected}
