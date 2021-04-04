@@ -4,6 +4,7 @@ import { getLocalStorage } from './localStorage';
 export const ReservationContext = createContext();
 const initialState = {
   screeningId: '',
+  cinemaHallId: '',
   movieId: '',
   totalTickets: 0,
   selectedSeats: [],
@@ -16,6 +17,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         screeningId: action.payload,
+      };
+    case 'ADD_CINEMAHALL_ID':
+      return {
+        ...state,
+        cinemaHallId: action.payload,
       };
     case 'ADD_MOVIE_ID':
       return {

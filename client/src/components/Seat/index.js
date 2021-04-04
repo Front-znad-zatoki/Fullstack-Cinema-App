@@ -16,7 +16,6 @@ const Seat = ({ columnNr, seatNr }) => {
       dispatch({ type: 'ADD_TICKET', payload: 1 });
     }
   };
-  console.log(reservation.selectedSeats, reservation.totalTickets);
   return (
     <button
       name={seatNr}

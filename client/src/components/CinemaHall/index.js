@@ -2,11 +2,15 @@
 import React, { useContext } from 'react';
 import Seat from '../Seat';
 import './style.scss';
-import ReservationProvider from '../../context/Reservation';
+import { ReservationContext } from '../../context/Reservation';
+import cinemaHalls from '../../mock/cinemaHallMock';
 
 const CinemaHall = () => {
-  const nrOfRows = 7;
-  const nrOfColumns = 8;
+  // const [reservation, dispatch] = useContext(ReservationContext);
+  // dispatch({ type: 'ADD_CINEMAHALL_ID', payload: cinemaHalls[0].id });
+  console.log(cinemaHalls[0].rows);
+  const nrOfRows = cinemaHalls[0].rows;
+  const nrOfColumns = cinemaHalls[0].columns;
   const columns = [];
   const rowsInLetter = [];
 
