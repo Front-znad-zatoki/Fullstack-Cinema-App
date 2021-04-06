@@ -6,7 +6,8 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   ACCOUNT_DELETED,
-  DELETE_ORDER,
+  CHANGE_FAIL,
+  CHANGE_SUCCESS,
 } from '../../actions/types';
 
 function authReducer(state, action) {
@@ -16,6 +17,7 @@ function authReducer(state, action) {
     case USER_LOADED:
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
+    case CHANGE_SUCCESS:
       return {
         ...state,
         isAuthenticated: true,

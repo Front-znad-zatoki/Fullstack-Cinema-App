@@ -70,7 +70,7 @@ router.put(
     }
 
     try {
-      const user = await User.findOneAndUpdate(
+      const user = await User.findByIdAndUpdate(
         req.user.id,
         { phone: req.body.phone },
         { new: true },
@@ -103,11 +103,14 @@ router.put(
     }
 
     try {
-      const user = await User.findOneAndUpdate(
+      const user = await User.findByIdAndUpdate(
         req.user.id,
         { name: req.body.name },
         { new: true },
       ).select('-password');
+      // const user = await User.findByIdAndUpdate(req.user.id)
+      console.log(req.user.id);
+      console.log(user);
       if (!user) res.status(404).send('User not found');
       await user.save();
       res.status(200).json({ user: user, isAuthenticated: true });
@@ -138,7 +141,7 @@ router.put(
     try {
       const salt = await bcryptjs.genSalt(10);
       const password = await bcryptjs.hash(req.body.password, salt);
-      const user = await User.findOneAndUpdate(
+      const user = await User.findByIdAndUpdate(
         req.user.id,
         { password: password },
         { new: true },
@@ -157,7 +160,7 @@ router.put(
 // @desc     Update profile
 // @access   Private
 router.put(
-  '/',
+  '/email',
   authMiddleware,
   check('email', 'Insert correct email address')
     .notEmpty()
@@ -171,7 +174,7 @@ router.put(
     }
 
     try {
-      const user = await User.findOneAndUpdate(
+      const user = await User.findByIdAndUpdate(
         req.user.id,
         { email: req.body.email },
         { new: true },
@@ -204,7 +207,7 @@ router.put(
     }
 
     try {
-      const user = await User.findOneAndUpdate(
+      const user = await User.findByIdAndUpdate(
         req.user.id,
         { surname: req.body.surname },
         { new: true },
