@@ -1,10 +1,11 @@
 import { createContext, useReducer, useState } from 'react';
 import { getLocalStorage } from './localStorage';
+import cinemaHallMock from '../../mock/cinemaHallMock';
 
 export const ReservationContext = createContext();
 const initialState = {
   screeningId: '',
-  cinemaHallId: '',
+  cinemaHall: cinemaHallMock[0],
   movieId: '',
   totalTickets: 0,
   selectedSeats: [],
@@ -13,6 +14,8 @@ const localReservation = getLocalStorage('reservation', initialState);
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case 'SUCCESS_CINEMAHALL':
+      return state;
     case 'ADD_SCREENING_ID':
       return {
         ...state,

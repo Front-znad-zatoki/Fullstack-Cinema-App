@@ -1,16 +1,23 @@
 /* eslint-disable no-plusplus */
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Seat from '../Seat';
 import './style.scss';
 import { ReservationContext } from '../../context/Reservation';
-import cinemaHalls from '../../mock/cinemaHallMock';
+import useFetchedData from '../../hooks/useFetchedData';
 
 const CinemaHall = () => {
-  // const [reservation, dispatch] = useContext(ReservationContext);
-  // dispatch({ type: 'ADD_CINEMAHALL_ID', payload: cinemaHalls[0].id });
-  console.log(cinemaHalls[0].rows);
-  const nrOfRows = cinemaHalls[0].rows;
-  const nrOfColumns = cinemaHalls[0].columns;
+  const [reservation, dispatch] = useContext(ReservationContext);
+  const { cinemaHall } = reservation;
+  const mongoCinemaHall = useFetchedData('api/cinemahalls');
+
+  useEffect(() => {
+    dispatch({
+      type: 'SUCCESS',
+      payload: 'action dispatched from useEffect',
+    });
+  }, [mongoCinemaHall]);
+  const nrOfRows = cinemaHall.rows;
+  const nrOfColumns = cinemaHall.columns;
   const columns = [];
   const rowsInLetter = [];
 
