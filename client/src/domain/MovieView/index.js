@@ -10,6 +10,7 @@ function MovieView({ match }) {
   const { currentlyPlaying } = useContext(MoviesContext);
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
+  console.log(currentlyPlaying);
   const movie = currentlyPlaying.filter(
     (item) => item.title === match.params.title,
   );
