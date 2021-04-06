@@ -7,10 +7,10 @@ import { register } from '../../../actions/Auth';
 import { AuthContext } from '../../../context/Auth';
 import Message from '../../../components/Message';
 
-function SignUp({ history }) {
+function SignUp(props) {
   // TODO: Check cookies
   const { userContext, dispatchUserContext } = useContext(AuthContext);
-  const { isAuthenticated, user } = userContext;
+  const { isAuthenticated } = userContext;
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
   const [alertMsg, setAlertMsg] = useState(null);
@@ -23,7 +23,6 @@ function SignUp({ history }) {
   };
   const [formData, setFormData] = useState(initialState);
   const { name, surname, email, password, passwordRepeat } = formData;
-  console.log(isAuthenticated);
   const onChange = (event) =>
     setFormData({
       ...formData,
