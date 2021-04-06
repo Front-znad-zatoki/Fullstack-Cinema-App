@@ -3,11 +3,10 @@ import { changeUsersData } from '../../../actions/User';
 import Message from '../../../components/Message';
 import { AuthContext } from '../../../context/Auth';
 
-function UserDataUpdateForm({ title }) {
+function UserDataUpdateForm({ title, setshowChange }) {
   const [formData, setFormData] = useState(null);
   const [alertMsg, setAlertMsg] = useState(null);
-  const { userContext, dispatchUserContext } = useContext(AuthContext);
-  // const { isAuthenticated, user } = userContext;
+  const { dispatchUserContext } = useContext(AuthContext);
 
   const onChange = (event) => {
     setFormData({ [event.target.name]: event.target.value });
@@ -25,7 +24,13 @@ function UserDataUpdateForm({ title }) {
       setTimeout(() => {
         setAlertMsg(null);
       }, 2000);
+      return;
     }
+    setAlertMsg(`Your ${title} changed.`);
+    setTimeout(() => {
+      setAlertMsg(null);
+      setshowChange((prevState) => !prevState);
+    }, 2000);
   };
 
   return (

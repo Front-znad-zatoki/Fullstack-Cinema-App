@@ -15,7 +15,9 @@ function UserListItem({ title, text = '' }) {
       <button onClick={handleClick}>
         {showChange ? 'Hide' : `Change ${title}`}
       </button>
-      {showChange ? <UserDataUpdateForm title={title} /> : null}
+      {showChange ? (
+        <UserDataUpdateForm setshowChange={setshowChange} title={title} />
+      ) : null}
     </li>
   );
 }
