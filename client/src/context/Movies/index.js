@@ -5,7 +5,7 @@ import moviesReducer from './moviesReducer';
 export const MoviesContext = createContext();
 
 const MoviesContextProvider = ({ children }) => {
-  const [movies, dispatch] = useReducer(moviesReducer, {}, () => {
+  const [movies, dispatchMovieContext] = useReducer(moviesReducer, {}, () => {
     const localMovies = localStorage.getItem('movies');
     return localMovies ? JSON.parse(localMovies) : moviesMock;
   });
@@ -13,7 +13,7 @@ const MoviesContextProvider = ({ children }) => {
     localStorage.setItem('movies', JSON.stringify(movies));
   }, [movies]);
   return (
-    <MoviesContext.Provider value={{ movies, dispatch }}>
+    <MoviesContext.Provider value={{ movies, dispatchMovieContext }}>
       {children}
     </MoviesContext.Provider>
   );

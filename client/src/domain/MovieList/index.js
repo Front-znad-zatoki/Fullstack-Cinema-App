@@ -7,14 +7,14 @@ import { MoviesContext } from '../../context/Movies';
 import useFetchedData from '../../hooks/useFetchedData';
 
 function MovieList() {
-  const { movies, dispatch } = useContext(MoviesContext);
-  const { incoming, currentlyPlaying } = movies;
+  const { movies, dispatchMovieContext } = useContext(MoviesContext);
+  // const { incoming, currentlyPlaying } = movies;
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
   const mongoMovies = useFetchedData('api/movies');
 
   useEffect(() => {
-    dispatch({
+    dispatchMovieContext({
       type: 'SUCCESS',
       payload: 'action dispatched from useEffect',
     });
@@ -29,9 +29,9 @@ function MovieList() {
       }}
     >
       <h4>Rendering movies list</h4>
-      {currentlyPlaying ? (
+      {movies ? (
         <ul className="movie__list">
-          {currentlyPlaying.map((movie) => {
+          {movies.map((movie) => {
             return <Movie key={movie.id} movie={movie} />;
           })}
         </ul>

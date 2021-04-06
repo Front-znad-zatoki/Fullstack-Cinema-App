@@ -7,14 +7,12 @@ import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
 
 function MovieView({ match }) {
-  const { currentlyPlaying } = useContext(MoviesContext);
+  const { movies } = useContext(MoviesContext);
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
-  console.log(currentlyPlaying);
-  const movie = currentlyPlaying.filter(
-    (item) => item.title === match.params.title,
-  );
-  const { title, duration, genre, description } = movie[0];
+  const movie = movies.find((item) => item.slug === match.params.movieId);
+  const { title, duration, genre, description } = movie;
+  console.log(movie);
   return (
     <div
       className="movie__view"
