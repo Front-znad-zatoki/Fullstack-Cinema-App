@@ -31,7 +31,7 @@ export default function UserDashboard() {
 
   return isAuthenticated ? (
     <div
-      className="navbar"
+      className="dashboard"
       style={{
         backgroundColor: `${currentTheme.backgroundColor}`,
         color: `${currentTheme.textColor}`,

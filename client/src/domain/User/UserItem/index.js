@@ -7,8 +7,7 @@ function UserListItem({ title, text, callback }) {
   return (
     <li className="profile__list-item">
       <p>
-        {title}: <span className="profile__list-item--bold" />
-        {text}
+        {title}: <span className="profile__list-item--bold">{text}</span>
       </p>
       <button onClick={handleClick}>Change {title} </button>
     </li>

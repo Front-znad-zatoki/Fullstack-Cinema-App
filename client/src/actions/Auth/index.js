@@ -148,7 +148,6 @@ export const login = async (formData, dispatch) => {
 
 // Load User
 export const loadUser = async (dispatch) => {
-  console.log(dispatch);
   try {
     const source = CancelToken.source();
     const res = await api.get('/users/me', {

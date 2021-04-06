@@ -7,7 +7,7 @@ import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
 import ThemeToggler from '../ThemeToggler';
 
-function Navbar(props) {
+function Navbar() {
   const { userContext, dispatchUserContext } = useContext(AuthContext);
   const { isAuthenticated, user } = userContext;
   const theme = useContext(ThemeContext)[0];
@@ -18,9 +18,9 @@ function Navbar(props) {
     if (!isLoggedOut) {
       alert('Could not log out user. Try again');
     }
-    return <Redirect to="/movies" />;
+    return <Redirect to="/" />;
   };
-  const unauthenticatedNavBar = () => {
+  const UnauthenticatedNavBar = () => {
     return (
       <>
         <Link to="/login">
@@ -33,7 +33,7 @@ function Navbar(props) {
     );
   };
 
-  const authenticatedNavBar = () => {
+  const AuthenticatedNavBar = () => {
     return (
       <>
         <Link to="/users/me">
@@ -54,6 +54,7 @@ function Navbar(props) {
       </>
     );
   };
+
   return (
     <nav
       className="navbar"
@@ -71,7 +72,11 @@ function Navbar(props) {
           <Link to="/movies">
             <li className="navbar__list-item">Movies</li>
           </Link>
-          {!isAuthenticated ? unauthenticatedNavBar() : authenticatedNavBar()}
+          {!isAuthenticated ? (
+            <UnauthenticatedNavBar />
+          ) : (
+            <AuthenticatedNavBar />
+          )}
         </ul>
         <ThemeToggler />
       </div>

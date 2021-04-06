@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 function OrderDetails({ details }) {
   const { createdAt, status, tickets } = details;
   console.log(tickets);

@@ -13,7 +13,7 @@ function OrderList({ callback }) {
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
   // TODO: add action logic
-  console.log(user.orders);
+  // console.log(user.orders);
   const handleOrderDelete = async (id, dispatch) => {
     const wasUserDeleted = deleteUsersOrder(id, dispatch);
     if (wasUserDeleted) {
@@ -24,17 +24,18 @@ function OrderList({ callback }) {
     alert('Cannot delete order at this moment');
   };
 
-  const userOrders = user.orders
-    ? user.orders.map((order) => {
-        return (
-          <OrderItem
-            key={order._id}
-            id={order._id}
-            callback={handleOrderDelete}
-          />
-        );
-      })
-    : undefined;
+  const userOrders =
+    user.orders && user.orders.length > 0
+      ? user.orders.map((order) => {
+          return (
+            <OrderItem
+              key={order._id}
+              id={order._id}
+              callback={handleOrderDelete}
+            />
+          );
+        })
+      : null;
   return (
     <div
       className="orders"
@@ -44,7 +45,7 @@ function OrderList({ callback }) {
       }}
     >
       <h2>Orders</h2>
-      <ul>{userOrders !== undefined ? userOrders : <li>No orders</li>}</ul>
+      <ul>{userOrders || <li>No orders</li>}</ul>
     </div>
   );
 }
