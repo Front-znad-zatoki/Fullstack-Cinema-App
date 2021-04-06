@@ -12,7 +12,7 @@ const CinemaHall = () => {
 
   useEffect(() => {
     dispatch({
-      type: 'SUCCESS',
+      type: 'SUCCESS_CINEMAHALL',
       payload: 'action dispatched from useEffect',
     });
   }, [mongoCinemaHall]);
