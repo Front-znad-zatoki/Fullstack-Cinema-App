@@ -186,8 +186,8 @@ router.put(
   },
 );
 
-// @route    PUT api/users/me/name
-// @desc     Update name
+// @route    PUT api/users/me/surname
+// @desc     Update surname
 // @access   Private
 router.put(
   '/name',

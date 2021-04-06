@@ -16,3 +16,7 @@ export const GET_ORDER = 'GET_ORDER';
 export const ORDER_ERROR = 'ORDER_ERROR';
 export const DELETE_ORDER = 'DELETE_ORDER';
 export const ADD_ORDER = 'ADD_ORDER';
+export const CHANGE_NAME = 'CHANGE_NAME';
+export const CHANGE_SURNAME = 'CHANGE_SURNAME';
+export const CHANGE_EMAIL = 'CHANGE_EMAIL';
+export const CHANGE_PHONE = 'CHANGE_EMAIL';

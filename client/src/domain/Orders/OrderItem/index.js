@@ -5,7 +5,6 @@ import OrderDetails from '../OrderDetails';
 import { loadUser } from '../../../actions/Auth';
 
 function OrderItem({ id, callback }) {
-  // TODO: prepare async action to send delete request and get details
   const { userContext, dispatchUserContext } = useContext(AuthContext);
   const { isAuthenticated, user } = userContext;
   const [showDetails, setShowDetails] = useState(false);

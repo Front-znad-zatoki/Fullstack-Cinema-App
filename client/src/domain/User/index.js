@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { loadUser } from '../../actions/Auth';
 import { AuthContext } from '../../context/Auth';
@@ -15,20 +15,8 @@ export default function UserDashboard() {
   useEffect(() => {
     loadUser(dispatchUserContext);
   }, []);
-  // TODO: add logic to actions
-  const handleNameChange = async () => {
-    console.log('changing name');
-  };
-  const handleSurnameChange = async () => {
-    console.log('changing surname');
-  };
-  const handleEmailChange = async () => {
-    console.log('changing email');
-  };
-  const handlePhoneChange = async () => {
-    console.log('changing phone');
-  };
 
+  const userDataToRender = ['name', 'surname', 'phone', 'email'];
   return isAuthenticated ? (
     <div
       className="dashboard"
@@ -39,26 +27,9 @@ export default function UserDashboard() {
     >
       Redering Dashboard
       <ul className="profile__list">
-        <UserListItem
-          title="Name"
-          text={user ? user.name : ''}
-          callback={handleNameChange}
-        />
-        <UserListItem
-          title="Surname"
-          text={user ? user.surname : ''}
-          callback={handleSurnameChange}
-        />
-        <UserListItem
-          title="Email"
-          text={user ? user.email : ''}
-          callback={handleEmailChange}
-        />
-        <UserListItem
-          title="Phone"
-          text={user ? user.phone : ''}
-          callback={handlePhoneChange}
-        />
+        {userDataToRender.map((title) => {
+          return <UserListItem key={title} title={title} text={user[title]} />;
+        })}
       </ul>
       {user ? <OrderList /> : null}
     </div>

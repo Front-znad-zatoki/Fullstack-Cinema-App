@@ -24,18 +24,17 @@ function OrderList({ callback }) {
     alert('Cannot delete order at this moment');
   };
 
-  const userOrders =
-    user.orders && user.orders.length > 0
-      ? user.orders.map((order) => {
-          return (
-            <OrderItem
-              key={order._id}
-              id={order._id}
-              callback={handleOrderDelete}
-            />
-          );
-        })
-      : null;
+  const userOrders = user.orders
+    ? user.orders.map((order) => {
+        return (
+          <OrderItem
+            key={order._id}
+            id={order._id}
+            callback={handleOrderDelete}
+          />
+        );
+      })
+    : undefined;
   return (
     <div
       className="orders"
@@ -45,7 +44,7 @@ function OrderList({ callback }) {
       }}
     >
       <h2>Orders</h2>
-      <ul>{userOrders || <li>No orders</li>}</ul>
+      <ul>{userOrders !== undefined ? userOrders : <li>No orders</li>}</ul>
     </div>
   );
 }
