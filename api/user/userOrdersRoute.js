@@ -45,6 +45,30 @@ router.get(
         {
           path: 'tickets',
           model: 'Ticket',
+          populate: [
+            {
+              path: 'screening',
+              model: 'Screening',
+              select: 'startDate cinemaHallId movieId',
+              populate: [
+                {
+                  path: 'cinemaHallId',
+                  model: 'CinemaHall',
+                  select: 'name',
+                },
+                {
+                  path: 'movieId',
+                  model: 'Movie',
+                  select: 'title',
+                },
+              ],
+            },
+            {
+              path: 'seat',
+              model: 'Seat',
+              select: 'row column',
+            },
+          ],
         },
       );
       const orderIds = orders.map((orderData) => orderData.id);

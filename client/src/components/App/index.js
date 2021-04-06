@@ -1,18 +1,16 @@
 import './style.scss';
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Landing from '../../domain/Landing';
 import SignUp from '../../domain/Auth/SignUp';
 import Login from '../../domain/Auth/Login';
 import MovieList from '../../domain/MovieList';
-import MovieView from '../../domain/MovieView';
 import { ThemeContext } from '../../context/Theme';
 import Navbar from '../Navbar/index';
-import MovieDetails from '../../domain/MovieDetails/index';
-import MovieSlider from '../../domain/MovieSlider';
 import MoviesContextProvider from '../../context/Movies';
 import AuthContextProvider from '../../context/Auth';
-import moviesMock from '../../mock/moviesMock';
+import UserDashboard from '../../domain/User';
+import MovieView from '../../domain/MovieView';
 
 function App() {
   const themeHook = useState('light');
@@ -37,7 +35,7 @@ function App() {
                   {/* http://localhost:3000/logout */}
                   {/* <Route exact path='/login' component={ Logout }/> */}
                   {/* http://localhost:3000/users/me */}
-                  {/* <Route exact path='/users/me' component={ UserProfile }/> */}
+                  <Route exact path="/users/me" component={UserDashboard} />
                   {/* http://localhost:3000/reservation/pre/:screeningId */}
                   {/* <Route path='/reservation/pre/:screeningId' component={ ReservationPreview }/> */}
                   {/* http://localhost:3000/reservation/chooseSeats/:screeningId */}

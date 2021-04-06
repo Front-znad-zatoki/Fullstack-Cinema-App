@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import './style.scss';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { logout } from '../../actions/Auth';
 import { AuthContext } from '../../context/Auth';
 import { ThemeContext } from '../../context/Theme';
@@ -18,9 +18,9 @@ function Navbar() {
     if (!isLoggedOut) {
       alert('Could not log out user. Try again');
     }
+    return <Redirect to="/" />;
   };
-  // console.log(isAuthenticated);
-  const unauthenticatedNavBar = () => {
+  const UnauthenticatedNavBar = () => {
     return (
       <>
         <Link to="/login">
@@ -33,16 +33,13 @@ function Navbar() {
     );
   };
 
-  const authenticatedNavBar = () => {
+  const AuthenticatedNavBar = () => {
     return (
       <>
         <Link to="/users/me">
           <li className="navbar__list-item">Me</li>
         </Link>
-        <Link to="/users/orders">
-          <li className="navbar__list-item">Orders</li>
-        </Link>
-        {user.isAdmin ? (
+        {user && user.isAdmin ? (
           <Link to="/admin">
             <li className="navbar__list-item">Admin</li>
           </Link>
@@ -57,6 +54,7 @@ function Navbar() {
       </>
     );
   };
+
   return (
     <nav
       className="navbar"
@@ -74,7 +72,11 @@ function Navbar() {
           <Link to="/movies">
             <li className="navbar__list-item">Movies</li>
           </Link>
-          {!isAuthenticated ? unauthenticatedNavBar() : authenticatedNavBar()}
+          {!isAuthenticated ? (
+            <UnauthenticatedNavBar />
+          ) : (
+            <AuthenticatedNavBar />
+          )}
         </ul>
         <ThemeToggler />
       </div>
