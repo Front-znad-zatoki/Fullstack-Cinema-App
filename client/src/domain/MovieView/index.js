@@ -1,12 +1,15 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-underscore-dangle */
 import './style.scss';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MoviesContext } from '../../context/Movies';
 import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
-import { getMovieScreeningsByMovieId } from '../../actions/Movies';
+import {
+  getMovieScreeningsByMovieId,
+  getMovieBySlug,
+} from '../../actions/Movies';
 
 function MovieView({ match }) {
   const { movies } = useContext(MoviesContext);
@@ -14,10 +17,23 @@ function MovieView({ match }) {
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
   const movie = movies.find((item) => item.slug === match.params.movieSlug);
+  const [currentMovie, setCurrentMovie] = useState(movie);
+  // TODO: add case of entering this url before previously enterign list
   const { title, duration, genre, description, poster } = movie;
   useEffect(() => {
-    getMovieScreeningsByMovieId(movie._id, setScreenings);
+    if (!movie) {
+      getMovieBySlug(match.params.movieSlug, setCurrentMovie);
+      return;
+    }
+    setCurrentMovie(movie);
   }, []);
+  useEffect(() => {
+    getMovieScreeningsByMovieId(currentMovie._id, setScreenings);
+    return () => {
+      setScreenings(null);
+    };
+  }, [currentMovie]);
+
   return (
     <div
       className="movie__view"

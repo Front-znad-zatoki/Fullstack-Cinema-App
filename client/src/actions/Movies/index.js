@@ -19,15 +19,35 @@ export const getMovies = async (dispatch) => {
   }
 };
 
-// Get single movie
+// Get single movie screenings
 export const getMovieScreeningsByMovieId = async (id, dispatch) => {
   try {
-    const res = await api.get(`screenings/`);
+    const res = await api.get(`screenings`);
     const filteredScreenings = await res.data.filter((screening) => {
       return screening.movieId === id;
     });
     dispatch(filteredScreenings);
     return filteredScreenings;
+  } catch (error) {
+    if (error.response) {
+      console.log(error.response.data);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log('Error', error.message);
+    }
+    return false;
+  }
+};
+
+// Get single movie
+export const getMovieBySlug = async (slug) => {
+  try {
+    const res = await api.get(`movies`);
+    const movieFound = await res.data.find((movie) => {
+      return movie.slug === slug;
+    });
+    return movieFound;
   } catch (error) {
     if (error.response) {
       console.log(error.response.data);
