@@ -13,7 +13,6 @@ import {
 
 // Register User
 export const register = async (formData, dispatch) => {
-  console.log('registering');
   try {
     const source = CancelToken.source();
     const res = await api.post('/users/signup', formData, {
@@ -27,9 +26,16 @@ export const register = async (formData, dispatch) => {
     source.cancel();
     return true;
   } catch (err) {
-    const { errors } = err.response.data;
-    if (errors) {
-      errors.forEach((error) => alert(error.msg, 'Something went wrong'));
+    if (err.response) {
+      const { errors } = err.response.data;
+      if (errors) {
+        errors.forEach((error) => alert(error.msg, 'Something went wrong'));
+      }
+    }
+    if (err.request) {
+      console.log(err.request);
+    } else {
+      console.log('Error', err.message);
     }
     dispatch({
       type: REGISTER_FAIL,
@@ -51,12 +57,18 @@ export const logout = async (dispatch) => {
     source.cancel();
     return true;
   } catch (err) {
-    const { errors } = err.response.data;
+    if (err.response) {
+      const { errors } = err.response.data;
 
-    if (errors) {
-      errors.forEach((error) => dispatch(alert(error.msg, 'danger')));
+      if (errors) {
+        errors.forEach((error) => alert(error.msg, 'danger'));
+      }
     }
-
+    if (err.request) {
+      console.log(err.request);
+    } else {
+      console.log('Error', err.message);
+    }
     dispatch({
       type: LOGOUT_FAIL,
     });
@@ -83,8 +95,17 @@ export const checkIfIsAuthenticated = async (dispatch) => {
       type: AUTH_ERROR,
     });
     return false;
-  } catch {
-    console.log('Cannot fetch at the moment');
+  } catch (err) {
+    if (err.response) {
+      console.log(err.response.data);
+      console.log(err.response.status);
+      console.log(err.response.headers);
+    } else if (err.request) {
+      console.log(err.request);
+    } else {
+      console.log('Error', err.message);
+    }
+    console.log(err.config);
   }
 };
 
@@ -105,15 +126,23 @@ export const login = async (formData, dispatch) => {
     });
     source.cancel();
   } catch (err) {
-    const { errors } = err.response.data;
+    if (err.response) {
+      const { errors } = err.response.data;
 
-    if (errors) {
-      errors.forEach((error) => dispatch(alert(error.msg, 'danger')));
+      if (errors) {
+        errors.forEach((error) => alert(error.msg, 'danger'));
+      }
+    } else if (err.request) {
+      console.log(err.request);
+    } else {
+      console.log('Error', err.message);
     }
-
+    console.log(err.config);
     dispatch({
       type: LOGIN_FAIL,
+      payload: null,
     });
+    alert('Login failed');
   }
 };
 
@@ -131,8 +160,18 @@ export const loadUser = async (dispatch) => {
     });
     source.cancel();
   } catch (err) {
-    dispatch({
-      type: AUTH_ERROR,
-    });
+    if (err.response) {
+      console.log(err.response.data);
+      console.log(err.response.status);
+      console.log(err.response.headers);
+    } else if (err.request) {
+      console.log(err.request);
+    } else {
+      console.log('Error', err.message);
+    }
+    console.log(err.config);
+    // dispatch({
+    //   type: AUTH_ERROR,
+    // });
   }
 };

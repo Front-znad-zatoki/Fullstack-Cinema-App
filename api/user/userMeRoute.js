@@ -70,7 +70,7 @@ router.put(
     }
 
     try {
-      const user = await User.findOneAndUpdate(
+      const user = await User.findByIdAndUpdate(
         req.user.id,
         { phone: req.body.phone },
         { new: true },
@@ -103,11 +103,14 @@ router.put(
     }
 
     try {
-      const user = await User.findOneAndUpdate(
+      const user = await User.findByIdAndUpdate(
         req.user.id,
         { name: req.body.name },
         { new: true },
       ).select('-password');
+      // const user = await User.findByIdAndUpdate(req.user.id)
+      console.log(req.user.id);
+      console.log(user);
       if (!user) res.status(404).send('User not found');
       await user.save();
       res.status(200).json({ user: user, isAuthenticated: true });
@@ -138,9 +141,75 @@ router.put(
     try {
       const salt = await bcryptjs.genSalt(10);
       const password = await bcryptjs.hash(req.body.password, salt);
-      const user = await User.findOneAndUpdate(
+      const user = await User.findByIdAndUpdate(
         req.user.id,
         { password: password },
+        { new: true },
+      ).select('-password');
+      if (!user) res.status(404).send('User not found');
+      await user.save();
+      res.status(200).json({ user: user, isAuthenticated: true });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  },
+);
+
+// @route    PUT api/users/me/email
+// @desc     Update profile
+// @access   Private
+router.put(
+  '/email',
+  authMiddleware,
+  check('email', 'Insert correct email address')
+    .notEmpty()
+    .isEmail()
+    .normalizeEmail()
+    .trim(),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      const user = await User.findByIdAndUpdate(
+        req.user.id,
+        { email: req.body.email },
+        { new: true },
+      ).select('-password');
+      if (!user) res.status(404).send('User not found');
+      await user.save();
+      res.status(200).json({ user: user, isAuthenticated: true });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  },
+);
+
+// @route    PUT api/users/me/surname
+// @desc     Update surname
+// @access   Private
+router.put(
+  '/name',
+  authMiddleware,
+  check('surname', 'Surame is required')
+    .notEmpty()
+    .isString()
+    .trim()
+    .isLength({ min: 5, max: 255 }),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      const user = await User.findByIdAndUpdate(
+        req.user.id,
+        { surname: req.body.surname },
         { new: true },
       ).select('-password');
       if (!user) res.status(404).send('User not found');

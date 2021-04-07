@@ -19,11 +19,6 @@ function Login(props) {
   });
 
   const { email, password } = formData;
-  useEffect(() => {
-    return () => {
-      console.log(isAuthenticated);
-    };
-  }, [isAuthenticated]);
 
   const onChange = (event) => {
     setFormData({
