@@ -13,7 +13,7 @@ const CinemaHall = () => {
   useEffect(() => {
     dispatch({
       type: 'SUCCESS_CINEMAHALL',
-      payload: 'action dispatched from useEffect',
+      payload: mongoCinemaHall[0],
     });
   }, [mongoCinemaHall]);
   const nrOfRows = cinemaHall.rows;

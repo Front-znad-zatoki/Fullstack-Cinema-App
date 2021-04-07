@@ -15,20 +15,17 @@ const localReservation = getLocalStorage('reservation', initialState);
 const reducer = (state, action) => {
   switch (action.type) {
     case 'SUCCESS_CINEMAHALL':
-      return state;
+      return { cinemaHall: action.payload };
     case 'ADD_SCREENING_ID':
       return {
-        ...state,
         screeningId: action.payload,
       };
     case 'ADD_CINEMAHALL_ID':
       return {
-        ...state,
         cinemaHallId: action.payload,
       };
     case 'ADD_MOVIE_ID':
       return {
-        ...state,
         movieId: action.payload,
       };
     case 'ADD_SEAT':
