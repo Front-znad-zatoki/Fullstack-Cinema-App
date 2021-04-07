@@ -31,7 +31,7 @@ function App() {
                   {/* http://localhost:3000/login */}
                   <Route exact path="/login" component={Login} />
                   {/* http://localhost:3000/reservation/pre/:screeningId */}
-                  <Route path="/movies/:movieId" component={MovieView} />
+                  <Route path="/movies/:movieSlug" component={MovieView} />
                   {/* http://localhost:3000/logout */}
                   {/* <Route exact path='/login' component={ Logout }/> */}
                   {/* http://localhost:3000/users/me */}

@@ -111,7 +111,7 @@ router
   // @route GET api/screenings/id
   // @description Get a screening
   // @access User
-  .get(authMiddleware, async (req, res) => {
+  .get(async (req, res) => {
     const screening = await Screening.findById(req.params.id);
     try {
       if (screening === undefined) {

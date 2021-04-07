@@ -28,7 +28,7 @@ function Landing() {
       Rendering Landing Page
       {/* <button onClick={handleOnClick}>Get cookies</button> */}
       <MovieSlider />
-      <MovieList />
+      {/* <MovieList /> */}
     </div>
   );
 }
