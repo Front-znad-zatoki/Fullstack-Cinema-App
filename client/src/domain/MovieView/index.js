@@ -3,7 +3,6 @@
 import './style.scss';
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import poster from '../../assets/moviePosters/noTimeToDiePoster.jpg';
 import { MoviesContext } from '../../context/Movies';
 import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
@@ -15,9 +14,7 @@ function MovieView({ match }) {
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
   const movie = movies.find((item) => item.slug === match.params.movieSlug);
-  const { title, duration, genre, description } = movie;
-  console.log(movie);
-  console.log(screenings);
+  const { title, duration, genre, description, poster } = movie;
   useEffect(() => {
     getMovieScreeningsByMovieId(movie._id, setScreenings);
   }, []);
@@ -50,12 +47,21 @@ function MovieView({ match }) {
         </p>
         <h4>We're playing now in:</h4>
         <ul>
-          {/* TODO: create pipe to format date */}
           {screenings
             ? screenings.map((screening, index) => {
+                const startDate = new Date(screening.startDate);
+                const startDateFormatted = new Date(
+                  startDate,
+                ).toLocaleDateString();
+                if (startDate.getTime() < new Date().getTime()) {
+                  return null;
+                }
                 return (
                   <li key={index}>
-                    <p>{screening.startDate}</p>
+                    <p>
+                      In {screening.cinemaHallId.cinemaId.city} at{' '}
+                      {startDateFormatted}
+                    </p>
                   </li>
                 );
               })

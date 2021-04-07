@@ -10,14 +10,12 @@ import { getMovies } from '../../actions/Movies';
 
 function MovieList() {
   const { movies, setMovies } = useContext(MoviesContext);
-  // const { incoming, currentlyPlaying } = movies;
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
 
   useEffect(() => {
     getMovies(setMovies);
   }, []);
-  console.log(movies);
   return (
     <div
       className="movie__list-container"

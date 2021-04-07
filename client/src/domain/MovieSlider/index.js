@@ -1,12 +1,28 @@
-import React from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Slider from 'react-slick';
-import poster1 from '../../assets/moviePosters/adamsApples.jpg';
-import poster2 from '../../assets/moviePosters/avatar.jpg';
-import poster3 from '../../assets/moviePosters/noTimeToDiePoster.jpg';
+import { Link } from 'react-router-dom';
+import { MoviesContext } from '../../context/Movies';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { getMovies } from '../../actions/Movies';
 
 function MovieSlider() {
+  const { movies, setMovies } = useContext(MoviesContext);
+  const [incomingMovies, setIncomingMovies] = useState();
+  const getIncomingMovies = () => {
+    const timeNow = new Date();
+    const filteredIncomingMovies = movies.filter((movie) => {
+      const timeOfRelease = new Date(movie.releaseDate);
+      return timeOfRelease.getTime() > timeNow.getTime();
+    });
+    setIncomingMovies(filteredIncomingMovies);
+  };
+  useEffect(() => {
+    getMovies(setMovies);
+  }, []);
+  useEffect(() => {
+    getIncomingMovies(movies);
+  }, [movies]);
   const settings = {
     dots: true,
     infinite: true,
@@ -16,19 +32,23 @@ function MovieSlider() {
     autoplay: true,
   };
 
-  const posters = [poster1, poster2, poster3];
   return (
     <div className="slider">
       <h2>Coming up</h2>
       <Slider {...settings}>
-        {posters.map((poster) => {
-          // Removing return line caused error and slider did not display
-          return (
-            <div key={poster} className="slider_container">
-              <img className="slider_container_img" src={poster} alt="" />
-            </div>
-          );
-        })}
+        {incomingMovies
+          ? incomingMovies.map(({ poster, slug, title }, index) => {
+              return (
+                <Link key={slug} to={`/movies/${slug}`}>
+                  <img
+                    className="slider_container_img"
+                    src={poster}
+                    alt={title}
+                  />
+                </Link>
+              );
+            })
+          : null}
       </Slider>
     </div>
   );

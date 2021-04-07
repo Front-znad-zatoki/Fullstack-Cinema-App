@@ -9,7 +9,7 @@ const movies = [
     description:
       'James Bond has left active service. His peace is short-lived when Felix Leiter, an old friend from the CIA, turns up asking for help, leading Bond onto the trail of a mysterious villain armed with dangerous new technology.',
     genre: ['Action', 'Adventure', 'Thriller'],
-    poster: '../assets/moviePosters/noTimeToDiePoster.jpg',
+    poster: '/assets/moviePosters/no-time-to-die.jpg',
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ const movies = [
     description:
       'James Bond has left active service. His peace is short-lived when Felix Leiter, an old friend from the CIA, turns up asking for help, leading Bond onto the trail of a mysterious villain armed with dangerous new technology.',
     genre: ['Action'],
-    poster: '../assets/moviePosters/avatar.jpg',
+    poster: '/assets/moviePosters/avatar.jpg',
   },
   {
     id: 3,
@@ -31,7 +31,7 @@ const movies = [
     description:
       'James Bond has left active service. His peace is short-lived when Felix Leiter, an old friend from the CIA, turns up asking for help, leading Bond onto the trail of a mysterious villain armed with dangerous new technology.',
     genre: ['Action', 'Adventure', 'Thriller'],
-    poster: '../assets/moviePosters/adamsApples.jpg',
+    poster: '/assets/moviePosters/adams-apples.jpg',
   },
 ];
 

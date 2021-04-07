@@ -20,7 +20,14 @@ router
   // @access Public
   .get(async (req, res) => {
     try {
-      const screenings = await Screening.find({});
+      const screenings = await Screening.find({}).populate({
+        path: 'cinemaHallId',
+        model: 'CinemaHall',
+        populate: {
+          path: 'cinemaId',
+          model: 'Cinema',
+        },
+      });
       res.status(200).json(screenings);
     } catch (e) {
       res.status(400).send(e);

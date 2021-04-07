@@ -1,11 +1,9 @@
 /* eslint-disable import/prefer-default-export */
 import api from '../../services/Api';
-import { FAIL, SUCCESS } from '../types';
 
 // Get all movies
 export const getMovies = async (dispatch) => {
   try {
-    console.log('getting');
     const res = await api.get(`movies`);
     dispatch(res.data);
     return res;
