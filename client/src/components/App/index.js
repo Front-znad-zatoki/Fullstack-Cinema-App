@@ -12,6 +12,10 @@ import AuthContextProvider from '../../context/Auth';
 import UserDashboard from '../../domain/User';
 import PreBooking from '../../domain/Prebooking';
 import MovieView from '../../domain/MovieView';
+import ReservationView from '../../domain/ReservationView';
+import AdminPanel from '../../domain/AdminPanel';
+import ReservationSummary from '../../domain/ReservationSummary';
+import ReservationConfirmation from '../../domain/ReservationConfirmation';
 
 function App() {
   const themeHook = useState('light');
@@ -25,33 +29,29 @@ function App() {
               <div className="App">
                 <Route exact path="/" component={Landing} />
                 <Switch>
-                  {/* http://localhost:3000/movies */}
                   <Route exact path="/movies" component={MovieList} />
-                  {/* http://localhost:3000/signup */}
                   <Route exact path="/signup" component={SignUp} />
-                  {/* http://localhost:3000/login */}
                   <Route exact path="/login" component={Login} />
-                  {/* http://localhost:3000/reservation/pre/:screeningId */}
                   <Route path="/movies/:movieSlug" component={MovieView} />
-                  {/* http://localhost:3000/logout */}
-                  {/* <Route exact path='/login' component={ Logout }/> */}
-                  {/* http://localhost:3000/users/me */}
                   <Route exact path="/users/me" component={UserDashboard} />
-                  {/* http://localhost:3000/reservation/pre/:screeningId */}
                   <Route
                     path="/prebooking/:screeningId"
                     component={PreBooking}
                   />
-                  {/* http://localhost:3000/reservation/chooseSeats/:screeningId */}
-                  {/* <Route path='/reservation/chooseSeats/:screeningId' component={ ReservationDetails }/> */}
-                  {/* http://localhost:3000/reservation/details/:reservationId */}
-                  {/* <Route path='/reservation/details/:reservationId' component={ ReservationConfirmation }/> */}
-                  {/* http://localhost:3000/reservation/payment/:reservationId */}
+                  <Route
+                    path="/reservation/seats/:screeningId"
+                    component={ReservationView}
+                  />
+                  <Route
+                    path="/reservation/summary/:reservationId"
+                    component={ReservationSummary}
+                  />
                   {/* <Route path='/reservation/payment/:reservationId' component={ ReservationPayment }/> */}
-                  {/* http://localhost:3000/reservation/confirm/:reservationId */}
-                  {/* <Route path='/reservation/confirm/:reservationId' component={ ReservationConfirmation }/> */}
-                  {/* <PrivateRoute exact path='/admin' component={ Admin }/> */}
-                  {/* http://localhost:3000/admin */}
+                  <Route
+                    path="/reservation/confirmation"
+                    component={ReservationConfirmation}
+                  />
+                  <Route exact path="/admin" component={AdminPanel} />
                 </Switch>
               </div>
             </>

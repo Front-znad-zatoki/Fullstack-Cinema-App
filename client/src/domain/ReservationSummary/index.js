@@ -1,11 +1,10 @@
 import { useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import movies from '../../mock/moviesMock';
-import screenigns from '../../mock/screeningsMock';
 import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
+import screenigns from '../../mock/screeningsMock';
 
-function PreBooking({ match }) {
+function ReservationSummary({ match }) {
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
   // TODO: add context to retrieve info about screening data
@@ -15,7 +14,11 @@ function PreBooking({ match }) {
   const startTimeFormatted = new Date(startDate).toLocaleTimeString();
 
   const history = useHistory();
-  const handleClick = (event) => {
+  const handleProceed = (event) => {
+    event.preventDefault();
+    history.push(`/reservation/confirmation`);
+  };
+  const handleGoBack = (event) => {
     event.preventDefault();
     history.push(`/reservation/seats/${id}`);
   };
@@ -27,30 +30,15 @@ function PreBooking({ match }) {
         color: `${currentTheme.textColor}`,
       }}
     >
-      <div className="movie__view__container">
-        <img
-          className="movie__view__container__image"
-          src={movieId.poster}
-          alt="Movie poster"
-        />
-      </div>
-      <div className="movie__view__details">
-        <h3>{movieId.title}</h3>
-        <p>
-          <strong>Cinema:</strong> {cinemaHallId.cinemaId.city},{' '}
-          {cinemaHallId.cinemaId.country}
-        </p>
-        <p>
-          <strong>Start Date:</strong>
-          {startDateFormatted}, {startTimeFormatted}
-        </p>
-        <div className="button__group">
-          <Link to="/">Go Back to Repertoire</Link>
-          <button onClick={handleClick}>Proceed with Reservation</button>
-        </div>
+      Rendering ReservationSummary
+      <h5> Add form</h5>
+      <h5>Add tickets</h5>
+      <div className="button__group">
+        <button onClick={handleGoBack}>Go Back</button>
+        <button onClick={handleProceed}>Confirm your reservation</button>
       </div>
     </div>
   );
 }
 
-export default PreBooking;
+export default ReservationSummary;
