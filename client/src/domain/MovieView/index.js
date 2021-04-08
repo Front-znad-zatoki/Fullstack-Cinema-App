@@ -1,19 +1,39 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable no-underscore-dangle */
 import './style.scss';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import poster from '../../assets/moviePosters/noTimeToDiePoster.jpg';
 import { MoviesContext } from '../../context/Movies';
 import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
+import {
+  getMovieScreeningsByMovieId,
+  getMovieBySlug,
+} from '../../actions/Movies';
 
 function MovieView({ match }) {
-  const { currentlyPlaying } = useContext(MoviesContext);
+  const { movies } = useContext(MoviesContext);
+  const { screenings, setScreenings } = useContext(MoviesContext);
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
-  const movie = currentlyPlaying.filter(
-    (item) => item.title === match.params.title,
-  );
-  const { title, duration, genre, description } = movie[0];
+  const movie = movies.find((item) => item.slug === match.params.movieSlug);
+  const [currentMovie, setCurrentMovie] = useState(movie);
+  // TODO: add case of entering this url before previously enterign list
+  const { title, duration, genre, description, poster } = movie;
+  useEffect(() => {
+    if (!movie) {
+      getMovieBySlug(match.params.movieSlug, setCurrentMovie);
+      return;
+    }
+    setCurrentMovie(movie);
+  }, []);
+  useEffect(() => {
+    getMovieScreeningsByMovieId(currentMovie._id, setScreenings);
+    return () => {
+      setScreenings(null);
+    };
+  }, [currentMovie]);
+
   return (
     <div
       className="movie__view"
@@ -22,6 +42,7 @@ function MovieView({ match }) {
         color: `${currentTheme.textColor}`,
       }}
     >
+      <p>Rendering Single Movie View</p>
       <div className="movie__view__container">
         <img
           className="movie__view__container__image"
@@ -41,9 +62,28 @@ function MovieView({ match }) {
           <strong>description:</strong> {description}
         </p>
         <h4>We're playing now in:</h4>
-        <button>
-          <Link to="/movies">Back</Link>
-        </button>
+        <ul>
+          {screenings
+            ? screenings.map((screening, index) => {
+                const startDate = new Date(screening.startDate);
+                const startDateFormatted = new Date(
+                  startDate,
+                ).toLocaleDateString();
+                if (startDate.getTime() < new Date().getTime()) {
+                  return null;
+                }
+                return (
+                  <li key={index}>
+                    <p>
+                      In {screening.cinemaHallId.cinemaId.city} at{' '}
+                      {startDateFormatted}
+                    </p>
+                  </li>
+                );
+              })
+            : null}
+        </ul>
+        <Link to="/">Full Repertoire</Link>
       </div>
     </div>
   );

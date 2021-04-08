@@ -3,6 +3,7 @@ import { check, validationResult } from 'express-validator';
 import Movie from './Movie.js';
 import authMiddleware from '../authentication/authMiddleware.js';
 import adminMiddleware from '../admin/adminMiddleware.js';
+import { slugify } from '../utils/convertTitleToSlug.js';
 
 const router = express.Router();
 router
@@ -59,6 +60,7 @@ router
         genre,
       } = req.body;
       try {
+        const slug = slugify(title);
         const movie = new Movie({
           title,
           duration,
@@ -66,9 +68,10 @@ router
           description,
           poster,
           genre,
+          slug,
         });
         await movie.save();
-        res.status(200).json({ message: movie.id });
+        res.status(200).json({ message: 'Movie created', movie });
       } catch (e) {
         res.status(400).send(e);
       }

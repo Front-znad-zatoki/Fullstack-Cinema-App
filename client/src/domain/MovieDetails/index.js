@@ -1,12 +1,11 @@
 import './style.scss';
 import React from 'react';
-import poster from '../../assets/moviePosters/noTimeToDiePoster.jpg';
 
 function MovieDetails({ movie }) {
   return (
     <div className="movie__details">
       <div className="movie__image-container">
-        <img className="movie__image" src={poster} alt="Movie poster" />
+        {/* <img className="movie__image" src={poster} alt="Movie poster" /> */}
       </div>
       <ul>
         <h2>Title: {movie.title}</h2>

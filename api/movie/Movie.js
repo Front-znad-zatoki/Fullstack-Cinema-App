@@ -8,6 +8,10 @@ const movieSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  slug: {
+    type: String,
+    unique: true,
+  },
   duration: {
     type: Number,
     required: true,
