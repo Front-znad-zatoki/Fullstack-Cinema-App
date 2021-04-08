@@ -83,9 +83,7 @@ function MovieView({ match }) {
               })
             : null}
         </ul>
-        <button>
-          <Link to="/movies">Back</Link>
-        </button>
+        <Link to="/">Full Repertoire</Link>
       </div>
     </div>
   );
