@@ -6,6 +6,7 @@ import './style.scss';
 import MovieSlider from '../MovieSlider';
 import { checkIfIsAuthenticated } from '../../actions/Auth';
 import { AuthContext } from '../../context/Auth';
+import CinemaHall from '../../components/CinemaHall';
 
 function Landing() {
   const theme = useContext(ThemeContext)[0];
@@ -27,6 +28,7 @@ function Landing() {
     >
       Rendering Landing Page
       {/* <button onClick={handleOnClick}>Get cookies</button> */}
+      <CinemaHall />
       <MovieSlider />
       <MovieList />
     </div>
