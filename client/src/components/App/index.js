@@ -10,6 +10,7 @@ import Navbar from '../Navbar/index';
 import MoviesContextProvider from '../../context/Movies';
 import AuthContextProvider from '../../context/Auth';
 import UserDashboard from '../../domain/User';
+import PreBooking from '../../domain/Prebooking';
 
 function App() {
   const themeHook = useState('light');
@@ -32,7 +33,10 @@ function App() {
                   {/* http://localhost:3000/users/me */}
                   <Route exact path="/users/me" component={UserDashboard} />
                   {/* http://localhost:3000/reservation/pre/:screeningId */}
-                  {/* <Route path='/reservation/pre/:screeningId' component={ ReservationPreview }/> */}
+                  <Route
+                    path="/prebooking/:screeningId"
+                    component={PreBooking}
+                  />
                   {/* http://localhost:3000/reservation/chooseSeats/:screeningId */}
                   {/* <Route path='/reservation/chooseSeats/:screeningId' component={ ReservationDetails }/> */}
                   {/* http://localhost:3000/reservation/details/:reservationId */}
