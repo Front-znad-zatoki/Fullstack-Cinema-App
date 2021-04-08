@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { useState, useContext, useEffect } from 'react';
 import './style.scss';
 import Movie from './Movie';
@@ -5,21 +6,16 @@ import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
 import { MoviesContext } from '../../context/Movies';
 import useFetchedData from '../../hooks/useFetchedData';
+import { getMovies } from '../../actions/Movies';
 
 function MovieList() {
-  const { movies, dispatch } = useContext(MoviesContext);
-  const { incoming, currentlyPlaying } = movies;
+  const { movies, setMovies } = useContext(MoviesContext);
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
-  const mongoMovies = useFetchedData('api/movies');
 
   useEffect(() => {
-    dispatch({
-      type: 'SUCCESS',
-      payload: 'action dispatched from useEffect',
-    });
-  }, [mongoMovies]);
-
+    getMovies(setMovies);
+  }, []);
   return (
     <div
       className="movie__list-container"
@@ -29,10 +25,10 @@ function MovieList() {
       }}
     >
       <h4>Rendering movies list</h4>
-      {currentlyPlaying ? (
+      {movies ? (
         <ul className="movie__list">
-          {currentlyPlaying.map((movie) => {
-            return <Movie key={movie.id} movie={movie} />;
+          {movies.map((movie) => {
+            return <Movie key={movie._id} movie={movie} />;
           })}
         </ul>
       ) : (

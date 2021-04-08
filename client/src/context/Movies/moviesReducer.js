@@ -1,15 +1,11 @@
-import { SUCCESS, FAIL } from '../../actions/types';
+import { SUCCESS } from '../../actions/types';
 
 const moviesReducer = (state, action) => {
-  switch (action.type) {
+  const { type, payload } = action;
+  switch (type) {
     case SUCCESS:
-      // console.log('success', action.payload);
-      return state;
-    case FAIL:
-      // console.log('fail', action.payload);
-      return state;
+      return { movies: payload.movies };
     default:
-      // console.log('default');
       return state;
   }
 };
