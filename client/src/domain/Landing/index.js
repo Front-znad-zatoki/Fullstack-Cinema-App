@@ -5,6 +5,7 @@ import './style.scss';
 import MovieSlider from '../MovieSlider';
 import { AuthContext } from '../../context/Auth';
 import Repertoire from '../Repertoire';
+import CinemaHall from '../../components/CinemaHall';
 
 function Landing() {
   const theme = useContext(ThemeContext)[0];
@@ -18,6 +19,7 @@ function Landing() {
       }}
     >
       Rendering Landing Page
+      <CinemaHall />
       <MovieSlider />
       <Repertoire />
     </div>
