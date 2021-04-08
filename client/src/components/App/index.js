@@ -10,6 +10,7 @@ import Navbar from '../Navbar/index';
 import MoviesContextProvider from '../../context/Movies';
 import AuthContextProvider from '../../context/Auth';
 import UserDashboard from '../../domain/User';
+import MovieView from '../../domain/MovieView';
 
 function App() {
   const themeHook = useState('light');
@@ -29,6 +30,10 @@ function App() {
                   <Route exact path="/signup" component={SignUp} />
                   {/* http://localhost:3000/login */}
                   <Route exact path="/login" component={Login} />
+                  {/* http://localhost:3000/reservation/pre/:screeningId */}
+                  <Route path="/movies/:movieSlug" component={MovieView} />
+                  {/* http://localhost:3000/logout */}
+                  {/* <Route exact path='/login' component={ Logout }/> */}
                   {/* http://localhost:3000/users/me */}
                   <Route exact path="/users/me" component={UserDashboard} />
                   {/* http://localhost:3000/reservation/pre/:screeningId */}
