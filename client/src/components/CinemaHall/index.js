@@ -6,22 +6,18 @@ import { ReservationContext } from '../../context/Reservation';
 import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
 // import useFetchedData from '../../hooks/useFetchedData';
-import { getHallScreeningsByHallId } from '../../actions/Hall';
+import { getHallScreeningsByHallId } from '../../actions/Screening';
 import { MoviesContext } from '../../context/Movies';
 
 const CinemaHall = () => {
-  const { reservation, dispatch } = useContext(ReservationContext);
+  const { reservation, dispatchReservation } = useContext(ReservationContext);
   const { cinemaHallId } = reservation;
+  console.log(reservation);
+
   const { screenings, setScreenings } = useContext(MoviesContext);
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
   // const mongoCinemaHall = useFetchedData('api/cinemahalls');
-  useEffect(() => {
-    getHallScreeningsByHallId(cinemaHallId, setScreenings);
-    return () => {
-      setScreenings(null);
-    };
-  }, [cinemaHallId]);
 
   // useEffect(() => {
   //   dispatch({

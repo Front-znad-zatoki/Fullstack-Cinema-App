@@ -19,7 +19,6 @@ function Landing() {
       }}
     >
       Rendering Landing Page
-      <CinemaHall />
       <MovieSlider />
       <Repertoire />
     </div>

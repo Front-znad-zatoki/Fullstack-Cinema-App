@@ -1,31 +1,36 @@
-import { createContext, useReducer, useState } from 'react';
-import { getLocalStorage } from './localStorage';
+import { createContext, useReducer } from 'react';
 import cinemaHallMock from '../../mock/cinemaHallMock';
 
 export const ReservationContext = createContext();
 const initialState = {
   screeningId: '',
-  cinemaHall: cinemaHallMock[0],
+  cinemaHallId: '',
   movieId: '',
   totalTickets: 0,
   selectedSeats: [],
+  seatsTaken: [],
 };
-const localReservation = getLocalStorage('reservation', initialState);
 
 const reducer = (state, action) => {
   switch (action.type) {
     case 'SUCCESS_CINEMAHALL':
-      return { cinemaHall: action.payload };
+      return {
+        ...state,
+        cinemaHall: action.payload,
+      };
     case 'ADD_SCREENING_ID':
       return {
+        ...state,
         screeningId: action.payload,
       };
     case 'ADD_CINEMAHALL_ID':
       return {
+        ...state,
         cinemaHallId: action.payload,
       };
     case 'ADD_MOVIE_ID':
       return {
+        ...state,
         movieId: action.payload,
       };
     case 'ADD_SEAT':
@@ -60,9 +65,9 @@ const reducer = (state, action) => {
   }
 };
 const ReservationProvider = ({ children }) => {
-  const [reservation, dispatch] = useReducer(reducer, localReservation);
+  const [reservation, dispatchReservation] = useReducer(reducer, initialState);
   return (
-    <ReservationContext.Provider value={[reservation, dispatch]}>
+    <ReservationContext.Provider value={{ reservation, dispatchReservation }}>
       {children}
     </ReservationContext.Provider>
   );

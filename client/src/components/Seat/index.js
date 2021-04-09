@@ -3,7 +3,7 @@ import './style.scss';
 import { ReservationContext } from '../../context/Reservation';
 
 const Seat = ({ columnNr, seatNr }) => {
-  const [reservation, dispatch] = useContext(ReservationContext);
+  const { reservation, dispatch } = useContext(ReservationContext);
 
   const occupied = false;
   const handleSeatSelected = (e) => {
