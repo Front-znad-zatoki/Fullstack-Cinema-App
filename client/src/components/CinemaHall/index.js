@@ -11,20 +11,17 @@ import { MoviesContext } from '../../context/Movies';
 
 const CinemaHall = () => {
   const { reservation, dispatch } = useContext(ReservationContext);
-  const { cinemaHall } = reservation;
-  // const { screenings, setScreenings } = useContext(MoviesContext);
+  const { cinemaHallId } = reservation;
+  const { screenings, setScreenings } = useContext(MoviesContext);
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
   // const mongoCinemaHall = useFetchedData('api/cinemahalls');
   useEffect(() => {
-    getHallScreeningsByHallId(
-      cinemaHall.id,
-      dispatch({
-        type: 'SUCCESS_CINEMAHALL',
-        payload: cinemaHall,
-      }),
-    );
-  }, [cinemaHall]);
+    getHallScreeningsByHallId(cinemaHallId, setScreenings);
+    return () => {
+      setScreenings(null);
+    };
+  }, [cinemaHallId]);
 
   // useEffect(() => {
   //   dispatch({
@@ -32,8 +29,8 @@ const CinemaHall = () => {
   // payload: mongoCinemaHall[0],
   // });
   // }, [mongoCinemaHall]);
-  const nrOfRows = cinemaHall.rows;
-  const nrOfColumns = cinemaHall.columns;
+  const nrOfRows = 8;
+  const nrOfColumns = 7;
   const columns = [];
   const rowsInLetter = [];
 
