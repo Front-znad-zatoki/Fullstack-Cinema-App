@@ -6,6 +6,8 @@ import { AuthContext } from '../../context/Auth';
 import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
 import ThemeToggler from '../ThemeToggler';
+import UnauthenticatedNavBar from './UnauthanticatedNavbar';
+import AuthenticatedNavBar from './AuthenticatedNavbar';
 
 function Navbar() {
   const { userContext, dispatchUserContext } = useContext(AuthContext);
@@ -19,40 +21,6 @@ function Navbar() {
       alert('Could not log out user. Try again');
     }
     return <Redirect to="/" />;
-  };
-  const UnauthenticatedNavBar = () => {
-    return (
-      <>
-        <Link to="/login">
-          <li className="navbar__list-item">Login</li>
-        </Link>
-        <Link to="/signup">
-          <li className="navbar__list-item">Sign up</li>
-        </Link>
-      </>
-    );
-  };
-
-  const AuthenticatedNavBar = () => {
-    return (
-      <>
-        <Link to="/users/me">
-          <li className="navbar__list-item">Me</li>
-        </Link>
-        {user && user.isAdmin ? (
-          <Link to="/admin">
-            <li className="navbar__list-item">Admin</li>
-          </Link>
-        ) : null}
-        <button
-          type="button"
-          className="navbar__list-item"
-          onClick={onClickLogoutHandler}
-        >
-          Logout
-        </button>
-      </>
-    );
   };
 
   return (
@@ -73,9 +41,9 @@ function Navbar() {
             <li className="navbar__list-item">Movies</li>
           </Link>
           {!isAuthenticated ? (
-            <UnauthenticatedNavBar />
+            <UnauthenticatedNavBar callback={onClickLogoutHandler} />
           ) : (
-            <AuthenticatedNavBar />
+            <AuthenticatedNavBar callback={onClickLogoutHandler} user={user} />
           )}
         </ul>
         <ThemeToggler />

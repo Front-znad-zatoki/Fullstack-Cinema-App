@@ -11,6 +11,12 @@ import MoviesContextProvider from '../../context/Movies';
 import AuthContextProvider from '../../context/Auth';
 import ReservationProvider from '../../context/Reservation';
 import UserDashboard from '../../domain/User';
+import PreBooking from '../../domain/Prebooking';
+import MovieView from '../../domain/MovieView';
+import ReservationView from '../../domain/ReservationView';
+import AdminPanel from '../../domain/AdminPanel';
+import ReservationSummary from '../../domain/ReservationSummary';
+import ReservationConfirmation from '../../domain/ReservationConfirmation';
 
 function App() {
   const themeHook = useState('light');

@@ -5,15 +5,18 @@ import moviesReducer from './moviesReducer';
 export const MoviesContext = createContext();
 
 const MoviesContextProvider = ({ children }) => {
-  const [movies, dispatch] = useReducer(moviesReducer, {}, () => {
-    const localMovies = localStorage.getItem('movies');
-    return localMovies ? JSON.parse(localMovies) : moviesMock;
-  });
+  const localMovies = localStorage.getItem('movies');
+  // const initialState = localMovies ? JSON.parse(localMovies) : moviesMock;
+  const initialState = moviesMock;
+  const [movies, setMovies] = useState(initialState);
+  const [screenings, setScreenings] = useState([]);
   useEffect(() => {
     localStorage.setItem('movies', JSON.stringify(movies));
   }, [movies]);
   return (
-    <MoviesContext.Provider value={{ movies, dispatch }}>
+    <MoviesContext.Provider
+      value={{ movies, setMovies, screenings, setScreenings }}
+    >
       {children}
     </MoviesContext.Provider>
   );
