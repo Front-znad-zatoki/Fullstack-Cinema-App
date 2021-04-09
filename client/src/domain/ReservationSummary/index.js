@@ -31,6 +31,7 @@ function ReservationSummary({ match }) {
       }}
     >
       Rendering ReservationSummary
+      {/* <ScreeningDetails /> */}
       <h5> Add form</h5>
       <h5>Add tickets</h5>
       <div className="button__group">
