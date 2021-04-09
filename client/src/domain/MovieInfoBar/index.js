@@ -1,12 +1,18 @@
-import React from 'react';
+import { Link, Redirect, useHistory } from 'react-router-dom';
+import screenigns from '../../mock/screeningsMock';
 
-const MovieInfoBar = () => {
-  const movieSelected = {
-    title: 'To die',
+const MovieInfoBar = ({ screening }) => {
+  const history = useHistory();
+  const handleClick = (event) => {
+    event.preventDefault();
+    history.push(`/prebooking/${screening.id}`);
   };
-  const date = {};
-  const cinema = {};
-  return <div className="movie__bar" />;
+  return (
+    <li key={screening.id}>
+      <p>{screening.movieId.id}</p>
+      <button onClick={handleClick}>{screening.startDate}</button>
+    </li>
+  );
 };
 
 export default MovieInfoBar;
