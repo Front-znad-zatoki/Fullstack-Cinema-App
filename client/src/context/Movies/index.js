@@ -4,10 +4,7 @@ import moviesMock from '../../mock/moviesMock';
 export const MoviesContext = createContext();
 
 const MoviesContextProvider = ({ children }) => {
-  const localMovies = localStorage.getItem('movies');
-  // const initialState = localMovies ? JSON.parse(localMovies) : moviesMock;
-  const initialState = moviesMock;
-  const [movies, setMovies] = useState(initialState);
+  const [movies, setMovies] = useState(moviesMock);
   const [screenings, setScreenings] = useState([]);
   useEffect(() => {
     localStorage.setItem('movies', JSON.stringify(movies));

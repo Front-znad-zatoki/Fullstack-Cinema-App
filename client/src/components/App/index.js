@@ -16,48 +16,51 @@ import ReservationView from '../../domain/ReservationView';
 import AdminPanel from '../../domain/AdminPanel';
 import ReservationSummary from '../../domain/ReservationSummary';
 import ReservationConfirmation from '../../domain/ReservationConfirmation';
+import CinemaContextProvider from '../../context/Cinema';
 
 function App() {
   const themeHook = useState('light');
   return (
     <AuthContextProvider>
-      <ThemeContext.Provider value={themeHook}>
-        <MoviesContextProvider>
-          <Router>
-            <>
-              <Navbar />
-              <div className="App">
-                <Route exact path="/" component={Landing} />
-                <Switch>
-                  <Route exact path="/movies" component={MovieList} />
-                  <Route exact path="/signup" component={SignUp} />
-                  <Route exact path="/login" component={Login} />
-                  <Route path="/movies/:movieSlug" component={MovieView} />
-                  <Route exact path="/users/me" component={UserDashboard} />
-                  <Route
-                    path="/prebooking/:screeningId"
-                    component={PreBooking}
-                  />
-                  <Route
-                    path="/reservation/seats/:screeningId"
-                    component={ReservationView}
-                  />
-                  <Route
-                    path="/reservation/summary/:reservationId"
-                    component={ReservationSummary}
-                  />
-                  {/* <Route path='/reservation/payment/:reservationId' component={ ReservationPayment }/> */}
-                  <Route
-                    path="/reservation/confirmation"
-                    component={ReservationConfirmation}
-                  />
-                  <Route exact path="/admin" component={AdminPanel} />
-                </Switch>
-              </div>
-            </>
-          </Router>
-        </MoviesContextProvider>
-      </ThemeContext.Provider>
+      <CinemaContextProvider>
+        <ThemeContext.Provider value={themeHook}>
+          <MoviesContextProvider>
+            <Router>
+              <>
+                <Navbar />
+                <div className="App">
+                  <Route exact path="/" component={Landing} />
+                  <Switch>
+                    <Route exact path="/movies" component={MovieList} />
+                    <Route exact path="/signup" component={SignUp} />
+                    <Route exact path="/login" component={Login} />
+                    <Route path="/movies/:movieSlug" component={MovieView} />
+                    <Route exact path="/users/me" component={UserDashboard} />
+                    <Route
+                      path="/prebooking/:screeningId"
+                      component={PreBooking}
+                    />
+                    <Route
+                      path="/reservation/seats/:screeningId"
+                      component={ReservationView}
+                    />
+                    <Route
+                      path="/reservation/summary/:reservationId"
+                      component={ReservationSummary}
+                    />
+                    {/* <Route path='/reservation/payment/:reservationId' component={ ReservationPayment }/> */}
+                    <Route
+                      path="/reservation/confirmation"
+                      component={ReservationConfirmation}
+                    />
+                    <Route exact path="/admin" component={AdminPanel} />
+                  </Switch>
+                </div>
+              </>
+            </Router>
+          </MoviesContextProvider>
+        </ThemeContext.Provider>
+      </CinemaContextProvider>
     </AuthContextProvider>
   );
 }

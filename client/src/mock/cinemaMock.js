@@ -2,7 +2,7 @@ const cinemas = [
   {
     _id: '605b9c57229cd12e08d57e06',
     country: 'PL',
-    city: 'GD',
+    city: 'Gdańsk',
     street: 'Dluga',
     email: 'dluga@dluga.pl',
     phone: '123456789',

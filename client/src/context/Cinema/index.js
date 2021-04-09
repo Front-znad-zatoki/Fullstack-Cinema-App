@@ -1,14 +1,16 @@
 import { createContext, useState } from 'react';
-import cinemas from '../../mock/cinemaMock';
+import cinemasMock from '../../mock/cinemaMock';
 
 export const CinemaContext = createContext();
 
 const CinemaContextProvider = ({ children }) => {
-  const initialState = cinemas[0];
-  const [cinema, setCinema] = useState(initialState);
+  const [cinemas, setCinemas] = useState(cinemasMock);
+  const [currentCinema, setCurrentCinema] = useState(cinemas[0]);
 
   return (
-    <CinemaContext.Provider value={{ cinema, setCinema }}>
+    <CinemaContext.Provider
+      value={{ currentCinema, setCurrentCinema, cinemas, setCinemas }}
+    >
       {children}
     </CinemaContext.Provider>
   );
