@@ -1,10 +1,10 @@
 @import '../../styles/variables';
 .navbar {
-  &__list{
+  &__list {
     display: flex;
     margin-left: auto;
   }
-  &__logo{
+  &__logo {
     display: flex;
   }
   font-family: $font-primary;
