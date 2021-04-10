@@ -7,12 +7,18 @@ import {
   UPDATE_TICKET_PRICE,
 } from '../../actions/types';
 
-function Ticket({ seatNr, type }) {
+function Ticket({ seatNr, type, price }) {
   const { reservation, dispatchReservation } = useContext(ReservationContext);
-  const { movieDetails, selectedSeats, screening } = reservation;
+  const { screening } = reservation;
   const priceRegular = screening.price.normal.toString() || '50';
   const priceDiscount = screening.price.reduced.toString() || '25';
-  const [chosenPrice, setchosenPrice] = useState(priceRegular);
+  const ticketSelectedBefore = reservation.selectedSeats.find((seat, index) => {
+    return seat.seatName === seatNr;
+  });
+
+  const [chosenPrice, setchosenPrice] = useState(
+    price === PRICE_REDUCED ? priceDiscount : priceRegular,
+  );
 
   const handleChange = (event) => {
     console.log(reservation);

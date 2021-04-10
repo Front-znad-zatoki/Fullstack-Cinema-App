@@ -6,12 +6,12 @@ import { PRICE_NORMAL } from '../../actions/types';
 const Seat = ({ rowNr, columnNr, seatNr }) => {
   const { reservation, dispatchReservation } = useContext(ReservationContext);
   const [occupied, setOccupied] = useState(false);
+  const seatWasSelected = reservation.selectedSeats.find((seat, index) => {
+    return seat.seatName === seatNr;
+  });
+
   const handleSeatSelected = (e) => {
     e.target.classList.toggle('selected');
-    const seatWasSelected = reservation.selectedSeats.find((seat, index) => {
-      return seat.seatName === seatNr;
-    });
-    // if (reservation.selectedSeats.includes(e.target.name)) {
     if (seatWasSelected) {
       dispatchReservation({ type: 'REMOVE_SEAT', payload: seatNr });
       dispatchReservation({ type: 'REMOVE_TICKET', payload: 1 });
@@ -32,7 +32,9 @@ const Seat = ({ rowNr, columnNr, seatNr }) => {
     <button
       name={seatNr}
       disabled={occupied}
-      className={occupied ? 'hall__seat occupied' : 'hall__seat'}
+      className={`${occupied ? 'hall__seat occupied' : 'hall__seat'} ${
+        seatWasSelected ? 'selected' : ''
+      }`}
       onClick={handleSeatSelected}
     >
       {columnNr}
