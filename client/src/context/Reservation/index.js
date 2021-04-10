@@ -8,6 +8,7 @@ import {
   REMOVE_TICKET,
   RESET_SEATS,
   RESET_RESERVATION,
+  UPDATE_TICKET_PRICE,
 } from '../../actions/types';
 
 export const ReservationContext = createContext();
@@ -49,6 +50,25 @@ const reducer = (state, action) => {
       return {
         ...state,
         selectedSeats: action.payload,
+      };
+    case UPDATE_TICKET_PRICE:
+      return {
+        ...state,
+        selectedSeats: [
+          ...state.selectedSeats.map((seat, index) => {
+            if (seat.seatName === action.payload.seatNr) {
+              // seat.price = action.pa;
+              console.log(seat.seatName === action.payload.seatNr);
+              console.log(seat.seatName);
+              console.log(action.payload.seatNr);
+              return {
+                ...state.selectedSeats[index],
+                price: action.payload.price,
+              };
+            }
+            return seat;
+          }),
+        ],
       };
     case ADD_TICKET:
       return {
