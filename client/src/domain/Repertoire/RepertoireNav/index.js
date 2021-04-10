@@ -5,8 +5,7 @@ import 'react-date-picker/dist/DatePicker.css';
 // import 'react-calendar/dist/Calendar.css';
 import moment from 'moment';
 
-function RepertoireNav() {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+function RepertoireNav({ selectedDate, setSelectedDate }) {
   const [movies, setMovies] = useState('');
   const handleDate = (date) => {
     setSelectedDate(date);
@@ -33,7 +32,7 @@ function RepertoireNav() {
           value={selectedDate}
           onChange={handleDate}
           minDate={selectedDate}
-          maxDate={moment().add(7, 'days').toDate()}
+          // maxDate={moment().add(7, 'days').toDate()}
         />
       </div>
       <input

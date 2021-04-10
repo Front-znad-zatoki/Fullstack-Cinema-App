@@ -12,15 +12,25 @@ function Repertoire() {
   const { currentCinema } = useContext(CinemaContext);
   const { dispatchReservation } = useContext(ReservationContext);
   const { screenings, setScreenings } = useContext(MoviesContext);
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   useEffect(() => {
     getScreeningsForCurrentCinema(currentCinema._id, setScreenings);
   }, [currentCinema]);
   console.log(screenings);
+  const screenignsForDay = screenigns.map((screening) => screening.startDate);
+  console.log(screenignsForDay);
+  console.log(selectedDate);
+  const handleDate = (date) => {
+    setSelectedDate(date);
+  };
   return (
     <div>
       <ul>
-        <RepertoireNav />
+        <RepertoireNav
+          setSelectedDate={setSelectedDate}
+          selectedDate={selectedDate}
+        />
         <li>
           MovieInfoBar with poster, data and screening hours as button to
           proceed with reservagtion
