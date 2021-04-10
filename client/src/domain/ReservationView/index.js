@@ -11,22 +11,17 @@ function ReservationView({ match }) {
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
   const { reservation, dispatchReservation } = useContext(ReservationContext);
-  const { movieDetails } = reservation;
-  const { cinemaHallId, startDate, id } = reservation.screening;
-  const startDateFormatted = new Date(startDate).toLocaleDateString();
-  const startTimeFormatted = new Date(startDate).toLocaleTimeString();
+  const { movieDetails, selectedSeats } = reservation;
+  const { cinemaHallId, startDate, _id } = reservation.screening;
   const history = useHistory();
   console.log(reservation);
   const handleProceed = (event) => {
     event.preventDefault();
-    // TODO: check routes
-    //   history.push(`/reservation/${id}`);
-    history.push(`/reservation/summary/${id}`);
+    history.push(`/reservation/summary/${_id}`);
   };
   const handleGoBack = (event) => {
     event.preventDefault();
-    // TODO: check routes
-    history.push(`/prebooking/${id}`);
+    history.push(`/prebooking/${_id}`);
   };
   return (
     <div
@@ -41,9 +36,12 @@ function ReservationView({ match }) {
       {/* <ScreeningDetails /> */}
       <CinemaHall />
       <ul>
-        {/* reservation.tickets.map((ticket) => {
-          return <Ticket key={seatNr} />
-        }) */}
+        {/* TODO: get occupied seats by action */}
+        {selectedSeats
+          ? selectedSeats.map((seat) => {
+              return <Ticket key={seat} seatNr={seat} />;
+            })
+          : null}
       </ul>
       <ul className="button__group">
         <button onClick={handleGoBack}>Go Back</button>
