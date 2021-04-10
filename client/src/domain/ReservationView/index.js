@@ -44,7 +44,9 @@ function ReservationView({ match }) {
       </ul>
       <ul className="button__group">
         <button onClick={handleGoBack}>Go Back</button>
-        <button onClick={handleProceed}>Proceed with Reservation</button>
+        <button disabled={selectedSeats.length === 0} onClick={handleProceed}>
+          Proceed with Reservation
+        </button>
       </ul>
     </div>
   );

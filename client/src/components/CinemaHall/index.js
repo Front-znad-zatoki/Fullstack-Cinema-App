@@ -9,7 +9,7 @@ import { getOccupiedSeatsForScreening } from '../../actions/Reservation';
 const CinemaHall = () => {
   const { reservation, dispatchReservation } = useContext(ReservationContext);
   const { cinemaHallId, _id } = reservation.screening;
-  const { movieDetails, selectedSeats } = reservation;
+  const { movieDetails, selectedSeats, occupiedSeats } = reservation;
   const nrOfRows = cinemaHallId.rows || 10;
   const nrOfColumns = cinemaHallId.columns || 10;
   const columns = [];

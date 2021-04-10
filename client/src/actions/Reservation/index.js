@@ -44,13 +44,14 @@ export const getHallScreeningsByHallId = async (id, dispatch) => {
 // Get single cinema hall screenings
 export const getOccupiedSeatsForScreening = async (id, dispatch) => {
   try {
-    console.log(id);
     const res = await api.get(`tickets`);
     const filteredTickets = await res.data.filter((ticket) => {
       return ticket.screening === id;
     });
     const occupiedSeats = filteredTickets.map((ticket) => {
-      return { seat: ticket.seat };
+      const { seat } = ticket;
+      seat.seatNr = `${String.fromCharCode(seat.row + 65)}${seat.column + 1}`;
+      return seat;
     });
     dispatch({
       type: ADD_OCCUPIED_SEATS,
