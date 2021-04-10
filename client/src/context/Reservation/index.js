@@ -3,35 +3,23 @@ import cinemaHallMock from '../../mock/cinemaHallMock';
 
 export const ReservationContext = createContext();
 const initialState = {
-  screeningId: '',
-  cinemaHallId: '',
-  movieId: '',
+  screening: {},
   totalTickets: 0,
   selectedSeats: [],
-  seatsTaken: [],
+  movieDetails: {},
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'SUCCESS_CINEMAHALL':
+    case 'ADD_MOVIE_DETAILS':
       return {
         ...state,
-        cinemaHall: action.payload,
+        movieDetails: action.payload,
       };
-    case 'ADD_SCREENING_ID':
+    case 'ADD_SCREENING':
       return {
         ...state,
-        screeningId: action.payload,
-      };
-    case 'ADD_CINEMAHALL_ID':
-      return {
-        ...state,
-        cinemaHallId: action.payload,
-      };
-    case 'ADD_MOVIE_ID':
-      return {
-        ...state,
-        movieId: action.payload,
+        screening: action.payload,
       };
     case 'ADD_SEAT':
       return {
@@ -66,6 +54,7 @@ const reducer = (state, action) => {
 };
 const ReservationProvider = ({ children }) => {
   const [reservation, dispatchReservation] = useReducer(reducer, initialState);
+  console.log(reservation);
   return (
     <ReservationContext.Provider value={{ reservation, dispatchReservation }}>
       {children}

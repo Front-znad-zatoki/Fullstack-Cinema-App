@@ -4,16 +4,16 @@ import movies from '../../mock/moviesMock';
 import screenigns from '../../mock/screeningsMock';
 import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
+import { ReservationContext } from '../../context/Reservation';
 
 function PreBooking({ match }) {
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
-  // TODO: add context to retrieve info about screening data
-  // MOCK BELOW, REMOVE AFTER CONTEXT FOR REERVATION IS READY
-  const { title, movieId, cinemaHallId, startDate, id } = screenigns[0];
+  const { reservation, dispatchReservation } = useContext(ReservationContext);
+  const { movieDetails } = reservation;
+  const { cinemaHallId, startDate, id } = reservation.screening;
   const startDateFormatted = new Date(startDate).toLocaleDateString();
   const startTimeFormatted = new Date(startDate).toLocaleTimeString();
-
   const history = useHistory();
   const handleClick = (event) => {
     event.preventDefault();
@@ -30,12 +30,12 @@ function PreBooking({ match }) {
       <div className="movie__view__container">
         <img
           className="movie__view__container__image"
-          src={movieId.poster}
+          src={movieDetails.poster}
           alt="Movie poster"
         />
       </div>
       <div className="movie__view__details">
-        <h3>{movieId.title}</h3>
+        <h3>{movieDetails.title}</h3>
         <p>
           <strong>Cinema:</strong> {cinemaHallId.cinemaId.city},{' '}
           {cinemaHallId.cinemaId.country}

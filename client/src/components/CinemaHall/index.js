@@ -3,16 +3,11 @@ import React, { useContext, useEffect } from 'react';
 import Seat from '../Seat';
 import './style.scss';
 import { ReservationContext } from '../../context/Reservation';
-import { ThemeContext } from '../../context/Theme';
-import AppTheme from '../../context/Theme/themeColors';
-// import useFetchedData from '../../hooks/useFetchedData';
-import { getHallScreeningsByHallId } from '../../actions/Reservation';
 import { MoviesContext } from '../../context/Movies';
 
 const CinemaHall = () => {
   const { reservation, dispatchReservation } = useContext(ReservationContext);
   const { cinemaHallId } = reservation;
-  console.log(reservation);
   // const { screenings, setScreenings } = useContext(MoviesContext);
 
   // useEffect(() => {

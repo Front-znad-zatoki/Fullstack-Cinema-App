@@ -18,12 +18,17 @@ function CinemaForm() {
       return cinema.city === event.target.value;
     });
     setCurrentCinema(nextCurrentCinema);
+    console.log('setting to', nextCurrentCinema);
   };
   return (
     <form className="cinema-city__form">
       <label htmlFor="cinemaCity">
         Choose Cinema
-        <select id="cinemaCity" value={currentCinema} onChange={handleChange}>
+        <select
+          id="cinemaCity"
+          value={currentCinema.city}
+          onChange={handleChange}
+        >
           {cinemas.map((cinemaToChooseFrom) => {
             return (
               <option
