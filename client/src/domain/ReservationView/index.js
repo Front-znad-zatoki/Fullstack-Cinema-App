@@ -4,17 +4,19 @@ import CinemaHall from '../../components/CinemaHall';
 import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
 import screenigns from '../../mock/screeningsMock';
+import Ticket from '../../components/Ticket';
+import { ReservationContext } from '../../context/Reservation';
 
 function ReservationView({ match }) {
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
-  // TODO: add context to retrieve info about screening data
-  // MOCK BELOW, REMOVE AFTER CONTEXT FOR REERVATION IS READY
-  const { title, movieId, cinemaHallId, startDate, id, slug } = screenigns[0];
+  const { reservation, dispatchReservation } = useContext(ReservationContext);
+  const { movieDetails } = reservation;
+  const { cinemaHallId, startDate, id } = reservation.screening;
   const startDateFormatted = new Date(startDate).toLocaleDateString();
   const startTimeFormatted = new Date(startDate).toLocaleTimeString();
-
   const history = useHistory();
+  console.log(reservation);
   const handleProceed = (event) => {
     event.preventDefault();
     // TODO: check routes
