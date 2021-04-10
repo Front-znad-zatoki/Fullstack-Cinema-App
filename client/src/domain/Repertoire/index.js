@@ -3,6 +3,7 @@ import screenigns from '../../mock/screeningsMock';
 import MovieInfoBar from '../MovieInfoBar';
 import { CinemaContext } from '../../context/Cinema';
 import CinemaForm from '../../components/Navbar/CinemaForm';
+import RepertoireNav from './RepertoireNav';
 
 function Repertoire() {
   const { currentCinema } = useContext(CinemaContext);
@@ -11,7 +12,9 @@ function Repertoire() {
   return (
     <div>
       <ul>
-        <li>Repertoire navbar: cinema, date picker, search</li>
+        <li>
+          <RepertoireNav />
+        </li>
         <li>
           MovieInfoBar with poster, data and screening hours as button to
           proceed with reservagtion
