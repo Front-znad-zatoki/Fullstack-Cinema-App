@@ -6,6 +6,7 @@ import CinemaForm from '../../components/Navbar/CinemaForm';
 import { ReservationContext } from '../../context/Reservation';
 import { MoviesContext } from '../../context/Movies';
 import { getScreeningsForCurrentCinema } from '../../actions/Movies';
+import RepertoireNav from './RepertoireNav';
 
 function Repertoire() {
   const { currentCinema } = useContext(CinemaContext);
@@ -19,7 +20,7 @@ function Repertoire() {
   return (
     <div>
       <ul>
-        <li />
+        <RepertoireNav />
         <li>
           MovieInfoBar with poster, data and screening hours as button to
           proceed with reservagtion
