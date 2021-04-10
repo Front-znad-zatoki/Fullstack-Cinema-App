@@ -1,4 +1,3 @@
-/* eslint-disable no-plusplus */
 import React, { useContext, useEffect } from 'react';
 import Seat from '../Seat';
 import './style.scss';
@@ -7,16 +6,16 @@ import { MoviesContext } from '../../context/Movies';
 
 const CinemaHall = () => {
   const { reservation, dispatchReservation } = useContext(ReservationContext);
-  const { cinemaHallId } = reservation;
-  const nrOfRows = 8;
-  const nrOfColumns = 7;
+  const { cinemaHallId } = reservation.screening;
+  const nrOfRows = cinemaHallId.rows || 10;
+  const nrOfColumns = cinemaHallId.columns || 10;
   const columns = [];
   const rowsInLetter = [];
 
-  for (let i = 1; i <= nrOfColumns; i++) {
+  for (let i = 1; i <= nrOfColumns; i += 1) {
     columns.push(i);
   }
-  for (let j = 1; j <= nrOfRows; j++) {
+  for (let j = 1; j <= nrOfRows; j += 1) {
     rowsInLetter.push(String.fromCharCode(j + 64));
   }
 

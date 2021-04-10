@@ -35,7 +35,7 @@ function ReservationView({ match }) {
       <p>Put CinemaHall and Render tickets component accordingly</p>
       {/* <ScreeningDetails /> */}
       <CinemaHall />
-      <ul>
+      <ul className="ticket__list">
         {/* TODO: get occupied seats by action */}
         {selectedSeats
           ? selectedSeats.map(({ seatName, price, row, column }) => {
