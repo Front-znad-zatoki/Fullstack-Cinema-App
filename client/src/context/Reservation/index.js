@@ -57,10 +57,6 @@ const reducer = (state, action) => {
         selectedSeats: [
           ...state.selectedSeats.map((seat, index) => {
             if (seat.seatName === action.payload.seatNr) {
-              // seat.price = action.pa;
-              console.log(seat.seatName === action.payload.seatNr);
-              console.log(seat.seatName);
-              console.log(action.payload.seatNr);
               return {
                 ...state.selectedSeats[index],
                 price: action.payload.price,

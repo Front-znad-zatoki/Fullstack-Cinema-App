@@ -31,34 +31,34 @@ function Ticket({ seatNr, type }) {
   return (
     <li className="ticket">
       <h3 className="ticket__heading">SEAT: {seatNr}</h3>
-      <form>
+      <form className="ticket__price-form">
         <input
           type="radio"
-          id="discount"
           name="ticketType"
           value={priceDiscount}
           onChange={handleChange}
           checked={chosenPrice === priceDiscount}
+          id={`${seatNr}${priceDiscount}`}
         />
-        <label htmlFor="discount" className="ticket__label">
-          <div className="ticket__details">
-            <p className="ticket__type">DISCOUNT</p>
-            {/* <p className="ticket__price">{priceDiscount}</p> */}
-          </div>
+        <label htmlFor={`${seatNr}${priceDiscount}`} className="ticket__label">
+          <p className="ticket__type">DISCOUNT</p>
+          <p className="ticket__price">{`${screening.price.reduced.toFixed(
+            2,
+          )} ZL`}</p>
         </label>
         <input
           type="radio"
-          id="regular"
           name="ticketType"
           value={priceRegular}
           onChange={handleChange}
           checked={chosenPrice === priceRegular}
+          id={`${seatNr}${priceRegular}`}
         />
-        <label htmlFor="regular">
-          <div className="ticket__details">
-            <p className="ticket__type">REGULAR</p>
-            <p className="ticket__price">{priceRegular}</p>
-          </div>
+        <label htmlFor={`${seatNr}${priceRegular}`}>
+          <p className="ticket__type">REGULAR</p>
+          <p className="ticket__price">{`${screening.price.normal.toFixed(
+            2,
+          )} ZL`}</p>
         </label>
       </form>
     </li>

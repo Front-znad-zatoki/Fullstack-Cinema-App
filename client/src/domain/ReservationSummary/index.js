@@ -3,16 +3,21 @@ import { Link, useHistory } from 'react-router-dom';
 import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
 import screenigns from '../../mock/screeningsMock';
+import { ReservationContext } from '../../context/Reservation';
+import { AuthContext } from '../../context/Auth';
+import Ticket from '../../components/Ticket';
+import TicketChosen from '../../components/Ticket/TicketChosen';
 
 function ReservationSummary({ match }) {
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
-  // TODO: add context to retrieve info about screening data
-  // MOCK BELOW, REMOVE AFTER CONTEXT FOR REERVATION IS READY
-  const { title, movieId, cinemaHallId, startDate, id } = screenigns[0];
-  const startDateFormatted = new Date(startDate).toLocaleDateString();
-  const startTimeFormatted = new Date(startDate).toLocaleTimeString();
-
+  const { reservation, dispatchReservation } = useContext(ReservationContext);
+  const { movieDetails, selectedSeats } = reservation;
+  const { cinemaHallId, startDate, _id, price } = reservation.screening;
+  const { userContext, dispatchUserContext } = useContext(AuthContext);
+  const { isAuthenticated, user } = userContext;
+  console.log(selectedSeats);
+  console.log(user);
   const history = useHistory();
   const handleProceed = (event) => {
     event.preventDefault();
@@ -20,7 +25,7 @@ function ReservationSummary({ match }) {
   };
   const handleGoBack = (event) => {
     event.preventDefault();
-    history.push(`/reservation/seats/${id}`);
+    history.push(`/reservation/seats/${_id}`);
   };
   return (
     <div
@@ -32,7 +37,15 @@ function ReservationSummary({ match }) {
     >
       Rendering ReservationSummary
       {/* <ScreeningDetails /> */}
-      <h5> Add form</h5>
+      <ul className="ticket__list">
+        {selectedSeats
+          ? selectedSeats.map((seat) => {
+              return (
+                <TicketChosen key={seat.seatName} price={price} seat={seat} />
+              );
+            })
+          : null}
+      </ul>
       <h5>Add tickets</h5>
       <div className="button__group">
         <button onClick={handleGoBack}>Go Back</button>

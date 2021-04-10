@@ -15,7 +15,6 @@ function Repertoire() {
   useEffect(() => {
     getScreeningsForCurrentCinema(currentCinema._id, setScreenings);
   }, [currentCinema]);
-  console.log(screenings);
   return (
     <div>
       <ul>

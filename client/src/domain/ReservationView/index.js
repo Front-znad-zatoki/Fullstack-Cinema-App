@@ -14,7 +14,6 @@ function ReservationView({ match }) {
   const { movieDetails, selectedSeats } = reservation;
   const { cinemaHallId, startDate, _id } = reservation.screening;
   const history = useHistory();
-  console.log(reservation);
   const handleProceed = (event) => {
     event.preventDefault();
     history.push(`/reservation/summary/${_id}`);
