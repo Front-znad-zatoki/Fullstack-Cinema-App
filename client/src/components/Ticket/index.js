@@ -1,9 +1,16 @@
-import React from 'react';
 import './style.scss';
+import { useContext } from 'react';
+import { ReservationContext } from '../../context/Reservation';
 
 function Ticket({ seatNr, type }) {
-  const priceRegular = '20';
-  const priceDiscount = '10';
+  const { reservation, dispatchReservation } = useContext(ReservationContext);
+  const { movieDetails, selectedSeats, screening } = reservation;
+
+  const priceRegular = screening.price.normal || '50';
+  const priceDiscount = screening.price.reduced || '25';
+  const handleChange = () => {
+    console.log(reservation);
+  };
   return (
     <div className="ticket">
       <h4 className="ticket__heading">SEAT: {seatNr}</h4>

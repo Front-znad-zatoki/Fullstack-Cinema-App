@@ -8,14 +8,6 @@ import { MoviesContext } from '../../context/Movies';
 const CinemaHall = () => {
   const { reservation, dispatchReservation } = useContext(ReservationContext);
   const { cinemaHallId } = reservation;
-  // const { screenings, setScreenings } = useContext(MoviesContext);
-
-  // useEffect(() => {
-  //   dispatch({
-  // type: 'SUCCESS_CINEMAHALL',
-  // payload: mongoCinemaHall[0],
-  // });
-  // }, []);
   const nrOfRows = 8;
   const nrOfColumns = 7;
   const columns = [];
@@ -42,6 +34,7 @@ const CinemaHall = () => {
                     key={`${row}${column}`}
                     seatNr={`${row}${column}`}
                     columnNr={column}
+                    rowNr={row}
                   />
                 );
               })}

@@ -40,7 +40,9 @@ const reducer = (state, action) => {
       return {
         ...state,
         selectedSeats: [
-          ...state.selectedSeats.filter((seat) => seat !== action.payload),
+          ...state.selectedSeats.filter(
+            (seat) => seat.seatName !== action.payload,
+          ),
         ],
       };
     case RESET_SEATS:

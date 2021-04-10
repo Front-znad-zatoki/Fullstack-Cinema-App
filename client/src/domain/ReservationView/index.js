@@ -38,8 +38,8 @@ function ReservationView({ match }) {
       <ul>
         {/* TODO: get occupied seats by action */}
         {selectedSeats
-          ? selectedSeats.map((seat) => {
-              return <Ticket key={seat} seatNr={seat} />;
+          ? selectedSeats.map(({ seatName, price, row, column }) => {
+              return <Ticket key={seatName} seatNr={seatName} />;
             })
           : null}
       </ul>
