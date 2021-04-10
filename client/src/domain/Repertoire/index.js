@@ -1,12 +1,15 @@
+import { useState, useContext } from 'react';
 import screenigns from '../../mock/screeningsMock';
 import MovieInfoBar from '../MovieInfoBar';
+import { CinemaContext } from '../../context/Cinema';
+import CinemaForm from '../../components/Navbar/CinemaForm';
 
 function Repertoire() {
+  const { currentCinema } = useContext(CinemaContext);
   // TODO: add reservation and movies context
 
   return (
     <div>
-      Rendering Repertoire
       <ul>
         <li>Repertoire navbar: cinema, date picker, search</li>
         <li>
@@ -14,6 +17,8 @@ function Repertoire() {
           proceed with reservagtion
         </li>
         <li>MOCK</li>
+        <CinemaForm />
+
         {screenigns.map((screening) => {
           return <MovieInfoBar screening={screening} key={screening.id} />;
         })}

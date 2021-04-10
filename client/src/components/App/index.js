@@ -17,14 +17,15 @@ import ReservationView from '../../domain/ReservationView';
 import AdminPanel from '../../domain/AdminPanel';
 import ReservationSummary from '../../domain/ReservationSummary';
 import ReservationConfirmation from '../../domain/ReservationConfirmation';
+import CinemaContextProvider from '../../context/Cinema';
 
 function App() {
   const themeHook = useState('light');
   return (
     <AuthContextProvider>
-      <ThemeContext.Provider value={themeHook}>
-        <MoviesContextProvider>
-          <ReservationProvider>
+      <CinemaContextProvider>
+        <ThemeContext.Provider value={themeHook}>
+          <MoviesContextProvider>
             <Router>
               <>
                 <Navbar />
@@ -58,9 +59,9 @@ function App() {
                 </div>
               </>
             </Router>
-          </ReservationProvider>
-        </MoviesContextProvider>
-      </ThemeContext.Provider>
+          </MoviesContextProvider>
+        </ThemeContext.Provider>
+      </CinemaContextProvider>
     </AuthContextProvider>
   );
 }

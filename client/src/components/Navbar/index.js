@@ -8,12 +8,17 @@ import AppTheme from '../../context/Theme/themeColors';
 import ThemeToggler from '../ThemeToggler';
 import UnauthenticatedNavBar from './UnauthanticatedNavbar';
 import AuthenticatedNavBar from './AuthenticatedNavbar';
+import CinemaForm from './CinemaForm';
+import { CinemaContext } from '../../context/Cinema';
 
 function Navbar() {
   const { userContext, dispatchUserContext } = useContext(AuthContext);
   const { isAuthenticated, user } = userContext;
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
+  const { cinemas, currentCinema, setCurrentCinema } = useContext(
+    CinemaContext,
+  );
 
   const onClickLogoutHandler = async () => {
     const isLoggedOut = await logout(dispatchUserContext);
@@ -31,23 +36,24 @@ function Navbar() {
         color: `${currentTheme.textColor}`,
       }}
     >
-      <Link to="/">
+      <Link to="/" className="navbar__logo">
         <span className="fas fa-video" />
-        <h1>FZZ Cinemas</h1>
+        <h1>FZZ Cinemas </h1>
+        <h3>{currentCinema.city}</h3>
       </Link>
-      <div className="">
-        <ul className="navbar__list">
-          <Link to="/movies">
-            <li className="navbar__list-item">Movies</li>
-          </Link>
-          {!isAuthenticated ? (
-            <UnauthenticatedNavBar callback={onClickLogoutHandler} />
-          ) : (
-            <AuthenticatedNavBar callback={onClickLogoutHandler} user={user} />
-          )}
-        </ul>
+      {/* <CinemaForm /> */}
+
+      <ul className="navbar__list">
+        <Link to="/movies">
+          <li className="navbar__list-item">Movies</li>
+        </Link>
+        {!isAuthenticated ? (
+          <UnauthenticatedNavBar callback={onClickLogoutHandler} />
+        ) : (
+          <AuthenticatedNavBar callback={onClickLogoutHandler} user={user} />
+        )}
         <ThemeToggler />
-      </div>
+      </ul>
     </nav>
   );
 }
