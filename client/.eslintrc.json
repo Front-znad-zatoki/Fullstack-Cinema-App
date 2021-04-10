@@ -50,6 +50,7 @@
     "compat/compat": "off",
     "react/jsx-props-no-spreading": "warn",
     "react/button-has-type": "off",
-    "consistent-return": "warn"
+    "consistent-return": "warn",
+    "no-underscore-dangle": "warn"
   }
 }

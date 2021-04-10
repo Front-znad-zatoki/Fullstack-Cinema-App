@@ -1,23 +1,29 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import './style.scss';
+import { ReservationContext } from '../../context/Reservation';
 
-const Seat = () => {
-  const [selected, setSelected] = useState(false);
-  // TO DO gest variables from props
+const Seat = ({ columnNr, seatNr }) => {
+  const { reservation, dispatchReservation } = useContext(ReservationContext);
+
   const occupied = false;
-  const seatNr = 1;
-  // TO DO move the handle function to the parent component
   const handleSeatSelected = (e) => {
     e.target.classList.toggle('selected');
-    setSelected((prevSelected) => !prevSelected);
+    if (reservation.selectedSeats.includes(e.target.name)) {
+      dispatchReservation({ type: 'REMOVE_SEAT', payload: e.target.name });
+      dispatchReservation({ type: 'REMOVE_TICKET', payload: 1 });
+    } else {
+      dispatchReservation({ type: 'ADD_SEAT', payload: e.target.name });
+      dispatchReservation({ type: 'ADD_TICKET', payload: 1 });
+    }
   };
   return (
     <button
+      name={seatNr}
       disabled={occupied}
       className={occupied ? 'hall__seat occupied' : 'hall__seat'}
       onClick={handleSeatSelected}
     >
-      {seatNr}
+      {columnNr}
     </button>
   );
 };
