@@ -15,7 +15,12 @@ router
   // @access admin
   .get(authMiddleware, adminMiddleware, async (req, res) => {
     try {
-      const tickets = await Ticket.find().select('-order');
+      const tickets = await Ticket.find()
+        .populate({
+          path: 'seat',
+          model: 'Seat',
+        })
+        .select('-order');
       res.status(200).json(tickets);
     } catch (e) {
       res.status(400).send(e);

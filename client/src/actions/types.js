@@ -20,6 +20,7 @@ export const CHANGE_FAIL = 'CHANGE_FAIL';
 export const CHANGE_SUCCESS = 'CHANGE_SUCCESS';
 export const ADD_MOVIE_DETAILS = 'ADD_MOVIE_DETAILS';
 export const ADD_SCREENING = 'ADD_SCREENING';
+export const ADD_OCCUPIED_SEATS = 'ADD_OCCUPIED_SEATS';
 export const ADD_SEAT = 'ADD_SEAT';
 export const REMOVE_SEAT = 'REMOVE_SEAT';
 export const RESET_SEATS = 'RESET_SEATS';

@@ -9,6 +9,7 @@ import {
   RESET_SEATS,
   RESET_RESERVATION,
   UPDATE_TICKET_PRICE,
+  ADD_OCCUPIED_SEATS,
 } from '../../actions/types';
 
 export const ReservationContext = createContext();
@@ -31,6 +32,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         screening: action.payload,
+      };
+    case ADD_OCCUPIED_SEATS:
+      return {
+        ...state,
+        occupiedSeats: action.payload,
       };
     case ADD_SEAT:
       return {

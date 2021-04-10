@@ -3,28 +3,21 @@ import Seat from '../Seat';
 import './style.scss';
 import { ReservationContext } from '../../context/Reservation';
 import { MoviesContext } from '../../context/Movies';
+import { getOccupiedSeatsForScreening } from '../../actions/Reservation';
 // TODO: check occupied seats
 
 const CinemaHall = () => {
   const { reservation, dispatchReservation } = useContext(ReservationContext);
-  const { cinemaHallId } = reservation.screening;
+  const { cinemaHallId, _id } = reservation.screening;
   const { movieDetails, selectedSeats } = reservation;
-  const updatePreviouslySelectedSeats = () => {
-    console.log(selectedSeats);
-  };
-  useEffect(() => {
-    if (selectedSeats.length > 0) {
-      console.log(rowsInLetter);
-      console.log(columns);
-      console.log('there were seat chosen before');
-      updatePreviouslySelectedSeats();
-    }
-  }, []);
   const nrOfRows = cinemaHallId.rows || 10;
   const nrOfColumns = cinemaHallId.columns || 10;
   const columns = [];
   const rowsInLetter = [];
 
+  useEffect(() => {
+    getOccupiedSeatsForScreening(_id, dispatchReservation);
+  }, []);
   for (let i = 1; i <= nrOfColumns; i += 1) {
     columns.push(i);
   }
