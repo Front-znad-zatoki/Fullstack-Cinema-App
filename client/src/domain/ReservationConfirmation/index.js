@@ -27,6 +27,7 @@ function ReservationConfirmation({ match }) {
       }}
     >
       Rendering Reservation Confirmation
+      {/* <ScreeningDetails /> */}
       <h5>Your reservation was made!</h5>
       <p>You should get and email with the confirmation soon!</p>
       <div className="button__group">

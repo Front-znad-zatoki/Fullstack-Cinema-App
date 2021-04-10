@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import CinemaHall from '../../components/CinemaHall';
 import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
 import screenigns from '../../mock/screeningsMock';
@@ -35,10 +36,17 @@ function ReservationView({ match }) {
     >
       <p>Rendering Reservations View</p>
       <p>Put CinemaHall and Render tickets component accordingly</p>
-      <div className="button__group">
+      {/* <ScreeningDetails /> */}
+      <CinemaHall />
+      <ul>
+        {/* reservation.tickets.map((ticket) => {
+          return <Ticket key={seatNr} />
+        }) */}
+      </ul>
+      <ul className="button__group">
         <button onClick={handleGoBack}>Go Back</button>
         <button onClick={handleProceed}>Proceed with Reservation</button>
-      </div>
+      </ul>
     </div>
   );
 }

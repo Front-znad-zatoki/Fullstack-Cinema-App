@@ -1,0 +1,12 @@
+.cinema__hall {
+  &__screen {
+    width: 250px;
+    background: black;
+    color: white;
+    text-align: center;
+  }
+  &__row {
+    display: flex;
+    margin-top: 10px;
+  }
+}
