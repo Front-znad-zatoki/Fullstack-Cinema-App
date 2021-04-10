@@ -1,59 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './style.scss';
 
-function Ticket({ seatNr = '3D', price = '10' }) {
-  const [type, setType] = useState('none');
+function Ticket({ seatNr = '3D', priceRegular = '20', priceDiscount = '10' }) {
   return (
     <div className="ticket">
       <h4 className="ticket__heading">SEAT: {seatNr}</h4>
-      <div className="ticket__details">
-        <button
-          type="button"
-          disabled={type === 'discount'}
-          className={
-            type === 'discount' ? 'ticket__button selected' : 'ticket__button'
-          }
-          onClick={() => setType('discount')}
-        >
-          <p
-            className={
-              type === 'discount' ? 'ticket__type selected' : 'ticket__type'
-            }
-          >
-            DISCOUNT
-          </p>
-          <p
-            className={
-              type === 'discount' ? 'ticket__price selected' : 'ticket__price'
-            }
-          >
-            {price}
-          </p>
-        </button>
-        <button
-          type="button"
-          disabled={type === 'regular'}
-          className={
-            type === 'regular' ? 'ticket__button selected' : 'ticket__button'
-          }
-          onClick={() => setType('regular')}
-        >
-          <p
-            className={
-              type === 'regular' ? 'ticket__type selected' : 'ticket__type'
-            }
-          >
-            REGULAR
-          </p>
-          <p
-            className={
-              type === 'regular' ? 'ticket__price selected' : 'ticket__price'
-            }
-          >
-            {price}
-          </p>
-        </button>
-      </div>
+
+      <input type="radio" id="discount" name="ticketType" value="discount" />
+      <label htmlFor="discount" className="ticket__label">
+        <div className="ticket__details">
+          <p className="ticket__type">DISCOUNT</p>
+          <p className="ticket__price">{priceDiscount}</p>
+        </div>
+      </label>
+
+      <input
+        type="radio"
+        id="regular"
+        name="ticketType"
+        value="regular"
+        checked
+      />
+      <label htmlFor="regular">
+        <div className="ticket__details">
+          <p className="ticket__type">REGULAR</p>
+          <p className="ticket__price">{priceRegular}</p>
+        </div>
+      </label>
     </div>
   );
 }
