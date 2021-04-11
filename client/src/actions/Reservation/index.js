@@ -1,6 +1,10 @@
 /* eslint-disable import/prefer-default-export */
 import api from '../../services/Api';
-import { ADD_OCCUPIED_SEATS } from '../types';
+import {
+  ADD_OCCUPIED_SEATS,
+  ADD_ORDER_DETAILS,
+  RESET_RESERVATION,
+} from '../types';
 
 // Get all cinema halls
 export const getCinemaHalls = async (dispatch) => {
@@ -65,6 +69,45 @@ export const getOccupiedSeatsForScreening = async (id, dispatch) => {
       console.log(error.request);
     } else {
       console.log('Error', error.message);
+    }
+    return false;
+  }
+};
+
+// Place Order
+export const placeOrder = async (formData, dispatch) => {
+  try {
+    const orderDTO = {
+      ...formData,
+      ticketsData: formData.ticketsData.map((ticket) => {
+        return {
+          seatNr: [ticket.row - 1, ticket.column - 1],
+          price: ticket.price,
+        };
+      }),
+    };
+    const res = await api.post(`orders`, orderDTO);
+    dispatch({
+      type: ADD_ORDER_DETAILS,
+      payload: res.data.order,
+    });
+    return res;
+  } catch (error) {
+    if (error.response) {
+      const { errors } = error.response.data;
+      if (typeof errors !== 'string') {
+        console.log(typeof errors);
+        errors.forEach((err) => alert(err.msg, 'Something went wrong'));
+      } else {
+        alert(error.response.data);
+      }
+      console.log(error.response.data);
+    } else if (error.request) {
+      console.log(error.request);
+      alert(error.request);
+    } else {
+      console.log('Error', error.message);
+      alert(error.message);
     }
     return false;
   }
