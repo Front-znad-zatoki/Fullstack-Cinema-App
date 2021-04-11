@@ -17,6 +17,7 @@ const MovieInfoBar = ({ screening }) => {
     const movieDetails = getMovieDetails(screening.movieId, movies);
     setCurrentMovie(movieDetails);
   }, []);
+  useEffect(() => {}, [currentMovie]);
   const handleClick = (event) => {
     event.preventDefault();
     dispatchReservation({ type: 'ADD_SCREENING', payload: screening });
@@ -24,7 +25,8 @@ const MovieInfoBar = ({ screening }) => {
     history.push(`/prebooking/${screening._id}`);
   };
   console.log(currentMovie);
-  return (
+  console.log(screening);
+  return currentMovie ? (
     <div className="movie__details">
       <div className="movie__image-container">
         <img
@@ -45,7 +47,7 @@ const MovieInfoBar = ({ screening }) => {
         {screeningMinutes < 10 ? `0${screeningMinutes}` : screeningMinutes}
       </button>
     </div>
-  );
+  ) : null;
 };
 
 export default MovieInfoBar;
