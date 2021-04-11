@@ -29,8 +29,7 @@
     "format:prettier": "prettier --config .prettierrc --write src",
     "lint": "eslint \"src/**/*.{js,jsx,json,scss,css}\" \"src/*.{js,jsx,json,scss,css}\"\"src/**/**/.{js,jsx,json,scss,css}\"",
     "lint:fix": "eslint . --fix",
-    "format": "npm run format:prettier && npm run lint:fix",
-    "prepare": "husky install"
+    "format": "npm run format:prettier && npm run lint:fix"
   },
   "browserslist": {
     "production": [

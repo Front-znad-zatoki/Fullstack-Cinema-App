@@ -1,12 +1,11 @@
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
-import screenigns from '../../mock/screeningsMock';
 import { ReservationContext } from '../../context/Reservation';
 import { MoviesContext } from '../../context/Movies';
 import { getMovieDetails } from '../../actions/Movies';
 
 const MovieInfoBar = ({ screening }) => {
-  const { reservation, dispatchReservation } = useContext(ReservationContext);
+  const { dispatchReservation } = useContext(ReservationContext);
   const [currentMovie, setCurrentMovie] = useState();
   const { movies } = useContext(MoviesContext);
   const history = useHistory();
@@ -23,8 +22,6 @@ const MovieInfoBar = ({ screening }) => {
     dispatchReservation({ type: 'ADD_MOVIE_DETAILS', payload: currentMovie });
     history.push(`/prebooking/${screening._id}`);
   };
-  console.log(currentMovie);
-  console.log(screening);
   return currentMovie ? (
     <div className="movie__details">
       <div className="movie__image-container">
