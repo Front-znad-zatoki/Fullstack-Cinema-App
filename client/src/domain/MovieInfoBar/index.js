@@ -23,6 +23,7 @@ const MovieInfoBar = ({ screening }) => {
     dispatchReservation({ type: 'ADD_MOVIE_DETAILS', payload: currentMovie });
     history.push(`/prebooking/${screening._id}`);
   };
+  console.log(currentMovie);
   return (
     <div className="movie__details">
       <div className="movie__image-container">
