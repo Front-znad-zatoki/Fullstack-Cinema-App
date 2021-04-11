@@ -12,10 +12,9 @@ const MovieInfoBar = ({ screening }) => {
   const history = useHistory();
   const screeningHour = new Date(screening.startDate).getHours();
   const screeningMinutes = new Date(screening.startDate).getMinutes();
-  console.log(screeningHour, screeningMinutes);
   useEffect(() => {
     const movieDetails = getMovieDetails(screening.movieId, movies);
-    setCurrentMovie(movieDetails);
+    setCurrentMovie((prevCurrentMovie) => movieDetails);
   }, []);
   const handleClick = (event) => {
     event.preventDefault();
