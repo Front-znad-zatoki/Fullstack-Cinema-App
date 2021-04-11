@@ -15,11 +15,7 @@ const orderSchema = new Schema(
       required: true,
       trim: true,
       lowercase: true,
-      validate: [validateEmail, 'invalid email'],
-      match: [
-        /^[a-z\d]+[\w\d.-]*@(?:[a-z\d]+[a-z\d-]+\.){1,5}[a-z]{2,6}$/i,
-        'Please fill a valid email address',
-      ],
+      // validate: [validateEmail, 'invalid email'],
     },
     status: {
       type: String,
@@ -40,14 +36,16 @@ orderSchema.methods.createOrdersDependencies = async function createOrdersDepend
   seats,
   screening,
   order,
+  prices,
   cb,
 ) {
   try {
-    const promises = seats.map((ticketToCreate) => {
+    const promises = seats.map((ticketToCreate, index) => {
       const newTicket = new Ticket({
         seat: ticketToCreate.id,
         order: order.id,
         screening: screening,
+        price: prices[index],
       });
       return newTicket.save();
     });

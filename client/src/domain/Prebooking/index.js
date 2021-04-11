@@ -5,19 +5,26 @@ import screenigns from '../../mock/screeningsMock';
 import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
 import { ReservationContext } from '../../context/Reservation';
+import { RESET_RESERVATION } from '../../actions/types';
 
 function PreBooking({ match }) {
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
   const { reservation, dispatchReservation } = useContext(ReservationContext);
   const { movieDetails } = reservation;
-  const { cinemaHallId, startDate, id } = reservation.screening;
+  const { cinemaHallId, startDate, _id } = reservation.screening;
   const startDateFormatted = new Date(startDate).toLocaleDateString();
   const startTimeFormatted = new Date(startDate).toLocaleTimeString();
   const history = useHistory();
+
   const handleClick = (event) => {
     event.preventDefault();
-    history.push(`/reservation/seats/${id}`);
+    history.push(`/reservation/seats/${_id}`);
+  };
+  const handleGoBackClick = (event) => {
+    event.preventDefault();
+    dispatchReservation({ type: RESET_RESERVATION });
+    history.push(`/`);
   };
   return (
     <div
@@ -45,7 +52,7 @@ function PreBooking({ match }) {
           {startDateFormatted}, {startTimeFormatted}
         </p>
         <div className="button__group">
-          <Link to="/">Go Back to Repertoire</Link>
+          <button onClick={handleGoBackClick}>Go Back to Repertoire</button>
           <button onClick={handleClick}>Proceed with Reservation</button>
         </div>
       </div>

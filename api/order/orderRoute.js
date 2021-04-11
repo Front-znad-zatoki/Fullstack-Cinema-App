@@ -31,7 +31,7 @@ router
   // @example req.body:
   // @{
   // @  "status": "pending",
-  // @  "tickets": [[0,0],[1,0]],
+  // @ "tickets": [{seatNr:[0,0], price: 'PRICE_REDUCED'},{seatNr:[0,1], price: 'PRICE_REDUCED'}]
   // @  "screening": "604cd23fc5d64540d07eaece"
   // @}
   .post(
@@ -49,15 +49,20 @@ router
       .trim()
       .isLength({ max: 255 })
       .normalizeEmail(),
-    check('tickets', 'Ticket is required').notEmpty().isArray(),
+    check('ticketsData', 'Tickets Data is required')
+      .notEmpty()
+      .isArray(),
     async (req, res) => {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
       }
-
       try {
-        const { email, status, tickets, screening } = req.body;
+        const { email, status, ticketsData, screening } = req.body;
+        const tickets = ticketsData.map((ticket) => ticket.seatNr);
+        const ticketsPrices = ticketsData.map(
+          (ticket) => ticket.price,
+        );
         const { isAuthenticated, user } = req;
         const userPlacingOrder = isAuthenticated
           ? await User.findById(user.id).select('email orders')
@@ -107,7 +112,6 @@ router
         if (!areEmpty) {
           return res.status(404).send('Seats are not empty');
         }
-        console.log(areEmpty);
         // Check if seats exist and create tuples for further tickets creation
         const seats = await Promise.all(
           tickets.map(([rowNr, columnNr]) => {
@@ -125,7 +129,6 @@ router
         if (!seats) {
           return res.status(404).send('Seats not found');
         }
-        console.log(seats);
         // If all data is ok, create order
         const order = new Order({
           email,
@@ -134,12 +137,12 @@ router
         if (isAuthenticated) {
           order.user = user.id;
         }
-
         // Generate all tickets and their ids
         const ticketsIds = await order.createOrdersDependencies(
           seats,
           screening,
           order,
+          ticketsPrices,
           (err) => {
             if (err) {
               return res.status(400).json({
@@ -148,12 +151,10 @@ router
             }
           },
         );
-
         // Add ticket ids as reference to the order
         ticketsIds.forEach((ticketId) => {
           order.tickets.push(ticketId);
         });
-
         // Save order in mongo db and update users orders if user is authenticated
         await order.save();
         if (userPlacingOrder) {
@@ -166,6 +167,7 @@ router
 
         res.status(200).json({ msg: 'POSTED', order: order });
       } catch (e) {
+        console.error(e.message);
         res.status(400).send({ msg: 'Error placing order' });
       }
     },
