@@ -23,7 +23,7 @@ const MovieInfoBar = ({ screening }) => {
   };
   return (
     <li key={screening.id}>
-      <p>{screening.movieId.id}</p>
+      <p>{screening.movieId}</p>
       <button onClick={handleClick}>{screening.startDate}</button>
     </li>
   );
