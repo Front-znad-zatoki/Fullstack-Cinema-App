@@ -10,6 +10,9 @@ const MovieInfoBar = ({ screening }) => {
   const [currentMovie, setCurrentMovie] = useState();
   const { movies } = useContext(MoviesContext);
   const history = useHistory();
+  const screeningHour = new Date(screening.startDate).getHours();
+  const screeningMinutes = new Date(screening.startDate).getMinutes();
+  console.log(screeningHour, screeningMinutes);
   useEffect(() => {
     const movieDetails = getMovieDetails(screening.movieId, movies);
     setCurrentMovie(movieDetails);
@@ -18,14 +21,29 @@ const MovieInfoBar = ({ screening }) => {
     event.preventDefault();
     dispatchReservation({ type: 'ADD_SCREENING', payload: screening });
     dispatchReservation({ type: 'ADD_MOVIE_DETAILS', payload: currentMovie });
-    console.log(currentMovie);
     history.push(`/prebooking/${screening._id}`);
   };
   return (
-    <li key={screening.id}>
-      <p>{screening.movieId.id}</p>
-      <button onClick={handleClick}>{screening.startDate}</button>
-    </li>
+    <div className="movie__details">
+      <div className="movie__image-container">
+        <img
+          className="movie__image"
+          src={currentMovie.poster}
+          alt="Movie poster"
+        />
+      </div>
+      <ul>
+        <h2>Title: {currentMovie.title}</h2>
+        <li>Duration: {currentMovie.duration}</li>
+        <li>Release date: {currentMovie.releaseDate}</li>
+        <li>Description: {currentMovie.description}</li>
+        <li>Genre: {currentMovie.genre}</li>
+      </ul>
+      <button onClick={handleClick}>
+        {screeningHour < 10 ? `0${screeningHour}` : screeningHour}:
+        {screeningMinutes < 10 ? `0${screeningMinutes}` : screeningMinutes}
+      </button>
+    </div>
   );
 };
 

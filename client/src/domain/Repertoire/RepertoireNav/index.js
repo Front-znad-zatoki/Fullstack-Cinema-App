@@ -31,7 +31,7 @@ function RepertoireNav({ selectedDate, setSelectedDate }) {
         <DatePicker
           value={selectedDate}
           onChange={handleDate}
-          minDate={selectedDate}
+          // minDate={selectedDate}
           // maxDate={moment().add(7, 'days').toDate()}
         />
       </div>

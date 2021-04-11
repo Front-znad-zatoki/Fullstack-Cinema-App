@@ -12,11 +12,7 @@ function Repertoire() {
   const { currentCinema } = useContext(CinemaContext);
   const { dispatchReservation } = useContext(ReservationContext);
   const { screenings, setScreenings } = useContext(MoviesContext);
-  const { movies, setMovies } = useContext(MoviesContext);
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const handleDate = (date) => {
-    setSelectedDate(date);
-  };
   useEffect(() => {
     getScreeningsForCurrentCinema(currentCinema._id, setScreenings);
   }, [currentCinema]);
@@ -26,37 +22,17 @@ function Repertoire() {
       selectedDate.toLocaleDateString()
     );
   });
-  /* useEffect(() => {
-    getMovies(setMovies);
-  }, []); */
-  const moviesForSelectedDate = screeningsForSelectedDate.map((screening) => {
-    movies.filter((movie) => {
-      console.log(movie._id);
-      return movie._id === screening.movieId;
-    });
-  });
-
-  console.log(movies);
-  console.log(screeningsForSelectedDate);
-  console.log(moviesForSelectedDate);
   return (
     <div>
-      <ul>
-        <RepertoireNav
-          setSelectedDate={setSelectedDate}
-          selectedDate={selectedDate}
-        />
-        <li>
-          MovieInfoBar with poster, data and screening hours as button to
-          proceed with reservagtion
-        </li>
-        <li>MOCK</li>
-        <CinemaForm />
+      <RepertoireNav
+        setSelectedDate={setSelectedDate}
+        selectedDate={selectedDate}
+      />
+      <CinemaForm />
 
-        {screeningsForSelectedDate.map((screening) => {
-          return <MovieInfoBar screening={screening} key={screening._id} />;
-        })}
-      </ul>
+      {screeningsForSelectedDate.map((screening) => {
+        return <MovieInfoBar screening={screening} key={screening._id} />;
+      })}
     </div>
   );
 }
