@@ -5,12 +5,21 @@
     display: block;
   }
 }
-
+.slick {
+    &-slider {
+    height: 400px;
+    margin-bottom: 50px;
+    }
+}
 .slider {
   &_container {
-    // width: 50vw;
+    height: 400px;
+    display: block;
+    // height: 100%;
+    width: auto;
     &_img {
-      max-height: 400px;
+      height: 100%;
+      width: auto;
     }
   }
 }

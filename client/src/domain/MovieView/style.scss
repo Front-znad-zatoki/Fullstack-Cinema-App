@@ -3,3 +3,13 @@
   // flex-direction: column;
   justify-content: space-between;
 }
+
+.movie__view {
+  &__container {
+    width: 500px;
+    display: block;
+  &__image {
+    width: 100%;
+  }
+}
+}
