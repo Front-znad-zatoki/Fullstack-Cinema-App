@@ -6,7 +6,6 @@ export const CinemaContext = createContext();
 const CinemaContextProvider = ({ children }) => {
   const [cinemas, setCinemas] = useState(cinemasMock);
   const [currentCinema, setCurrentCinema] = useState(cinemas[0]);
-
   return (
     <CinemaContext.Provider
       value={{ currentCinema, setCurrentCinema, cinemas, setCinemas }}

@@ -49,7 +49,7 @@ router.get(
             {
               path: 'screening',
               model: 'Screening',
-              select: 'startDate cinemaHallId movieId',
+              select: 'startDate cinemaHallId movieId price',
               populate: [
                 {
                   path: 'cinemaHallId',

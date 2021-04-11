@@ -20,7 +20,7 @@ const Seat = ({ rowNr, columnNr, seatNr }) => {
     setOccupied(result);
   }, [occupiedSeats]);
   const seatWasSelected = reservation.selectedSeats.find((seat, index) => {
-    return seat.seatName === seatNr;
+    return seat.seatNr === seatNr;
   });
 
   const handleSeatSelected = (e) => {
@@ -32,7 +32,7 @@ const Seat = ({ rowNr, columnNr, seatNr }) => {
       dispatchReservation({
         type: 'ADD_SEAT',
         payload: {
-          seatName: seatNr,
+          seatNr,
           price: PRICE_NORMAL,
           row: rowNr.charCodeAt(0) - 64,
           column: columnNr,

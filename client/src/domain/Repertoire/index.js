@@ -11,7 +11,6 @@ function Repertoire() {
   const { currentCinema } = useContext(CinemaContext);
   const { dispatchReservation } = useContext(ReservationContext);
   const { screenings, setScreenings } = useContext(MoviesContext);
-
   useEffect(() => {
     getScreeningsForCurrentCinema(currentCinema._id, setScreenings);
   }, [currentCinema]);
@@ -26,9 +25,11 @@ function Repertoire() {
         <li>MOCK</li>
         <CinemaForm />
 
-        {screenings.map((screening) => {
-          return <MovieInfoBar screening={screening} key={screening._id} />;
-        })}
+        {screenings
+          ? screenings.map((screening) => {
+              return <MovieInfoBar screening={screening} key={screening._id} />;
+            })
+          : null}
       </ul>
     </div>
   );
