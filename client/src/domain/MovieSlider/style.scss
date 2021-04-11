@@ -1,16 +1,16 @@
-.movie__image{
-    width: 100%;
-    &-container {
+.movie__image {
+  width: 100%;
+  &-container {
     width: 500px;
     display: block;
-    }
+  }
 }
 
 .slider {
-    &_container {
+  &_container {
     // width: 50vw;
     &_img {
-        max-height: 400px;
+      max-height: 400px;
     }
-}
+  }
 }
