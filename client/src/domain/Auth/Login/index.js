@@ -48,18 +48,20 @@ function Login(props) {
       <h2>Login</h2>
       {alertMsg ? <Message message={alertMsg} /> : null}
       <form className="auth__form" onSubmit={onSubmit}>
-        <div className="auth__form-group">
+        <label htmlFor="loginEmail" className="auth__form-group">
           <input
             type="email"
+            id="loginEmail"
             placeholder="Email Address"
             name="email"
             value={email}
             onChange={onChange}
             required
           />
-        </div>
-        <div className="auth__formgroup">
+        </label>
+        <label htmlFor="loginPassword" className="auth__formgroup">
           <input
+            id="loginPassword"
             type="password"
             placeholder="Password"
             name="password"
@@ -67,7 +69,7 @@ function Login(props) {
             onChange={onChange}
             minLength="5"
           />
-        </div>
+        </label>
         <button type="submit" className="button--submit">
           Login
         </button>

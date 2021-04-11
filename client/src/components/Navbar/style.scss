@@ -1,5 +1,8 @@
 @import '../../styles/variables';
 .navbar {
+  padding-bottom: 32px;
+  border-bottom-width: 3px;
+  border-bottom-style: solid;
   &__list {
     display: flex;
     margin-left: auto;

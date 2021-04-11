@@ -1,9 +1,8 @@
 @import '../../styles/variables';
 .App {
-  background-color: $color-primary;
-  color: $text-color-secondary;
+  background-color: $background-color-primary;
+  color: $text-color-primary;
   &__header {
     font-size: 2rem;
-    color: $text-color-secondary;
   }
 }
