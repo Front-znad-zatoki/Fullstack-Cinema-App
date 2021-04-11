@@ -37,7 +37,7 @@ export default function Footer() {
           <p className="footer__item-detail">{currentCinema.street}</p>
         </li>
         <li className="footer__item">
-          <h4 className="footer__item-header">Address</h4>
+          <h4 className="footer__item-header">Contact</h4>
           <a
             href={`mailto:${currentCinema.email}`}
             className="footer__item-detail"
