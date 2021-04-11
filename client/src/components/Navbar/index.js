@@ -28,8 +28,9 @@ function Navbar() {
     dispatchReservation({ type: RESET_RESERVATION });
     if (!isLoggedOut) {
       alert('Could not log out user. Try again');
+      return;
     }
-    return <Redirect to="/" />;
+    return history.push('/');
   };
   const handleLogoClick = (event) => {
     event.preventDefault();

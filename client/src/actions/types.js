@@ -16,6 +16,7 @@ export const GET_ORDER = 'GET_ORDER';
 export const ORDER_ERROR = 'ORDER_ERROR';
 export const DELETE_ORDER = 'DELETE_ORDER';
 export const ADD_ORDER = 'ADD_ORDER';
+export const ADD_ORDER_DETAILS = 'ADD_ORDER_DETAILS';
 export const CHANGE_FAIL = 'CHANGE_FAIL';
 export const CHANGE_SUCCESS = 'CHANGE_SUCCESS';
 export const ADD_MOVIE_DETAILS = 'ADD_MOVIE_DETAILS';

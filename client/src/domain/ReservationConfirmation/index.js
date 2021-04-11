@@ -11,9 +11,10 @@ function ReservationConfirmation({ email }) {
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
   const { reservation, dispatchReservation } = useContext(ReservationContext);
+  const { orderDetails } = reservation;
   const { userContext, dispatchUserContext } = useContext(AuthContext);
   const { isAuthenticated, user } = userContext;
-
+  console.log(orderDetails);
   const history = useHistory();
   const handleProceed = (event) => {
     event.preventDefault();
@@ -31,7 +32,9 @@ function ReservationConfirmation({ email }) {
       Rendering Reservation Confirmation
       {/* <ScreeningDetails /> */}
       <h5>Your reservation was made!</h5>
+      <p>We sent an email to the adress you provided: {orderDetails.email}. </p>
       <p>You should get and email with the confirmation soon!</p>
+      <p>Your order number: {orderDetails._id}</p>
       <div className="button__group">
         <button onClick={handleProceed}>Back to Main Page</button>
       </div>

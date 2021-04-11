@@ -13,7 +13,7 @@ function Ticket({ seatNr, type, price }) {
   const priceRegular = screening.price.normal.toString() || '50';
   const priceDiscount = screening.price.reduced.toString() || '25';
   const ticketSelectedBefore = reservation.selectedSeats.find((seat, index) => {
-    return seat.seatName === seatNr;
+    return seat.seatNr === seatNr;
   });
 
   const [chosenPrice, setchosenPrice] = useState(
