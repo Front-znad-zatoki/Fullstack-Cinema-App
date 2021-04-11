@@ -13,6 +13,7 @@ const ThemeToggler = () => {
       onClick={() => {
         setThemeMode(themeMode === 'light' ? 'dark' : 'light');
         appRoot.classList.toggle('dark-mode');
+        appRoot.classList.toggle('light-mode');
       }}
     >
       <span title="switch theme">{themeMode === 'light' ? '🌙' : '☀️'}</span>

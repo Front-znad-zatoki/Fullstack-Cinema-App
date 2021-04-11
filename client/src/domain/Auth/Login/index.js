@@ -6,6 +6,7 @@ import AppTheme from '../../../context/Theme/themeColors';
 import { AuthContext } from '../../../context/Auth';
 import Message from '../../../components/Message';
 import { login } from '../../../actions/Auth';
+import movies from '../../../mock/moviesMock';
 
 function Login(props) {
   const { userContext, dispatchUserContext } = useContext(AuthContext);
@@ -19,7 +20,7 @@ function Login(props) {
   });
   const history = useHistory();
   const { email, password } = formData;
-
+  const { poster } = movies[1];
   const onChange = (event) => {
     setFormData({
       ...formData,
@@ -39,44 +40,55 @@ function Login(props) {
 
   return !isAuthenticated ? (
     <div
-      className="auth"
+      className="auth movie__view"
       style={{
         backgroundColor: `${currentTheme.backgroundColor}`,
         color: `${currentTheme.textColor}`,
       }}
     >
-      <h2>Login</h2>
-      {alertMsg ? <Message message={alertMsg} /> : null}
-      <form className="auth__form" onSubmit={onSubmit}>
-        <label htmlFor="loginEmail" className="auth__form-group">
-          <input
-            type="email"
-            id="loginEmail"
-            placeholder="Email Address"
-            name="email"
-            value={email}
-            onChange={onChange}
-            required
-          />
-        </label>
-        <label htmlFor="loginPassword" className="auth__formgroup">
-          <input
-            id="loginPassword"
-            type="password"
-            placeholder="Password"
-            name="password"
-            value={password}
-            onChange={onChange}
-            minLength="5"
-          />
-        </label>
-        <button type="submit" className="button--submit">
-          Login
-        </button>
-      </form>
-      <p className="auth__redirect">
-        Do not have an account? <Link to="/signup">Sign Up</Link>
-      </p>
+      <div className="movie__view__container">
+        <img
+          className="movie__view__container__image"
+          src={poster}
+          alt="Movie poster"
+        />
+      </div>
+      <div className="auth__form-container">
+        <h2>Login</h2>
+        {alertMsg ? <Message message={alertMsg} /> : null}
+        <form className="auth__form" onSubmit={onSubmit}>
+          <label htmlFor="loginEmail" className="auth__form-group">
+            <input
+              className="auth__input"
+              type="email"
+              id="loginEmail"
+              placeholder="Email Address"
+              name="email"
+              value={email}
+              onChange={onChange}
+              required
+            />
+          </label>
+          <label htmlFor="loginPassword" className="auth__form-group">
+            <input
+              className="auth__input"
+              id="loginPassword"
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={password}
+              onChange={onChange}
+              minLength="5"
+            />
+          </label>
+          <button type="submit" className="button--submit auth__form-group">
+            Login
+          </button>
+        </form>
+        <p className="auth__redirect">
+          Do not have an account? <Link to="/signup">Sign Up</Link>
+        </p>
+      </div>
     </div>
   ) : (
     <Redirect to="/" />

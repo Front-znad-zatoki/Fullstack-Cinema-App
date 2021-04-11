@@ -3,12 +3,14 @@
   padding-bottom: 32px;
   border-bottom-width: 3px;
   border-bottom-style: solid;
+  background-color: #000;
   &__list {
     display: flex;
     margin-left: auto;
   }
   &__logo {
     display: flex;
+    border: 0;
   }
   font-family: $font-primary;
   font-size: $font-size-secondary;
