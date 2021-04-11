@@ -18,6 +18,7 @@ import AdminPanel from '../../domain/AdminPanel';
 import ReservationSummary from '../../domain/ReservationSummary';
 import ReservationConfirmation from '../../domain/ReservationConfirmation';
 import CinemaContextProvider from '../../context/Cinema';
+import Footer from '../Footer';
 
 function App() {
   const themeHook = useState('light');
@@ -58,6 +59,7 @@ function App() {
                       <Route exact path="/admin" component={AdminPanel} />
                     </Switch>
                   </div>
+                  <Footer />
                 </>
               </Router>
             </MoviesContextProvider>
