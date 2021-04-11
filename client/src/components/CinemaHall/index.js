@@ -1,30 +1,27 @@
-/* eslint-disable no-plusplus */
 import React, { useContext, useEffect } from 'react';
 import Seat from '../Seat';
 import './style.scss';
 import { ReservationContext } from '../../context/Reservation';
 import { MoviesContext } from '../../context/Movies';
+import { getOccupiedSeatsForScreening } from '../../actions/Reservation';
+// TODO: check occupied seats
 
 const CinemaHall = () => {
   const { reservation, dispatchReservation } = useContext(ReservationContext);
-  const { cinemaHallId } = reservation;
-  // const { screenings, setScreenings } = useContext(MoviesContext);
-
-  // useEffect(() => {
-  //   dispatch({
-  // type: 'SUCCESS_CINEMAHALL',
-  // payload: mongoCinemaHall[0],
-  // });
-  // }, []);
-  const nrOfRows = 8;
-  const nrOfColumns = 7;
+  const { cinemaHallId, _id } = reservation.screening;
+  const { movieDetails, selectedSeats, occupiedSeats } = reservation;
+  const nrOfRows = cinemaHallId.rows || 10;
+  const nrOfColumns = cinemaHallId.columns || 10;
   const columns = [];
   const rowsInLetter = [];
 
-  for (let i = 1; i <= nrOfColumns; i++) {
+  useEffect(() => {
+    getOccupiedSeatsForScreening(_id, dispatchReservation);
+  }, []);
+  for (let i = 1; i <= nrOfColumns; i += 1) {
     columns.push(i);
   }
-  for (let j = 1; j <= nrOfRows; j++) {
+  for (let j = 1; j <= nrOfRows; j += 1) {
     rowsInLetter.push(String.fromCharCode(j + 64));
   }
 
@@ -42,6 +39,7 @@ const CinemaHall = () => {
                     key={`${row}${column}`}
                     seatNr={`${row}${column}`}
                     columnNr={column}
+                    rowNr={row}
                   />
                 );
               })}

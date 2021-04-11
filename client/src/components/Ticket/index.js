@@ -1,33 +1,73 @@
-import React from 'react';
 import './style.scss';
+import { useContext, useState } from 'react';
+import { ReservationContext } from '../../context/Reservation';
+import {
+  PRICE_NORMAL,
+  PRICE_REDUCED,
+  UPDATE_TICKET_PRICE,
+} from '../../actions/types';
 
-function Ticket({ seatNr = '3D', priceRegular = '20', priceDiscount = '10' }) {
+function Ticket({ seatNr, type, price }) {
+  const { reservation, dispatchReservation } = useContext(ReservationContext);
+  const { screening } = reservation;
+  const priceRegular = screening.price.normal.toString() || '50';
+  const priceDiscount = screening.price.reduced.toString() || '25';
+  const ticketSelectedBefore = reservation.selectedSeats.find((seat, index) => {
+    return seat.seatName === seatNr;
+  });
+
+  const [chosenPrice, setchosenPrice] = useState(
+    price === PRICE_REDUCED ? priceDiscount : priceRegular,
+  );
+
+  const handleChange = (event) => {
+    console.log(reservation);
+    setchosenPrice((prevPrice) => event.target.value);
+    dispatchReservation({
+      type: UPDATE_TICKET_PRICE,
+      payload: {
+        seatNr,
+        price:
+          event.target.value === screening.price.normal.toString()
+            ? PRICE_NORMAL
+            : PRICE_REDUCED,
+      },
+    });
+  };
   return (
-    <div className="ticket">
-      <h4 className="ticket__heading">SEAT: {seatNr}</h4>
-
-      <input type="radio" id="discount" name="ticketType" value="discount" />
-      <label htmlFor="discount" className="ticket__label">
-        <div className="ticket__details">
+    <li className="ticket">
+      <h3 className="ticket__heading">SEAT: {seatNr}</h3>
+      <form className="ticket__price-form">
+        <input
+          type="radio"
+          name="ticketType"
+          value={priceDiscount}
+          onChange={handleChange}
+          checked={chosenPrice === priceDiscount}
+          id={`${seatNr}${priceDiscount}`}
+        />
+        <label htmlFor={`${seatNr}${priceDiscount}`} className="ticket__label">
           <p className="ticket__type">DISCOUNT</p>
-          <p className="ticket__price">{priceDiscount}</p>
-        </div>
-      </label>
-
-      <input
-        type="radio"
-        id="regular"
-        name="ticketType"
-        value="regular"
-        checked
-      />
-      <label htmlFor="regular">
-        <div className="ticket__details">
+          <p className="ticket__price">{`${screening.price.reduced.toFixed(
+            2,
+          )} ZL`}</p>
+        </label>
+        <input
+          type="radio"
+          name="ticketType"
+          value={priceRegular}
+          onChange={handleChange}
+          checked={chosenPrice === priceRegular}
+          id={`${seatNr}${priceRegular}`}
+        />
+        <label htmlFor={`${seatNr}${priceRegular}`}>
           <p className="ticket__type">REGULAR</p>
-          <p className="ticket__price">{priceRegular}</p>
-        </div>
-      </label>
-    </div>
+          <p className="ticket__price">{`${screening.price.normal.toFixed(
+            2,
+          )} ZL`}</p>
+        </label>
+      </form>
+    </li>
   );
 }
 

@@ -3,19 +3,21 @@ import { Link, useHistory } from 'react-router-dom';
 import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
 import screenigns from '../../mock/screeningsMock';
+import { ReservationContext } from '../../context/Reservation';
+import { RESET_RESERVATION } from '../../actions/types';
+import { AuthContext } from '../../context/Auth';
 
-function ReservationConfirmation({ match }) {
+function ReservationConfirmation({ email }) {
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
-  // TODO: add context to retrieve info about screening data
-  // MOCK BELOW, REMOVE AFTER CONTEXT FOR REERVATION IS READY
-  const { title, movieId, cinemaHallId, startDate, id } = screenigns[0];
-  const startDateFormatted = new Date(startDate).toLocaleDateString();
-  const startTimeFormatted = new Date(startDate).toLocaleTimeString();
+  const { reservation, dispatchReservation } = useContext(ReservationContext);
+  const { userContext, dispatchUserContext } = useContext(AuthContext);
+  const { isAuthenticated, user } = userContext;
 
   const history = useHistory();
   const handleProceed = (event) => {
     event.preventDefault();
+    dispatchReservation({ type: RESET_RESERVATION });
     history.push(`/`);
   };
   return (

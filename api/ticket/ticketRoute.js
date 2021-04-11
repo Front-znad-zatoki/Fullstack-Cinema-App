@@ -11,11 +11,16 @@ const router = express.Router();
 router
   .route('/')
   // @route GET api/tickets
-  // @description Get all tickets
-  // @access admin
-  .get(authMiddleware, adminMiddleware, async (req, res) => {
+  // @description Get all tickets without user data
+  // @access public
+  .get(async (req, res) => {
     try {
-      const tickets = await Ticket.find().select('-order');
+      const tickets = await Ticket.find()
+        .populate({
+          path: 'seat',
+          model: 'Seat',
+        })
+        .select('-order -user');
       res.status(200).json(tickets);
     } catch (e) {
       res.status(400).send(e);

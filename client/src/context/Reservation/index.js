@@ -1,52 +1,90 @@
 import { createContext, useReducer } from 'react';
-import cinemaHallMock from '../../mock/cinemaHallMock';
+import {
+  ADD_MOVIE_DETAILS,
+  ADD_SCREENING,
+  ADD_SEAT,
+  ADD_TICKET,
+  REMOVE_SEAT,
+  REMOVE_TICKET,
+  RESET_SEATS,
+  RESET_RESERVATION,
+  UPDATE_TICKET_PRICE,
+  ADD_OCCUPIED_SEATS,
+} from '../../actions/types';
 
 export const ReservationContext = createContext();
 const initialState = {
-  screening: {},
+  screening: null,
   totalTickets: 0,
   selectedSeats: [],
   movieDetails: {},
+  occupiedSeats: [],
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'ADD_MOVIE_DETAILS':
+    case ADD_MOVIE_DETAILS:
       return {
         ...state,
         movieDetails: action.payload,
       };
-    case 'ADD_SCREENING':
+    case ADD_SCREENING:
       return {
         ...state,
         screening: action.payload,
       };
-    case 'ADD_SEAT':
+    case ADD_OCCUPIED_SEATS:
+      return {
+        ...state,
+        occupiedSeats: action.payload,
+      };
+    case ADD_SEAT:
       return {
         ...state,
         selectedSeats: [...state.selectedSeats, action.payload],
       };
-    case 'REMOVE_SEAT':
+    case REMOVE_SEAT:
       return {
         ...state,
         selectedSeats: [
-          ...state.selectedSeats.filter((seat) => seat !== action.payload),
+          ...state.selectedSeats.filter(
+            (seat) => seat.seatName !== action.payload,
+          ),
         ],
       };
-    case 'RESET_SEATS':
+    case RESET_SEATS:
       return {
         ...state,
         selectedSeats: action.payload,
       };
-    case 'ADD_TICKET':
+    case UPDATE_TICKET_PRICE:
+      return {
+        ...state,
+        selectedSeats: [
+          ...state.selectedSeats.map((seat, index) => {
+            if (seat.seatName === action.payload.seatNr) {
+              return {
+                ...state.selectedSeats[index],
+                price: action.payload.price,
+              };
+            }
+            return seat;
+          }),
+        ],
+      };
+    case ADD_TICKET:
       return {
         ...state,
         totalTickets: state.totalTickets + action.payload,
       };
-    case 'REMOVE_TICKET':
+    case REMOVE_TICKET:
       return {
         ...state,
         totalTickets: state.totalTickets - action.payload,
+      };
+    case RESET_RESERVATION:
+      return {
+        ...initialState,
       };
     default:
       return state;

@@ -18,6 +18,11 @@ const ticketSchema = new Schema({
     ref: 'Seat',
     required: true,
   },
+  price: {
+    type: String,
+    enum: ['PRICE_REDUCED', 'PRICE_NORMAL'],
+    required: true,
+  },
 });
 
 export default mongoose.model('Ticket', ticketSchema);

@@ -1,6 +1,5 @@
-.movie {
-  &__view {
-    display: flex;
-    flex-direction: column;
-  }
+.ticket__list {
+  display: flex;
+  // flex-direction: column;
+  justify-content: space-between;
 }

@@ -4,27 +4,23 @@ import CinemaHall from '../../components/CinemaHall';
 import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
 import screenigns from '../../mock/screeningsMock';
+import Ticket from '../../components/Ticket';
+import { ReservationContext } from '../../context/Reservation';
 
 function ReservationView({ match }) {
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
-  // TODO: add context to retrieve info about screening data
-  // MOCK BELOW, REMOVE AFTER CONTEXT FOR REERVATION IS READY
-  const { title, movieId, cinemaHallId, startDate, id, slug } = screenigns[0];
-  const startDateFormatted = new Date(startDate).toLocaleDateString();
-  const startTimeFormatted = new Date(startDate).toLocaleTimeString();
-
+  const { reservation, dispatchReservation } = useContext(ReservationContext);
+  const { movieDetails, selectedSeats } = reservation;
+  const { cinemaHallId, startDate, _id } = reservation.screening;
   const history = useHistory();
   const handleProceed = (event) => {
     event.preventDefault();
-    // TODO: check routes
-    //   history.push(`/reservation/${id}`);
-    history.push(`/reservation/summary/${id}`);
+    history.push(`/reservation/summary/${_id}`);
   };
   const handleGoBack = (event) => {
     event.preventDefault();
-    // TODO: check routes
-    history.push(`/prebooking/${id}`);
+    history.push(`/prebooking/${_id}`);
   };
   return (
     <div
@@ -38,14 +34,19 @@ function ReservationView({ match }) {
       <p>Put CinemaHall and Render tickets component accordingly</p>
       {/* <ScreeningDetails /> */}
       <CinemaHall />
-      <ul>
-        {/* reservation.tickets.map((ticket) => {
-          return <Ticket key={seatNr} />
-        }) */}
+      <ul className="ticket__list">
+        {/* TODO: get occupied seats by action */}
+        {selectedSeats
+          ? selectedSeats.map(({ seatName, price, row, column }) => {
+              return <Ticket key={seatName} seatNr={seatName} price={price} />;
+            })
+          : null}
       </ul>
       <ul className="button__group">
         <button onClick={handleGoBack}>Go Back</button>
-        <button onClick={handleProceed}>Proceed with Reservation</button>
+        <button disabled={selectedSeats.length === 0} onClick={handleProceed}>
+          Proceed with Reservation
+        </button>
       </ul>
     </div>
   );
