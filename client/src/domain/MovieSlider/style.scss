@@ -1,0 +1,25 @@
+.movie__image {
+  width: 100%;
+  &-container {
+    width: 500px;
+    display: block;
+  }
+}
+.slick {
+  &-slider {
+    height: 400px;
+    margin-bottom: 50px;
+  }
+}
+.slider {
+  &_container {
+    height: 400px;
+    display: block;
+    // height: 100%;
+    width: auto;
+    &_img {
+      height: 100%;
+      width: auto;
+    }
+  }
+}

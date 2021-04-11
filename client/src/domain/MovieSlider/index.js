@@ -5,6 +5,7 @@ import { MoviesContext } from '../../context/Movies';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { getMovies } from '../../actions/Movies';
+import './style.scss';
 
 function MovieSlider() {
   const { movies, setMovies } = useContext(MoviesContext);
@@ -25,11 +26,17 @@ function MovieSlider() {
   }, [movies]);
   const settings = {
     dots: true,
+    arrows: false,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
-    slidesToScroll: 1,
     autoplay: true,
+    adaptiveHeight: false,
+    variableWidth: true,
+    centerMode: true,
+    focusOnSelect: true,
+    pauseOnFocus: true,
+    pauseOnHover: true,
   };
 
   return (
@@ -39,7 +46,11 @@ function MovieSlider() {
         {incomingMovies
           ? incomingMovies.map(({ poster, slug, title }, index) => {
               return (
-                <Link key={slug} to={`/movies/${slug}`}>
+                <Link
+                  key={slug}
+                  to={`/movies/${slug}`}
+                  className="slider_container"
+                >
                   <img
                     className="slider_container_img"
                     src={poster}
