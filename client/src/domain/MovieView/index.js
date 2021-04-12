@@ -9,32 +9,34 @@ import AppTheme from '../../context/Theme/themeColors';
 import {
   getMovieScreeningsByMovieId,
   getMovieBySlug,
+  getMovies,
 } from '../../actions/Movies';
 
 function MovieView({ match }) {
-  const { movies } = useContext(MoviesContext);
+  const { movies, setMovies } = useContext(MoviesContext);
   const { screenings, setScreenings } = useContext(MoviesContext);
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
   const movie = movies.find((item) => item.slug === match.params.movieSlug);
   const [currentMovie, setCurrentMovie] = useState(movie);
   // TODO: add case of entering this url before previously enterign list
-  const { title, duration, genre, description, poster } = movie;
   useEffect(() => {
     if (!movie) {
+      getMovies(setMovies);
       getMovieBySlug(match.params.movieSlug, setCurrentMovie);
       return;
     }
     setCurrentMovie(movie);
   }, []);
   useEffect(() => {
-    getMovieScreeningsByMovieId(currentMovie._id, setScreenings);
+    if (currentMovie)
+      getMovieScreeningsByMovieId(currentMovie._id, setScreenings);
     return () => {
       setScreenings(null);
     };
-  }, [currentMovie]);
+  }, [currentMovie, movie]);
 
-  return (
+  return movie ? (
     <div
       className="movie__view"
       style={{
@@ -45,20 +47,20 @@ function MovieView({ match }) {
       <div className="movie__view__container">
         <img
           className="movie__view__container__image"
-          src={poster}
+          src={movie.poster}
           alt="Movie poster"
         />
       </div>
       <div className="movie__view__details">
-        <h3>{title}</h3>
+        <h3>{movie.title}</h3>
         <p>
-          <strong>duration:</strong> {duration}
+          <strong>duration:</strong> {movie.duration}
         </p>
         <p>
-          <strong>genre:</strong> {genre}
+          <strong>genre:</strong> {movie.genre}
         </p>
         <p>
-          <strong>description:</strong> {description}
+          <strong>description:</strong> {movie.description}
         </p>
         <h4>We're playing now in:</h4>
         <ul>
@@ -85,6 +87,8 @@ function MovieView({ match }) {
         <Link to="/">Full Repertoire</Link>
       </div>
     </div>
+  ) : (
+    <p>Loading...</p>
   );
 }
 
