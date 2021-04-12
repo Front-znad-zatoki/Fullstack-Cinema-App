@@ -1,0 +1,25 @@
+@import '../../styles/variables';
+.profile {
+  &__list {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    border-top-width: 3px;
+    border-top-style: solid;
+    list-style-type: none;
+    text-align: center;
+  }
+  &__item {
+    display: flex;
+    flex-direction: column;
+    &-detail {
+      display: block;
+    }
+    &-header {
+      font-size: $font-size-secondary;
+    }
+  }
+  font-family: $font-primary;
+  font-size: $font-size-secondary;
+  padding: 32px 0;
+}

@@ -13,13 +13,37 @@ button {
 
 input {
   border: 0;
+  padding: 4px;
+  line-height: 1.5;
 }
 
 .button {
   &--submit {
     border-color: #6e093a;
-    border-width: 3px;
+    border-width: 2px;
     border-style: solid;
     border-radius: 4px;
+    padding: 4px;
+    line-height: 1.5;
+    &:hover {
+      background-color: #f5d8e6
+    }
+    &:active {
+      background-color: #ff9dcc;
+      transform: translateY(2px);
+      border-color: #f5d8e6;
+      outline-color: #6e093a;
+    }
+    &:focus {
+      // background-color: #ff9dcc;
+      // transform: translateY(2px);
+      border-color: #6e093a;
+      // outline-color: #6e093a;
+    }
   }
+}
+
+.app-container {
+  display: flex;
+  padding: 32px 32px 0 32px;
 }

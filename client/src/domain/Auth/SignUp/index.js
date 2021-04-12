@@ -54,7 +54,7 @@ function SignUp(props) {
 
   return !isAuthenticated ? (
     <div
-      className="signup movie__view"
+      className="signup app-container"
       style={{
         backgroundColor: `${currentTheme.backgroundColor}`,
         color: `${currentTheme.textColor}`,

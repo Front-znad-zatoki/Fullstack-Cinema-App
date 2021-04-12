@@ -40,7 +40,7 @@ function Login(props) {
 
   return !isAuthenticated ? (
     <div
-      className="auth movie__view"
+      className="auth app-container"
       style={{
         backgroundColor: `${currentTheme.backgroundColor}`,
         color: `${currentTheme.textColor}`,

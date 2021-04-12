@@ -12,7 +12,7 @@ function UserListItem({ title, text = '' }) {
       <p>
         {title}: <span className="profile__list-item--bold">{text}</span>
       </p>
-      <button onClick={handleClick}>
+      <button className="button--submit" onClick={handleClick}>
         {showChange ? 'Hide' : `Change ${title}`}
       </button>
       {showChange ? (
