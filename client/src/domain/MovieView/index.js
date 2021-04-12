@@ -32,7 +32,6 @@ function MovieView({ match }) {
     getMovieScreeningsByMovieId(currentMovie._id, setScreenings);
   }, [currentMovie]);
 
-
   return movie ? (
     <div
       className="movie__view"
