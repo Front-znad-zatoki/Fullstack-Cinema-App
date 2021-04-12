@@ -1,3 +1,19 @@
-.repertoire__nav {
-  display: flex;
+.repertoire {
+  &__nav {
+    display: flex;
+    justify-content: flex-start;
+    align-items: baseline;
+    padding: 0 32px;
+    &__title {
+      font-size: 1.75rem;
+    }
+    &__picker {
+      background-color: #fff;
+    }
+  }
+}
+.react-date-picker {
+  &__wrapper {
+    padding: 10px;
+  }
 }

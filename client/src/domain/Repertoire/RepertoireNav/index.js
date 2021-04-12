@@ -3,6 +3,7 @@ import './style.scss';
 import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
 import moment from 'moment';
+import CinemaForm from '../../../components/Navbar/CinemaForm';
 
 function RepertoireNav({ selectedDate, setSelectedDate }) {
   const handleDate = (date) => {
@@ -11,14 +12,18 @@ function RepertoireNav({ selectedDate, setSelectedDate }) {
 
   return (
     <div className="repertoire__nav">
-      <h3>REPERTOIRE</h3>
-      <DatePicker
-        value={selectedDate}
-        onChange={handleDate}
-        minDate={new Date()}
-        clearIcon={null}
-        // maxDate={moment().add(7, 'days').toDate()}
-      />
+      <h2 className="repertoire__nav__title">REPERTOIRE</h2>
+      <CinemaForm />
+      <div className="repertoire__nav__picker">
+        <DatePicker
+          className="repertoire__nav__picker__date"
+          value={selectedDate}
+          onChange={handleDate}
+          minDate={new Date()}
+          clearIcon={null}
+          // maxDate={moment().add(7, 'days').toDate()}
+        />
+      </div>
     </div>
   );
 }
