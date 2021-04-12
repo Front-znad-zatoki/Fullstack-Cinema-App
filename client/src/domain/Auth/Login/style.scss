@@ -1,9 +1,9 @@
 .auth {
   &__input {
     width: 100%;
-    padding: 4px;
+    padding: 4px 8px;
     margin-top: 16px;
-    line-height: 1.5;
+    line-height: 2;
   }
 
   &__form {
@@ -11,9 +11,7 @@
     flex-direction: column;
     &-group {
       &.button--submit {
-        // padding: 4px;
         margin: 16px 0;
-        // line-height: 1.5;
       }
     }
 
