@@ -22,4 +22,12 @@
       margin-left: 32px;
     }
   }
+  &__redirect a {
+    color: #6e093a;
+    font-weight: 700;
+    padding: 16px 0;
+    &:hover {
+      color: #ae105c;
+    }
+  }
 }

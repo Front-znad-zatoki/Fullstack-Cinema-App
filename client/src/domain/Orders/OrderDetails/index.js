@@ -10,7 +10,7 @@ import {
 function OrderDetails({ details }) {
   const { status, tickets } = details;
   return (
-    <ul className="order__details-list">
+    <ul className="profile__list-details">
       <OrderDetailsItem
         title="Start date"
         //   data={`${formatDate(tickets[0].screening.startDate)}
@@ -26,7 +26,7 @@ function OrderDetails({ details }) {
         title="Cinema Hall"
         data={tickets[0].screening.cinemaHallId.name}
       />
-      <h3>Tickets:</h3>
+      <h3 className="dashboard__header">Tickets:</h3>
       <ul>
         {tickets.map((ticket) => {
           const seatNr = convertRowsAndColumnsToAlphanumeric(

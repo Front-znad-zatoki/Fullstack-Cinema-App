@@ -9,6 +9,7 @@ const ThemeToggler = () => {
   const appRoot = document.getElementById('root');
   return (
     <button
+      className="theme-toggler"
       style={themeTogglerStyle}
       onClick={() => {
         setThemeMode(themeMode === 'light' ? 'dark' : 'light');

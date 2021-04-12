@@ -38,19 +38,12 @@ function Navbar() {
     history.push(`/`);
   };
   return (
-    <nav
-      className="navbar"
-      style={{
-        backgroundColor: `${currentTheme.backgroundColor}`,
-        color: `${currentTheme.textColor}`,
-        borderTopColor: `${currentTheme.textColor}`,
-      }}
-    >
-      <button onClick={handleLogoClick} className="navbar__logo">
+    <nav className="navbar">
+      <Link to="/" onClick={handleLogoClick} className="navbar__logo">
         <span className="fas fa-video" />
         <h1>FZZ Cinemas </h1>
-        <h3>{currentCinema.city}</h3>
-      </button>
+        <h5>{currentCinema.city}</h5>
+      </Link>
       {/* <CinemaForm /> */}
 
       <ul className="navbar__list">

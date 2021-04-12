@@ -18,7 +18,6 @@ function Landing() {
         color: `${currentTheme.textColor}`,
       }}
     >
-      Rendering Landing Page
       <MovieSlider />
       <Repertoire />
     </div>
