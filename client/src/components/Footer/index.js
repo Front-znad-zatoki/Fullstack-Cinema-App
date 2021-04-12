@@ -20,15 +20,12 @@ export default function Footer() {
   return (
     <footer
       className="footer"
-      style={{
-        backgroundColor: `${currentTheme.backgroundColor}`,
-        color: `${currentTheme.textColor}`,
-      }}
+      // style={{
+      //   backgroundColor: `${currentTheme.backgroundColor}`,
+      //   color: `${currentTheme.textColor}`,
+      // }}
     >
-      <ul
-        className="footer__list"
-        style={{ borderTopColor: `${currentTheme.textColor}` }}
-      >
+      <ul className="footer__list">
         <li className="footer__item">
           <h4 className="footer__item-header">Address</h4>
           <p className="footer__item-detail">
