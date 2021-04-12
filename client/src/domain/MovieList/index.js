@@ -18,13 +18,13 @@ function MovieList() {
   }, []);
   return (
     <div
-      className="movie__list-container"
+      className="movie__list-container app-container"
       style={{
         backgroundColor: `${currentTheme.backgroundColor}`,
         color: `${currentTheme.textColor}`,
       }}
     >
-      <h4>Rendering movies list</h4>
+      <h4>Movies</h4>
       {movies ? (
         <ul className="movie__list">
           {movies.map((movie) => {

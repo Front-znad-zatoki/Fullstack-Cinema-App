@@ -19,8 +19,9 @@ function MovieView({ match }) {
   const currentTheme = AppTheme[theme];
   const movie = movies.find((item) => item.slug === match.params.movieSlug);
   const [currentMovie, setCurrentMovie] = useState(movie);
-  // TODO: add case of entering this url before previously enterign list
+
   useEffect(() => {
+    console.log(movie, movies, currentMovie);
     if (!movie) {
       getMovies(setMovies);
       getMovieBySlug(match.params.movieSlug, setCurrentMovie);
@@ -29,8 +30,11 @@ function MovieView({ match }) {
     setCurrentMovie(movie);
   }, []);
   useEffect(() => {
-    getMovieScreeningsByMovieId(currentMovie._id, setScreenings);
-  }, [currentMovie]);
+    if (currentMovie) {
+      getMovieScreeningsByMovieId(currentMovie._id, setScreenings);
+      getMovieBySlug(match.params.movieSlug, setCurrentMovie);
+    }
+  }, [currentMovie, movies]);
 
   return movie ? (
     <div
