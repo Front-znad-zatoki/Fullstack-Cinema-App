@@ -35,13 +35,12 @@ function OrderItem({ id, callback }) {
     callback(id, dispatchUserContext);
   };
   return (
-    <li className="order__list-item">
+    <li className="profile__list-item">
       <p>
-        Rendering order item
-        {id}: <span className="order__list-item--bold" />
+        ORDER: <span className="order__list-item--bold">{id}: </span>
       </p>
       <button className="button--submit" onClick={handleDelete}>
-        Delete order: {id}{' '}
+        Delete order
       </button>
       <button className="button--submit" onClick={handleShowDetails}>
         {showDetails ? 'Hide Details' : 'Show Details'}
