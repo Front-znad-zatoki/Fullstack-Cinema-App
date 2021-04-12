@@ -1,11 +1,14 @@
 @import '../../styles/variables';
 .ticket {
-  // width: 300px;
-  // height: 200px;
-  border: black solid;
+  &__box p {
+    padding: 0;
+  }
+  border: 2px #6e093a solid;
+  border-radius: 4px;
   background: $color-primary;
   color: $text-color-primary;
-  padding: 32px;
+  padding: 16px;
+  margin-top: 16px;
   &__heading {
   }
   &__label {
