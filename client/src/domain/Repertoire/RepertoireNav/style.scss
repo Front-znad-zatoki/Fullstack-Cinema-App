@@ -1,18 +1,16 @@
 .repertoire {
   &__nav {
     display: flex;
-    justify-content: space-around;
-    padding: 40px;
+    justify-content: flex-start;
+    align-items: baseline;
+    padding: 0 32px;
     &__title {
-      max-width: 20%;
-      flex-grow: 1;
-      font-size: 3rem;
+      font-size: 1.75rem;
     }
     &__picker {
-      flex-grow: 1;
-      max-width: 20%;
-      font-size: 2rem;
+      background-color: #fff;
     }
+
   }
 }
 .react-date-picker {

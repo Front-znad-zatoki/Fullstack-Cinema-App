@@ -1,12 +1,15 @@
 @import '../../../styles/variables';
 .cinema-city__form {
-  flex-grow: 1;
-  max-width: 20%;
-  font-size: 2rem;
+  // flex-grow: 1;
+  // max-width: 20%;
+  font-size: 1rem;
+  margin: 0 16px;
   &__select {
-    margin-left: 20px;
+    width: 200px;
+    margin-left: 28px;
     border: none;
-    padding: 10px 20px;
-    font-size: 2rem;
+    padding: 13px 16px;
+    font-size: 1rem;
+    border: thin solid gray;
   }
 }

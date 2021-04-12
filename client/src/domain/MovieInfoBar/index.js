@@ -25,7 +25,7 @@ const MovieInfoBar = ({ screening }) => {
   };
   const releaseDate = currentMovie ? currentMovie.releaseDate.slice(0, 10) : '';
   return currentMovie ? (
-    <div className="movie__details">
+    <div className="movie__info-bar">
       <Link
         to={`/movies/${currentMovie.slug}`}
         className="movie__image-container"
@@ -38,14 +38,18 @@ const MovieInfoBar = ({ screening }) => {
       </Link>
       <div className="movie__info">
         <ul>
-          <h2 className="movie__info-title">Title: {currentMovie.title}</h2>
+          <h2 className="movie__info-title">TITLE: {currentMovie.title}</h2>
           <li className="movie__info-details">
-            Duration: {currentMovie.duration}
+            <strong>DURATION:</strong> {currentMovie.duration}
           </li>
-          <li className="movie__info-details">Release date: {releaseDate}</li>
-          <li className="movie__info-details">Genre: {currentMovie.genre}</li>
+          <li className="movie__info-details">
+            <strong>RELEASE DATE:</strong> {releaseDate}
+          </li>
+          <li className="movie__info-details">
+            <strong>GENRE:</strong> {currentMovie.genre}
+          </li>
         </ul>
-        <button className="movie__button" onClick={handleClick}>
+        <button className="button--submit" onClick={handleClick}>
           {screeningHour < 10 ? `0${screeningHour}` : screeningHour}:
           {screeningMinutes < 10 ? `0${screeningMinutes}` : screeningMinutes}
         </button>

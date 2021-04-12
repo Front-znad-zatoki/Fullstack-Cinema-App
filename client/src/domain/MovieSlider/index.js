@@ -41,7 +41,7 @@ function MovieSlider() {
 
   return (
     <div className="slider">
-      <h2>Coming up</h2>
+      <h2>COMING UP</h2>
       <Slider {...settings}>
         {incomingMovies
           ? incomingMovies.map(({ poster, slug, title }, index) => {

@@ -4,20 +4,33 @@
     justify-content: space-around;
   }
   &__image {
+    width: 100%;
     &-container {
-      flex-grow: 1;
-      max-width: 900px;
+      width: 300px;
+      height: auto;
+      padding: 0;
     }
   }
   &__info {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     flex-grow: 1;
     max-width: 900px;
     font-size: 1.5rem;
+    padding-left: 32px;
     &-title {
-      font-size: 2rem;
+      font-size: 1.5rem;
+    }
+    &-bar{
+      display: flex;
+      padding: 32px;
+      & .button--submit {
+        margin-left: 0;
+      }
+    }
+    &-details {
+      font-size: 1rem;
     }
   }
   &__button {
