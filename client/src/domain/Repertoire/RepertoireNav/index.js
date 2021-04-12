@@ -16,6 +16,7 @@ function RepertoireNav({ selectedDate, setSelectedDate }) {
         value={selectedDate}
         onChange={handleDate}
         minDate={new Date()}
+        clearIcon={null}
         // maxDate={moment().add(7, 'days').toDate()}
       />
     </div>
