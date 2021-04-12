@@ -1,10 +1,16 @@
 @import '../../styles/variables';
 .ticket {
-  padding: 32px;
-  border: black solid;
+  &__box p {
+    padding: 0;
+  }
+  border: 2px #6e093a solid;
+  border-radius: 4px;
   background: $color-primary;
   color: $text-color-primary;
-  list-style: none;
+  padding: 16px;
+  margin-top: 16px;
+  &__heading {
+  }
   &__label {
     .selected {
       background: linear-gradient(270deg, #6e093a 1.67%, #bf1063 100%);

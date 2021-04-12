@@ -4,7 +4,6 @@ import UserDataUpdateForm from '../UserDataUpdateForm';
 function UserListItem({ title, text = '' }) {
   const [showChange, setshowChange] = useState(false);
   const handleClick = async () => {
-    console.log('channgingn', title);
     setshowChange((prevState) => !prevState);
   };
   return (

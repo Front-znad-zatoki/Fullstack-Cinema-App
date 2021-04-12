@@ -20,6 +20,7 @@ import ReservationConfirmation from '../../domain/ReservationConfirmation';
 import CinemaContextProvider from '../../context/Cinema';
 import Footer from '../Footer';
 import ErrorBoundary from '../../services/Errors';
+import NotFound from '../NotFound';
 
 function App() {
   const themeHook = useState('light');
@@ -66,6 +67,7 @@ function App() {
                           component={ReservationConfirmation}
                         />
                         <Route exact path="/admin" component={AdminPanel} />
+                        <Route component={NotFound} />
                       </Switch>
                     </div>
                   </ErrorBoundary>

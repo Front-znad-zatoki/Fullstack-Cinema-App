@@ -36,16 +36,12 @@ function OrderList({ callback }) {
       })
     : undefined;
   return (
-    <div
-      className="orders"
-      style={{
-        backgroundColor: `${currentTheme.backgroundColor}`,
-        color: `${currentTheme.textColor}`,
-      }}
-    >
-      <h2>Orders</h2>
-      <ul>{userOrders !== undefined ? userOrders : <li>No orders</li>}</ul>
-    </div>
+    <>
+      <h2 className="dashboard__header">Orders</h2>
+      <ul className="profile__list">
+        {userOrders !== undefined ? userOrders : <li>No orders</li>}
+      </ul>
+    </>
   );
 }
 

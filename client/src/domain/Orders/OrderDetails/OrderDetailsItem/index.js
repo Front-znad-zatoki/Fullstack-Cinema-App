@@ -2,9 +2,9 @@ import React from 'react';
 
 function OrderDetailsItem({ title, data }) {
   return (
-    <li className="order__details">
+    <li className="profile__list-details__item">
       {title}:
-      <span className="order__details--bold" />
+      <span className="profile__list-details__item--bold" />
       {data}
     </li>
   );
