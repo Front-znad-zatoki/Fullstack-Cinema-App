@@ -9,8 +9,6 @@
   color: $text-color-primary;
   padding: 16px;
   margin-top: 16px;
-  &__heading {
-  }
   &__label {
     .selected {
       background: linear-gradient(270deg, #6e093a 1.67%, #bf1063 100%);
@@ -26,7 +24,6 @@
     text-align: center;
     &-form {
       display: flex;
-      // flex-direction: column;
       position: relative;
       flex-wrap: wrap;
     }

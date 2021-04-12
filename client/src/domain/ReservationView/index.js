@@ -32,7 +32,6 @@ function ReservationView({ match }) {
     >
       <CinemaHall />
       <ul className="ticket__list">
-        {/* TODO: get occupied seats by action */}
         {selectedSeats
           ? selectedSeats.map(({ seatNr, price, row, column }) => {
               return <Ticket key={seatNr} seatNr={seatNr} price={price} />;
