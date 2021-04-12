@@ -50,7 +50,9 @@ function UserDataUpdateForm({ title, setshowChange }) {
             minLength="5"
           />
         </label>
-        <button type="submit">Submit</button>
+        <button className="button--submit" type="submit">
+          Submit
+        </button>
       </form>
     </>
   );

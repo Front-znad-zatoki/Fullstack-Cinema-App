@@ -1,0 +1,25 @@
+.auth {
+  &__input {
+    width: 100%;
+    padding: 4px;
+    margin-top: 16px;
+    line-height: 1.5;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    &-group {
+      &.button--submit {
+        // padding: 4px;
+        margin: 16px 0;
+        // line-height: 1.5;
+      }
+    }
+
+    &-container {
+      padding: 0 16px 16px;
+      margin-left: 32px;
+    }
+  }
+}

@@ -6,6 +6,7 @@ import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
 import OrderList from '../Orders/OrderList';
 import UserListItem from './UserItem';
+import './style.scss';
 
 export default function UserDashboard() {
   const { userContext, dispatchUserContext } = useContext(AuthContext);
@@ -19,13 +20,13 @@ export default function UserDashboard() {
   const userDataToRender = ['name', 'surname', 'phone', 'email'];
   return isAuthenticated ? (
     <div
-      className="dashboard"
+      className="dashboard app-container"
       style={{
         backgroundColor: `${currentTheme.backgroundColor}`,
         color: `${currentTheme.textColor}`,
       }}
     >
-      Redering Dashboard
+      <h3>Your data</h3>
       <ul className="profile__list">
         {userDataToRender.map((title) => {
           return <UserListItem key={title} title={title} text={user[title]} />;

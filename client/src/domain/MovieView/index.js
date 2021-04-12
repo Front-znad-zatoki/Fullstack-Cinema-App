@@ -42,7 +42,6 @@ function MovieView({ match }) {
         color: `${currentTheme.textColor}`,
       }}
     >
-      <p>Rendering Single Movie View</p>
       <div className="movie__view__container">
         <img
           className="movie__view__container__image"

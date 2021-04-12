@@ -43,6 +43,7 @@ function Navbar() {
       style={{
         backgroundColor: `${currentTheme.backgroundColor}`,
         color: `${currentTheme.textColor}`,
+        borderTopColor: `${currentTheme.textColor}`,
       }}
     >
       <button onClick={handleLogoClick} className="navbar__logo">

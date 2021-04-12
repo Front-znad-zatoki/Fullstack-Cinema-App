@@ -40,8 +40,10 @@ function OrderItem({ id, callback }) {
         Rendering order item
         {id}: <span className="order__list-item--bold" />
       </p>
-      <button onClick={handleDelete}>Delete order: {id} </button>
-      <button onClick={handleShowDetails}>
+      <button className="button--submit" onClick={handleDelete}>
+        Delete order: {id}{' '}
+      </button>
+      <button className="button--submit" onClick={handleShowDetails}>
         {showDetails ? 'Hide Details' : 'Show Details'}
       </button>
       {showDetails ? <OrderDetails details={details.order} /> : null}
