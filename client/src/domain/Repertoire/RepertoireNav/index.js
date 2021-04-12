@@ -12,18 +12,11 @@ function RepertoireNav({ selectedDate, setSelectedDate }) {
   return (
     <div className="repertoire__nav">
       <h3>REPERTOIRE</h3>
-      <div>
-        <DatePicker
-          value={selectedDate}
-          onChange={handleDate}
-          minDate={new Date()}
-          maxDate={moment().add(7, 'days').toDate()}
-        />
-      </div>
-      <input
-        className="movie_nav_search"
-        type="text"
-        placeholder="search by title..."
+      <DatePicker
+        value={selectedDate}
+        onChange={handleDate}
+        minDate={new Date()}
+        // maxDate={moment().add(7, 'days').toDate()}
       />
     </div>
   );
