@@ -24,9 +24,9 @@ function MovieList() {
         color: `${currentTheme.textColor}`,
       }}
     >
-      <h4>Rendering movies list</h4>
+      <h4 className="movie__header">MOVIES</h4>
       {movies ? (
-        <ul className="movie__list">
+        <ul className="movie__view__list">
           {movies.map((movie) => {
             return <Movie key={movie._id} movie={movie} />;
           })}

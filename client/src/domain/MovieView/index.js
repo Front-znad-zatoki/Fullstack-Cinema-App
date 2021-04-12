@@ -19,7 +19,7 @@ function MovieView({ match }) {
   const currentTheme = AppTheme[theme];
   const movie = movies.find((item) => item.slug === match.params.movieSlug);
   const [currentMovie, setCurrentMovie] = useState(movie);
-  // TODO: add case of entering this url before previously enterign list
+
   useEffect(() => {
     if (!movie) {
       getMovies(setMovies);
@@ -29,12 +29,15 @@ function MovieView({ match }) {
     setCurrentMovie(movie);
   }, []);
   useEffect(() => {
-    getMovieScreeningsByMovieId(currentMovie._id, setScreenings);
-  }, [currentMovie]);
+    if (currentMovie) {
+      getMovieScreeningsByMovieId(currentMovie._id, setScreenings);
+      getMovieBySlug(match.params.movieSlug, setCurrentMovie);
+    }
+  }, [currentMovie, movies]);
 
   return movie ? (
     <div
-      className="movie__view"
+      className="movie__view app-container"
       style={{
         backgroundColor: `${currentTheme.backgroundColor}`,
         color: `${currentTheme.textColor}`,
@@ -47,40 +50,50 @@ function MovieView({ match }) {
           alt="Movie poster"
         />
       </div>
-      <div className="movie__view__details">
+      <div className="movie__view__details movie__view__container">
         <h3>{movie.title}</h3>
         <p>
-          <strong>duration:</strong> {movie.duration}
+          <strong>DURATION:</strong> {movie.duration}
         </p>
         <p>
-          <strong>genre:</strong> {movie.genre}
+          <strong>GENRE:</strong> {movie.genre}
         </p>
         <p>
-          <strong>description:</strong> {movie.description}
+          <strong>DESCRIPTION:</strong> {movie.description}
         </p>
-        <h4>We're playing now in:</h4>
+        {screenings.length > 0 ? <h4>PLAYING IN:</h4> : null}
         <ul>
           {screenings
-            ? screenings.map((screening, index) => {
-                const startDate = new Date(screening.startDate);
-                const startDateFormatted = new Date(
-                  startDate,
-                ).toLocaleDateString();
-                if (startDate.getTime() < new Date().getTime()) {
-                  return null;
+            ? screenings.map((screening, index, array) => {
+                if (index < 5) {
+                  console.log('lots of screening');
+                  const startDate = new Date(screening.startDate);
+                  const startDateFormatted = new Date(
+                    startDate,
+                  ).toLocaleDateString();
+                  if (startDate.getTime() < new Date().getTime()) {
+                    return null;
+                  }
+                  return (
+                    <li className="movie__view__screenings" key={index}>
+                      <p>
+                        {screening.cinemaHallId.cinemaId.city}{' '}
+                        {startDateFormatted}
+                      </p>
+                    </li>
+                  );
                 }
-                return (
-                  <li key={index}>
-                    <p>
-                      In {screening.cinemaHallId.cinemaId.city} at{' '}
-                      {startDateFormatted}
-                    </p>
-                  </li>
-                );
+                if (index === 5) {
+                  return (
+                    <li className="movie__view__screenings">AND MOre...</li>
+                  );
+                }
               })
             : null}
+          <Link className="link--button-style" to="/">
+            Full Repertoire
+          </Link>
         </ul>
-        <Link to="/">Full Repertoire</Link>
       </div>
     </div>
   ) : (

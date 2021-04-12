@@ -57,7 +57,7 @@ function ReservationForm() {
   };
   return (
     <form className="reservation__form" onSubmit={onSubmit}>
-      Rendering Reservation Form
+      <h5>INSERT CORRECT DATA</h5>
       <label htmlFor="reservationEmail" className="auth__form-group">
         <input
           type="email"
@@ -69,19 +69,10 @@ function ReservationForm() {
           required
         />
       </label>
-      {/* <label htmlFor="reservationPhone" className="auth__form-group">
-        <input
-          type="string"
-          id="reservationPhone"
-          placeholder="Phone Number"
-          name="phone"
-          value={phone}
-          onChange={onChange}
-          required
-        />
-      </label> */}
       <div className="button__group">
-        <button onClick={handleGoBack}>Go Back</button>
+        <button className="button--submit" onClick={handleGoBack}>
+          Go Back
+        </button>
         <button type="submit" className="button--submit">
           Confirm your reservation
         </button>

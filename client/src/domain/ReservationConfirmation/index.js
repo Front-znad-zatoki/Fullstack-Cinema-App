@@ -23,20 +23,22 @@ function ReservationConfirmation({ email }) {
   };
   return (
     <div
-      className="movie__view"
+      className="app-container reservation"
       style={{
         backgroundColor: `${currentTheme.backgroundColor}`,
         color: `${currentTheme.textColor}`,
       }}
     >
-      Rendering Reservation Confirmation
+      <h4>CONFIRMATION</h4>
       {/* <ScreeningDetails /> */}
       <h5>Your reservation was made!</h5>
       <p>We sent an email to the adress you provided: {orderDetails.email}. </p>
       <p>You should get and email with the confirmation soon!</p>
       <p>Your order number: {orderDetails._id}</p>
       <div className="button__group">
-        <button onClick={handleProceed}>Back to Main Page</button>
+        <button className="button--submit" onClick={handleProceed}>
+          Back to Main Page
+        </button>
       </div>
     </div>
   );
