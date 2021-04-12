@@ -28,7 +28,7 @@ function PreBooking({ match }) {
   };
   return (
     <div
-      className="movie__view"
+      className="movie__view app-container prebooking"
       style={{
         backgroundColor: `${currentTheme.backgroundColor}`,
         color: `${currentTheme.textColor}`,
@@ -41,7 +41,7 @@ function PreBooking({ match }) {
           alt="Movie poster"
         />
       </div>
-      <div className="movie__view__details">
+      <div className="movie__view__details movie__list__item">
         <h3>{movieDetails.title}</h3>
         <p>
           <strong>Cinema:</strong> {cinemaHallId.cinemaId.city},{' '}
@@ -52,8 +52,12 @@ function PreBooking({ match }) {
           {startDateFormatted}, {startTimeFormatted}
         </p>
         <div className="button__group">
-          <button onClick={handleGoBackClick}>Go Back to Repertoire</button>
-          <button onClick={handleClick}>Proceed with Reservation</button>
+          <button className="button--submit" onClick={handleGoBackClick}>
+            Go Back
+          </button>
+          <button className="button--submit" onClick={handleClick}>
+            Proceed
+          </button>
         </div>
       </div>
     </div>

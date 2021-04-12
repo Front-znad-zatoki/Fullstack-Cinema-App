@@ -20,16 +20,15 @@ function ReservationSummary({ match }) {
 
   return (
     <div
-      className="movie__view"
+      className="app-container reservation"
       style={{
         backgroundColor: `${currentTheme.backgroundColor}`,
         color: `${currentTheme.textColor}`,
       }}
     >
-      Rendering ReservationSummary
+      <h4>SUMMARY</h4>
       {/* <ScreeningDetails /> */}
-      <ReservationForm />
-      <ul className="ticket__list">
+      <ul className="ticket__list movie__view__list">
         {selectedSeats
           ? selectedSeats.map((seat) => {
               return (
@@ -38,7 +37,7 @@ function ReservationSummary({ match }) {
             })
           : null}
       </ul>
-      <h5>Add tickets</h5>
+      <ReservationForm />
     </div>
   );
 }

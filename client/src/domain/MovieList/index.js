@@ -24,7 +24,7 @@ function MovieList() {
         color: `${currentTheme.textColor}`,
       }}
     >
-      <h4 className="movie__header">Movies</h4>
+      <h4 className="movie__header">MOVIES</h4>
       {movies ? (
         <ul className="movie__view__list">
           {movies.map((movie) => {

@@ -1,30 +1,32 @@
 .cinema__hall {
   &__name {
     text-align: center;
-    padding: 30px 0;
+    padding: 32px 0;
+    text-transform: uppercase;
   }
   &__arrangement {
-    width: 50%;
-    padding: 30px;
-    margin: 0 auto 50px;
+    width: 75%;
+    padding: 32px;
+    margin: 0 auto;
     background: #ddd;
     &__seats {
       margin: 0 auto;
-      padding-top: 40px;
+      padding-top: 36px;
       &__row {
         display: flex;
-        padding: 5px;
+        padding: 4px;
+        align-items: center;
         &__name {
           display: block;
-          min-width: 30px;
+          min-width: 32px;
           text-align: center;
         }
       }
     }
     &__screen {
       width: 80%;
-      margin: 0 auto 10px auto;
-      padding: 5px 0;
+      margin: 0 auto 12px auto;
+      padding: 4px 0;
       background: #000;
       color: #fff;
       text-align: center;

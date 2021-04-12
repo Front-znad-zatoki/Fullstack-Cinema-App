@@ -36,15 +36,13 @@ function UserDataUpdateForm({ title, setshowChange }) {
   return (
     <>
       {alertMsg ? <Message message={alertMsg} /> : null}
-
-      <form onSubmit={handleSubmit}>
+      <form className="profile__form" onSubmit={handleSubmit}>
         <label htmlFor={title}>
-          New {title}:
           <input
             type="text"
             required
             name={title}
-            placeholder={title}
+            placeholder={`new ${title}`}
             name={title}
             onChange={onChange}
             minLength="5"

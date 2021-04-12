@@ -26,7 +26,7 @@ export default function UserDashboard() {
         color: `${currentTheme.textColor}`,
       }}
     >
-      <h3 className="dashboard__header">Your data</h3>
+      <h3 className="dashboard__header">YOUR DATA</h3>
       <ul className="profile__list">
         {userDataToRender.map((title) => {
           return <UserListItem key={title} title={title} text={user[title]} />;

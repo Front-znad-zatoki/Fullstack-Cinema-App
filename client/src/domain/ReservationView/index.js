@@ -6,6 +6,7 @@ import AppTheme from '../../context/Theme/themeColors';
 import screenigns from '../../mock/screeningsMock';
 import Ticket from '../../components/Ticket';
 import { ReservationContext } from '../../context/Reservation';
+import './style.scss';
 
 function ReservationView({ match }) {
   const theme = useContext(ThemeContext)[0];
@@ -31,9 +32,9 @@ function ReservationView({ match }) {
       }}
     >
       <CinemaHall />
-      <h2 className="reservation__view__select">
-        Selected the types of tickets
-      </h2>
+      {selectedSeats.length > 0 ? (
+        <h2 className="cinema__hall__name">Selected tickets</h2>
+      ) : null}
       <ul className="ticket__list">
         {selectedSeats
           ? selectedSeats.map(({ seatNr, price, row, column }) => {
@@ -42,8 +43,14 @@ function ReservationView({ match }) {
           : null}
       </ul>
       <ul className="button__group">
-        <button onClick={handleGoBack}>Go Back</button>
-        <button disabled={selectedSeats.length === 0} onClick={handleProceed}>
+        <button className="button--submit" onClick={handleGoBack}>
+          Go Back
+        </button>
+        <button
+          className="button--submit"
+          disabled={selectedSeats.length === 0}
+          onClick={handleProceed}
+        >
           Proceed with Reservation
         </button>
       </ul>
