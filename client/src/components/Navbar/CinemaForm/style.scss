@@ -1,3 +1,12 @@
 @import '../../../styles/variables';
 .cinema-city__form {
+  flex-grow: 1;
+  max-width: 20%;
+  font-size: 2rem;
+  &__select {
+    margin-left: 20px;
+    border: none;
+    padding: 10px 20px;
+    font-size: 2rem;
+  }
 }

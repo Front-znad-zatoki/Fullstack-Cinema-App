@@ -1,7 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 import MovieInfoBar from '../MovieInfoBar';
 import { CinemaContext } from '../../context/Cinema';
-import CinemaForm from '../../components/Navbar/CinemaForm';
 import { MoviesContext } from '../../context/Movies';
 import { getScreeningsForCurrentCinema } from '../../actions/Movies';
 import RepertoireNav from './RepertoireNav';
@@ -25,7 +24,6 @@ function Repertoire() {
         setSelectedDate={setSelectedDate}
         selectedDate={selectedDate}
       />
-      <CinemaForm />
       {screeningsForSelectedDate.map((screening) => {
         return <MovieInfoBar screening={screening} key={screening._id} />;
       })}

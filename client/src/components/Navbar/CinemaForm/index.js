@@ -25,6 +25,7 @@ function CinemaForm() {
       <label htmlFor="cinemaCity">
         Choose Cinema
         <select
+          className="cinema-city__form__select"
           id="cinemaCity"
           value={currentCinema.city}
           onChange={handleChange}

@@ -1,3 +1,22 @@
-.repertoire__nav {
-  display: flex;
+.repertoire {
+  &__nav {
+    display: flex;
+    justify-content: space-around;
+    padding: 40px;
+    &__title {
+      max-width: 20%;
+      flex-grow: 1;
+      font-size: 3rem;
+    }
+    &__picker {
+      flex-grow: 1;
+      max-width: 20%;
+      font-size: 2rem;
+    }
+  }
+}
+.react-date-picker {
+  &__wrapper {
+    padding: 10px;
+  }
 }

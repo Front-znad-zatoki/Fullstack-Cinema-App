@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import { ReservationContext } from '../../context/Reservation';
 import { MoviesContext } from '../../context/Movies';
 import { getMovieDetails } from '../../actions/Movies';
+import './style.scss';
 
 const MovieInfoBar = ({ screening }) => {
   const { dispatchReservation } = useContext(ReservationContext);
@@ -22,6 +23,7 @@ const MovieInfoBar = ({ screening }) => {
     dispatchReservation({ type: 'ADD_MOVIE_DETAILS', payload: currentMovie });
     history.push(`/prebooking/${screening._id}`);
   };
+  const releaseDate = currentMovie ? currentMovie.releaseDate.slice(0, 10) : '';
   return currentMovie ? (
     <div className="movie__details">
       <Link
@@ -34,17 +36,20 @@ const MovieInfoBar = ({ screening }) => {
           alt="Movie poster"
         />
       </Link>
-      <ul>
-        <h2>Title: {currentMovie.title}</h2>
-        <li>Duration: {currentMovie.duration}</li>
-        <li>Release date: {currentMovie.releaseDate}</li>
-        <li>Description: {currentMovie.description}</li>
-        <li>Genre: {currentMovie.genre}</li>
-      </ul>
-      <button onClick={handleClick}>
-        {screeningHour < 10 ? `0${screeningHour}` : screeningHour}:
-        {screeningMinutes < 10 ? `0${screeningMinutes}` : screeningMinutes}
-      </button>
+      <div className="movie__info">
+        <ul>
+          <h2 className="movie__info-title">Title: {currentMovie.title}</h2>
+          <li className="movie__info-details">
+            Duration: {currentMovie.duration}
+          </li>
+          <li className="movie__info-details">Release date: {releaseDate}</li>
+          <li className="movie__info-details">Genre: {currentMovie.genre}</li>
+        </ul>
+        <button className="movie__button" onClick={handleClick}>
+          {screeningHour < 10 ? `0${screeningHour}` : screeningHour}:
+          {screeningMinutes < 10 ? `0${screeningMinutes}` : screeningMinutes}
+        </button>
+      </div>
     </div>
   ) : null;
 };
