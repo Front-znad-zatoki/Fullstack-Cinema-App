@@ -7,13 +7,19 @@
 }
 .slick {
   &-slider {
-    height: 400px;
+    height: 70vh;
     margin-bottom: 50px;
+  }
+  &-track {
+    height: 100%;
+  }
+  &-list {
+    height: 100%;
   }
 }
 .slider {
   &_container {
-    height: 400px;
+    height: 70vh;
     display: block;
     // height: 100%;
     width: auto;

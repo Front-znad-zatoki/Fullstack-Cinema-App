@@ -1,10 +1,10 @@
 const AppTheme = {
   light: {
     textColor: '#000',
-    backgroundColor: '#fff',
+    backgroundColor: '#f1f1f1',
   },
   dark: {
-    textColor: '#fff',
+    textColor: '#f1f1f1',
     backgroundColor: '#333',
   },
 };
