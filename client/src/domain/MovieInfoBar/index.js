@@ -1,4 +1,4 @@
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { ReservationContext } from '../../context/Reservation';
 import { MoviesContext } from '../../context/Movies';
@@ -24,13 +24,16 @@ const MovieInfoBar = ({ screening }) => {
   };
   return currentMovie ? (
     <div className="movie__details">
-      <div className="movie__image-container">
+      <Link
+        to={`/movies/${currentMovie.slug}`}
+        className="movie__image-container"
+      >
         <img
           className="movie__image"
           src={currentMovie.poster}
           alt="Movie poster"
         />
-      </div>
+      </Link>
       <ul>
         <h2>Title: {currentMovie.title}</h2>
         <li>Duration: {currentMovie.duration}</li>

@@ -29,12 +29,8 @@ function MovieView({ match }) {
     setCurrentMovie(movie);
   }, []);
   useEffect(() => {
-    if (currentMovie)
-      getMovieScreeningsByMovieId(currentMovie._id, setScreenings);
-    return () => {
-      setScreenings(null);
-    };
-  }, [currentMovie, movie]);
+    getMovieScreeningsByMovieId(currentMovie._id, setScreenings);
+  }, [currentMovie]);
 
   return movie ? (
     <div

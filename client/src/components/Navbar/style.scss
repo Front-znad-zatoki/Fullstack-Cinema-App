@@ -15,20 +15,21 @@
       font-weight: inherit;
       padding: 16px;
     }
+    .theme-toggler {
+      background-color: transparent;
+      border: none;
+      padding-right: 0;
+    }
   }
   &__logo {
     display: flex;
     border: 0;
     letter-spacing: 10px;
     line-height: 1;
+    padding-left: 0;
   }
   font-family: $font-primary;
   font-size: $font-size-secondary;
   display: flex;
   align-items: flex-start;
-}
-.theme-toggler {
-  background-color: transparent;
-  border: none;
-  padding: 0;
 }

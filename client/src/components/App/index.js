@@ -35,12 +35,13 @@ function App() {
                   <Navbar />
                   <ErrorBoundary>
                     <div className="App">
-                      <Route exact path="/" component={Landing} />
                       <Switch>
+                        <Route exact path="/" component={Landing} />
                         <Route exact path="/movies" component={MovieList} />
                         <Route exact path="/signup" component={SignUp} />
                         <Route exact path="/login" component={Login} />
                         <Route
+                          exact
                           path="/movies/:movieSlug"
                           component={MovieView}
                         />
@@ -50,19 +51,23 @@ function App() {
                           component={UserDashboard}
                         />
                         <Route
+                          exact
                           path="/prebooking/:screeningId"
                           component={PreBooking}
                         />
                         <Route
+                          exact
                           path="/reservation/seats/:screeningId"
                           component={ReservationView}
                         />
                         <Route
+                          exact
                           path="/reservation/summary/:reservationId"
                           component={ReservationSummary}
                         />
                         {/* <Route path='/reservation/payment/:reservationId' component={ ReservationPayment }/> */}
                         <Route
+                          exact
                           path="/reservation/confirmation"
                           component={ReservationConfirmation}
                         />
