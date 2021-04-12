@@ -1,7 +1,7 @@
 .hall__seat {
-  width: 20px;
-  height: 20px;
-  margin: 0 2px;
+  flex-grow: 1;
+  min-height: 30px;
+  margin: 0 5px;
   outline: none;
   border: none;
   background: green;

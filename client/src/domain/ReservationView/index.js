@@ -30,9 +30,6 @@ function ReservationView({ match }) {
         color: `${currentTheme.textColor}`,
       }}
     >
-      <p>Rendering Reservations View</p>
-      <p>Put CinemaHall and Render tickets component accordingly</p>
-      {/* <ScreeningDetails /> */}
       <CinemaHall />
       <ul className="ticket__list">
         {/* TODO: get occupied seats by action */}
