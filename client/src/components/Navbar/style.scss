@@ -7,6 +7,15 @@
     display: flex;
     margin-left: auto;
     align-items: center;
+    & button {
+      border: 0;
+      background-color: transparent;
+      font-size: 1rem;
+      color: #fff;
+      font-weight: inherit;
+      padding: 16px;
+    }
+
   }
   &__logo {
     display: flex;
@@ -20,7 +29,7 @@
   align-items: flex-start;
 }
 .theme-toggler {
-  height: 19px;
   background-color: transparent;
   border: none;
+  padding: 0;
 }
