@@ -18,13 +18,7 @@ export default function Footer() {
     CinemaContext,
   );
   return (
-    <footer
-      className="footer"
-      // style={{
-      //   backgroundColor: `${currentTheme.backgroundColor}`,
-      //   color: `${currentTheme.textColor}`,
-      // }}
-    >
+    <footer className="footer">
       <ul className="footer__list">
         <li className="footer__item">
           <h4 className="footer__item-header">Address</h4>

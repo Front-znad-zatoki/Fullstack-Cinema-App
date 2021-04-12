@@ -1,17 +1,26 @@
 @import '../../styles/variables';
 .navbar {
-  padding-bottom: 32px;
+  padding: 16px 32px;
   background-color: #000;
   color: #f1f1f1;
   &__list {
     display: flex;
     margin-left: auto;
+    align-items: center;
   }
   &__logo {
     display: flex;
     border: 0;
+    letter-spacing: 10px;
+    line-height: 1;
   }
   font-family: $font-primary;
   font-size: $font-size-secondary;
   display: flex;
+  align-items: flex-start;
+}
+.theme-toggler {
+  height: 19px;
+  background-color: transparent;
+  border: none;
 }
