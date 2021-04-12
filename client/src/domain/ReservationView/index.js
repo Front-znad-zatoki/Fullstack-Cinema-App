@@ -24,13 +24,16 @@ function ReservationView({ match }) {
   };
   return (
     <div
-      className="movie__view"
+      className="reservation__view"
       style={{
         backgroundColor: `${currentTheme.backgroundColor}`,
         color: `${currentTheme.textColor}`,
       }}
     >
       <CinemaHall />
+      <h2 className="reservation__view__select">
+        Selected the types of tickets
+      </h2>
       <ul className="ticket__list">
         {selectedSeats
           ? selectedSeats.map(({ seatNr, price, row, column }) => {
