@@ -77,25 +77,26 @@ ul {
 .link {
   &--button-style {
     display: inline-block;
-    margin: 8px 0;
+    background-color: #f1f1f1;
     color: #000;
+    margin-top: 16px;
     font-weight: 700;
     border-color: #6e093a;
     border-width: 2px;
     border-style: solid;
     border-radius: 4px;
+    padding: 8px;
     &:hover {
       transform: scale(1.03);
     }
-    
+
     &:active {
       color: #f5d8e6;
       transform: translateY(2px);
     }
-    
+
     &:visited {
       color: #000;
     }
-  
   }
 }
