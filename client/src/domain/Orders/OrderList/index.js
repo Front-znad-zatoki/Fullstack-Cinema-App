@@ -37,7 +37,7 @@ function OrderList({ callback }) {
     : undefined;
   return (
     <>
-      <h2 className="dashboard__header">Orders</h2>
+      <h2 className="dashboard__header">ORDERS</h2>
       <ul className="profile__list">
         {userOrders !== undefined ? userOrders : <li>No orders</li>}
       </ul>
