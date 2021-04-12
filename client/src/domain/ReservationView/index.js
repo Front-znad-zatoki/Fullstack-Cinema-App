@@ -24,18 +24,17 @@ function ReservationView({ match }) {
   };
   return (
     <div
-      className="movie__view"
+      className="reservation__view"
       style={{
         backgroundColor: `${currentTheme.backgroundColor}`,
         color: `${currentTheme.textColor}`,
       }}
     >
-      <p>Rendering Reservations View</p>
-      <p>Put CinemaHall and Render tickets component accordingly</p>
-      {/* <ScreeningDetails /> */}
       <CinemaHall />
+      <h2 className="reservation__view__select">
+        Selected the types of tickets
+      </h2>
       <ul className="ticket__list">
-        {/* TODO: get occupied seats by action */}
         {selectedSeats
           ? selectedSeats.map(({ seatNr, price, row, column }) => {
               return <Ticket key={seatNr} seatNr={seatNr} price={price} />;

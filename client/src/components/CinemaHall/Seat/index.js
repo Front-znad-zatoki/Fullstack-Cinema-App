@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import './style.scss';
-import { ReservationContext } from '../../context/Reservation';
-import { PRICE_NORMAL } from '../../actions/types';
+import { ReservationContext } from '../../../context/Reservation';
+import { PRICE_NORMAL } from '../../../actions/types';
 
 const Seat = ({ rowNr, columnNr, seatNr }) => {
   const { reservation, dispatchReservation } = useContext(ReservationContext);

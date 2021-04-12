@@ -1,0 +1,16 @@
+.hall__seat {
+  flex-grow: 1;
+  min-height: 30px;
+  margin: 0 5px;
+  outline: none;
+  border: none;
+  background: #339933;
+  color: #fff;
+}
+.occupied {
+  background: #bbbbbb;
+}
+
+.selected {
+  background: #cc6600;
+}

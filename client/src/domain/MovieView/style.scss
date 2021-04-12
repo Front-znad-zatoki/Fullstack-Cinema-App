@@ -1,7 +1,7 @@
 .ticket__list {
   display: flex;
-  // flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 .movie__view {
