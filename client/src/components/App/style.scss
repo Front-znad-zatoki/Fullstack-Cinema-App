@@ -107,12 +107,12 @@ ul {
 }
 
 .errorBoundary {
-padding: 32px;
- & a {
-  color: unset;
-  padding: 0;
-  font-size: 32px;
-  &:hover {
+  padding: 32px;
+  & a {
+    color: unset;
+    padding: 0;
+    font-size: 32px;
+    &:hover {
+    }
   }
- }
 }
