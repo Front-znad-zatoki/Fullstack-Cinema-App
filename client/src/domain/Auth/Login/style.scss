@@ -1,0 +1,32 @@
+.auth {
+  &__input {
+    width: 100%;
+    padding: 4px 8px;
+    margin-top: 16px;
+    line-height: 2;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    &-group {
+      &.button--submit {
+        margin: 16px 0;
+        width: 100%;
+      }
+    }
+
+    &-container {
+      padding: 0 16px 16px;
+      margin-left: 32px;
+    }
+  }
+  &__redirect a {
+    color: #6e093a;
+    font-weight: 700;
+    padding: 16px 0;
+    &:hover {
+      color: #ae105c;
+    }
+  }
+}
