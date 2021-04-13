@@ -13,8 +13,9 @@ import cinemaRoute from './api/cinema/cinemaRoute.js';
 import cinemaHallRoute from './api/cinemaHall/cinemaHallRoute.js';
 import seatRoute from './api/seat/seatRoute.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+
 dotenv.config();
 
 const app = express();
