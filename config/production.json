@@ -1,0 +1,9 @@
+{
+  "mongoURI": "mongodb+srv://frontzz:fzz@mernapp.42zqb.mongodb.net/cinema?retryWrites=true&w=majority",
+  "jwtSecret": "fzz_JWTSecret",
+  "mailLogin": "frontznadzatoki@gmail.com",
+  "mailPassword": "Fzz-2020",
+  "oauthClientId": "171990482353-965l62fll5eme8vk2u0ptunalct7du7e.apps.googleusercontent.com",
+  "oauthClientSecret": "ZJkZPyNCtVRMRnFJ965aGZJn",
+  "refreshToken": "1//04J9yNlfbO7BdCgYIARAAGAQSNwF-L9Irxyz9icdXkMlzsbKn9c6T0rivZQj52TDqr9YS2tg-OGgTUa71dePzH_b5sweeOlss5to"
+}
