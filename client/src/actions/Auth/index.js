@@ -143,7 +143,7 @@ export const login = async (formData, dispatch) => {
 };
 
 // Load User
-export const loadUser = async (dispatch) => {
+export const loadUser = async (dispatch, setLoading) => {
   try {
     const source = CancelToken.source();
     const res = await api.get('/users/me', {
@@ -155,6 +155,7 @@ export const loadUser = async (dispatch) => {
       payload: res.data,
     });
     source.cancel();
+    setLoading(false);
   } catch (err) {
     if (err.response) {
       console.log(err.response.data);

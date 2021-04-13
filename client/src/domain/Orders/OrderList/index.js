@@ -1,18 +1,21 @@
 /* eslint-disable no-underscore-dangle */
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '../../../context/Auth';
 import OrderItem from '../OrderItem';
 import { deleteUsersOrder } from '../../../actions/Orders';
 import { loadUser } from '../../../actions/Auth';
+import CustomLoader from '../../../components/Loader';
 
 function OrderList({ callback }) {
+  const [loading, setLoading] = useState(false);
   const { userContext, dispatchUserContext } = useContext(AuthContext);
   const { user } = userContext;
   const handleOrderDelete = async (id, dispatch) => {
+    setLoading(true);
     const wasUserDeleted = deleteUsersOrder(id, dispatch);
     if (wasUserDeleted) {
       alert('Order deleted');
-      loadUser(dispatchUserContext);
+      loadUser(dispatchUserContext, setLoading);
       return;
     }
     alert('Cannot delete order at this moment');
@@ -29,6 +32,8 @@ function OrderList({ callback }) {
         );
       })
     : undefined;
+  if (loading) return <CustomLoader />;
+
   return (
     <>
       <h2 className="dashboard__header">ORDERS</h2>

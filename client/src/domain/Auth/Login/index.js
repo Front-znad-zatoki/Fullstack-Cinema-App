@@ -36,6 +36,9 @@ function Login() {
     else {
       setFormData(initialValue);
       setAlertMsg('Could not login user. Try again');
+      setTimeout(() => {
+        setAlertMsg(null);
+      }, 2000);
     }
   };
 

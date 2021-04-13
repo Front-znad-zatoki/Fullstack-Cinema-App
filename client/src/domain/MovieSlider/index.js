@@ -44,6 +44,7 @@ function MovieSlider() {
     pauseOnFocus: true,
     pauseOnHover: true,
   };
+  if (loading) return <CustomLoader />;
 
   return (
     <div className="slider">
