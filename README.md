@@ -8,6 +8,9 @@ Either you want to create an account or manage your tickets, or just simply buy 
 Our cinema app built with react, connected with mongo db provides you an easy access system to manage cinemas, 
 screenings, orders, and users.
 
+Link to the demo:
+https://fzzinemas.herokuapp.com/
+
 Version 1.0
 ---
 
