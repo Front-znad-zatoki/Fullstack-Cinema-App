@@ -58,7 +58,6 @@ router
         return res.status(400).json({ errors: errors.array() });
       }
       try {
-        console.log(res.body);
         const { email, status, ticketsData, screening } = req.body;
         const tickets = ticketsData.map((ticket) => ticket.seatNr);
         const ticketsPrices = ticketsData.map(
