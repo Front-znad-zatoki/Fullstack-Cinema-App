@@ -57,7 +57,7 @@ function ReservationForm() {
   };
   return (
     <form className="reservation__form" onSubmit={onSubmit}>
-      <h5>INSERT CORRECT DATA</h5>
+      <h5>INSERT CORRECT EMAIL</h5>
       <label htmlFor="reservationEmail" className="auth__form-group">
         <input
           type="email"
@@ -74,7 +74,7 @@ function ReservationForm() {
           Go Back
         </button>
         <button type="submit" className="button--submit">
-          Confirm your reservation
+          Confirm
         </button>
       </div>
     </form>
