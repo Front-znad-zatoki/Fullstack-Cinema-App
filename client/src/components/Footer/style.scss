@@ -1,0 +1,29 @@
+@import '../../styles/variables';
+.footer {
+  &__list {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    list-style-type: none;
+    text-align: center;
+  }
+  &__item {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.5;
+    &-detail {
+      display: block;
+      padding: 0;
+      text-transform: lowercase;
+    }
+    &-header {
+      font-size: $font-size-secondary;
+    }
+  }
+  font-family: $font-primary;
+  font-size: $font-size-secondary;
+  padding: 16px 0;
+  background-color: #000;
+  color: #f1f1f1;
+  letter-spacing: 2px;
+}

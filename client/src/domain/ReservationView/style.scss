@@ -1,0 +1,32 @@
+.prebooking {
+  & .button--submit {
+    padding: 0;
+  }
+}
+
+.reservation {
+  & h4 {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 32px;
+  }
+  & h5 {
+    margin-bottom: 32px;
+    font-size: 24px;
+  }
+  flex-direction: column;
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    & input {
+      width: 432px;
+      padding-left: 8px;
+    }
+    & h5 {
+      margin-bottom: 32px;
+      font-size: 24px;
+    }
+  }
+}
