@@ -4,6 +4,9 @@
   "version": "1.0.0",
   "description": "CodersCamp fullstack app",
   "main": "server.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "format": "prettier --config .prettierrc --write \"api/**/*.js\" \"test/**/*.js\" \"**/*.json\" && npm run format --prefix client",
     "eslint": "eslint . --fix --ext .js",
@@ -17,7 +20,9 @@
     "build:client": "npm run-script build --prefix client",
     "clean": "rimraf .cache && rimraf coverage && rimraf node_modules && rimraf build",
     "build": "npm i --prefix client && npm run build:client",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+
   },
   "repository": {
     "type": "git",
