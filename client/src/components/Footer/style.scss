@@ -1,28 +1,49 @@
 @import '../../styles/variables';
 .footer {
+  &__header {
+    text-align: center;
+    letter-spacing: 10px;
+    font-size: $font-size-secondary;
+    text-transform: uppercase;
+    &:hover {
+      cursor: pointer;
+    }
+  }
   &__list {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: flex-start;
     list-style-type: none;
     text-align: center;
+    margin: 0 32px;
+    padding: 16px 0;
+    font-size: 14px;
   }
   &__item {
     display: flex;
     flex-direction: column;
+    align-items: baseline;
     line-height: 1.5;
     &-detail {
       display: block;
       padding: 0;
       text-transform: lowercase;
+      font-weight: 100;
+      &:hover {
+        transition: none;
+      }
+      & span {
+        padding-right: 8px;
+      }
     }
     &-header {
       font-size: $font-size-secondary;
+      text-transform: uppercase;
+      letter-spacing: 5px;
     }
   }
   font-family: $font-primary;
   font-size: $font-size-secondary;
-  padding: 16px 0;
   background-color: #000;
   color: #f1f1f1;
   letter-spacing: 2px;

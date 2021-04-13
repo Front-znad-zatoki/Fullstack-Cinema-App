@@ -6,6 +6,7 @@
   &__heading {
     text-align: center;
   }
+  width: 432px;
   border: 2px #6e093a solid;
   border-radius: 4px;
   background: $color-primary;
@@ -29,6 +30,7 @@
       display: flex;
       position: relative;
       flex-wrap: wrap;
+      justify-content: space-around;
     }
   }
   & input[type='radio'] {

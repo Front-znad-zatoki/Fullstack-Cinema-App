@@ -9,6 +9,11 @@
     &-details {
       display: block;
       margin: 8px;
+      & .ticket {
+        width: 100%;
+        margin: 0;
+        margin-bottom: 16px;
+      }
       &__item {
         padding: 8px 0;
         font-weight: 700;

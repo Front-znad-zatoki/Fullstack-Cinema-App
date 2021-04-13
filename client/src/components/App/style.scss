@@ -75,6 +75,9 @@ a:visited {
   color: #fff;
 }
 
+a:-webkit-any-link {
+  color: #fff;
+}
 ul {
   list-style: none;
 }
