@@ -4,7 +4,7 @@ import { getUsersOrder } from '../../../actions/Orders';
 import OrderDetails from '../OrderDetails';
 
 function OrderItem({ id, callback }) {
-  const { dispatchUserContext } = useContext(AuthContext);
+  const { userContext, dispatchUserContext } = useContext(AuthContext);
   const [showDetails, setShowDetails] = useState(false);
   const [details, setDetails] = useState({ id });
 
@@ -25,7 +25,7 @@ function OrderItem({ id, callback }) {
       isCancelled = true;
     };
   }, []);
-
+  useEffect(() => {}, [userContext]);
   const handleShowDetails = async () => {
     setShowDetails((prevState) => !prevState);
   };

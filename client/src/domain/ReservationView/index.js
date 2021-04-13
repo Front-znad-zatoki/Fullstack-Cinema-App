@@ -50,7 +50,7 @@ function ReservationView() {
           disabled={selectedSeats.length === 0}
           onClick={handleProceed}
         >
-          Proceed with Reservation
+          Proceed
         </button>
       </ul>
     </div>
