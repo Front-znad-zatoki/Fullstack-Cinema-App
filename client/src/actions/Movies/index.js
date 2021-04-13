@@ -93,7 +93,6 @@ export const getScreeningsForCurrentCinema = async (
 // Get movie details
 export const getMovieDetails = (id, moviesInContext, setLoading) => {
   try {
-    console.log('here');
     const res = moviesInContext.find((movie) => {
       return movie._id.toString() === id.toString();
     });
