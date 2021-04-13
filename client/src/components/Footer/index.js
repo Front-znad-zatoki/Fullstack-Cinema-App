@@ -4,7 +4,6 @@ import { CinemaContext } from '../../context/Cinema';
 
 export default function Footer() {
   const { currentCinema } = useContext(CinemaContext);
-  console.log(currentCinema);
   return (
     <footer className="footer">
       <ul className="footer__list">

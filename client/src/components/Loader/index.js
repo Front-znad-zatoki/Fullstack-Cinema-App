@@ -1,6 +1,11 @@
 import Loader from 'react-loader-spinner';
+import { useContext } from 'react';
+import AppTheme from '../../context/Theme/themeColors';
+import { ThemeContext } from '../../context/Theme';
 
 function CustomLoader() {
+  const theme = useContext(ThemeContext)[0];
+  const currentTheme = AppTheme[theme];
   return (
     <Loader
       type="ThreeDots"
@@ -8,7 +13,11 @@ function CustomLoader() {
       height={100}
       width={100}
       //   timeout={2000}
-      style={{ textAlign: 'center' }}
+      style={{
+        backgroundColor: `${currentTheme.backgroundColor}`,
+        color: `${currentTheme.textColor}`,
+        textAlign: 'center',
+      }}
     />
   );
 }

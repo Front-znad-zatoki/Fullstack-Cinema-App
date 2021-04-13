@@ -21,7 +21,7 @@ function OrderDetails({ details }) {
         data={tickets[0].screening.cinemaHallId.name}
       />
       <h3 className="dashboard__header">TICKETS:</h3>
-      <ul>
+      <ul className="profile__ticket__list">
         {tickets.map((ticket) => {
           const seatNr = convertRowsAndColumnsToAlphanumeric(
             ticket.seat.row,
