@@ -6,16 +6,17 @@ export default function Footer() {
   const { currentCinema } = useContext(CinemaContext);
   return (
     <footer className="footer">
+      <h5 className="footer__header">CODERSCAMP 2020</h5>
       <ul className="footer__list">
         <li className="footer__item">
-          <h4 className="footer__item-header">Address</h4>
+          <h6 className="footer__item-header">Address</h6>
           <p className="footer__item-detail">
             {currentCinema.country}, {currentCinema.city}
           </p>
           <p className="footer__item-detail">{currentCinema.street}</p>
         </li>
         <li className="footer__item">
-          <h4 className="footer__item-header">Contact</h4>
+          <h6 className="footer__item-header">Contact</h6>
           <a
             href={`mailto:${currentCinema.email}`}
             className="footer__item-detail"
@@ -30,7 +31,7 @@ export default function Footer() {
           </a>
         </li>
         <li className="footer__item">
-          <h4 className="footer__item-header">Authors</h4>
+          <h6 className="footer__item-header">Authors</h6>
           <a href="https://github.com/synowa" className="footer__item-detail">
             Ola
           </a>
