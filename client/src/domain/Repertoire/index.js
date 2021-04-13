@@ -4,13 +4,16 @@ import { CinemaContext } from '../../context/Cinema';
 import { MoviesContext } from '../../context/Movies';
 import { getScreeningsForCurrentCinema } from '../../actions/Movies';
 import RepertoireNav from './RepertoireNav';
+import CustomLoader from '../../components/Loader';
 
 function Repertoire() {
+  const [loading, setLoading] = useState(true);
   const { currentCinema } = useContext(CinemaContext);
   const { screenings, setScreenings } = useContext(MoviesContext);
   const [selectedDate, setSelectedDate] = useState(new Date());
   useEffect(() => {
-    getScreeningsForCurrentCinema(currentCinema._id, setScreenings);
+    setLoading(true);
+    getScreeningsForCurrentCinema(currentCinema._id, setScreenings, setLoading);
   }, [currentCinema]);
   const screeningsForSelectedDate = screenings.filter((screening) => {
     return (
@@ -18,6 +21,12 @@ function Repertoire() {
       selectedDate.toLocaleDateString()
     );
   });
+  if (loading)
+    return (
+      <div>
+        <CustomLoader />
+      </div>
+    );
   return (
     <div>
       <RepertoireNav
