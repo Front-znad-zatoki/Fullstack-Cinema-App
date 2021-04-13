@@ -6,7 +6,6 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   ACCOUNT_DELETED,
-  CHANGE_FAIL,
   CHANGE_SUCCESS,
 } from '../../actions/types';
 

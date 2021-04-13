@@ -1,22 +1,16 @@
 import { useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
 import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
-import screenigns from '../../mock/screeningsMock';
 import { ReservationContext } from '../../context/Reservation';
-import { AuthContext } from '../../context/Auth';
-import Ticket from '../../components/Ticket';
 import TicketChosen from '../../components/Ticket/TicketChosen';
 import ReservationForm from './ReservationForm';
 
-function ReservationSummary({ match }) {
+function ReservationSummary() {
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
-  const { reservation, dispatchReservation } = useContext(ReservationContext);
-  const { movieDetails, selectedSeats } = reservation;
+  const { reservation } = useContext(ReservationContext);
+  const { selectedSeats } = reservation;
   const { price } = reservation.screening;
-  const { userContext, dispatchUserContext } = useContext(AuthContext);
-  const { isAuthenticated, user } = userContext;
 
   return (
     <div

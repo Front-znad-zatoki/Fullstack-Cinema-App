@@ -1,12 +1,10 @@
 import { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../../../context/Auth';
-import { getUsersOrder, deleteUsersOrder } from '../../../actions/Orders';
+import { getUsersOrder } from '../../../actions/Orders';
 import OrderDetails from '../OrderDetails';
-import { loadUser } from '../../../actions/Auth';
 
 function OrderItem({ id, callback }) {
   const { userContext, dispatchUserContext } = useContext(AuthContext);
-  const { isAuthenticated, user } = userContext;
   const [showDetails, setShowDetails] = useState(false);
   const [details, setDetails] = useState({ id });
 
@@ -27,7 +25,7 @@ function OrderItem({ id, callback }) {
       isCancelled = true;
     };
   }, []);
-
+  useEffect(() => {}, [userContext]);
   const handleShowDetails = async () => {
     setShowDetails((prevState) => !prevState);
   };

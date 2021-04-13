@@ -98,14 +98,11 @@ export const checkIfIsAuthenticated = async (dispatch) => {
   } catch (err) {
     if (err.response) {
       console.log(err.response.data);
-      console.log(err.response.status);
-      console.log(err.response.headers);
     } else if (err.request) {
       console.log(err.request);
     } else {
       console.log('Error', err.message);
     }
-    console.log(err.config);
   }
 };
 
@@ -137,7 +134,6 @@ export const login = async (formData, dispatch) => {
     } else {
       console.log('Error', err.message);
     }
-    console.log(err.config);
     dispatch({
       type: LOGIN_FAIL,
       payload: null,
@@ -162,16 +158,10 @@ export const loadUser = async (dispatch) => {
   } catch (err) {
     if (err.response) {
       console.log(err.response.data);
-      console.log(err.response.status);
-      console.log(err.response.headers);
     } else if (err.request) {
       console.log(err.request);
     } else {
       console.log('Error', err.message);
     }
-    console.log(err.config);
-    // dispatch({
-    //   type: AUTH_ERROR,
-    // });
   }
 };

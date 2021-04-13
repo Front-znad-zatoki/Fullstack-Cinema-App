@@ -1,19 +1,13 @@
 /* eslint-disable no-underscore-dangle */
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from '../../../context/Auth';
-import { ThemeContext } from '../../../context/Theme';
-import AppTheme from '../../../context/Theme/themeColors';
 import OrderItem from '../OrderItem';
-import { getUsersOrder, deleteUsersOrder } from '../../../actions/Orders';
+import { deleteUsersOrder } from '../../../actions/Orders';
 import { loadUser } from '../../../actions/Auth';
 
 function OrderList({ callback }) {
   const { userContext, dispatchUserContext } = useContext(AuthContext);
-  const { user, isAuthenticated } = userContext;
-  const theme = useContext(ThemeContext)[0];
-  const currentTheme = AppTheme[theme];
-  // TODO: add action logic
-  // console.log(user.orders);
+  const { user } = userContext;
   const handleOrderDelete = async (id, dispatch) => {
     const wasUserDeleted = deleteUsersOrder(id, dispatch);
     if (wasUserDeleted) {

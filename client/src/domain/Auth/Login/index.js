@@ -1,5 +1,5 @@
 import './style.scss';
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import { ThemeContext } from '../../../context/Theme';
 import AppTheme from '../../../context/Theme/themeColors';
@@ -8,7 +8,7 @@ import Message from '../../../components/Message';
 import { login } from '../../../actions/Auth';
 import movies from '../../../mock/moviesMock';
 
-function Login(props) {
+function Login() {
   const { userContext, dispatchUserContext } = useContext(AuthContext);
   const { isAuthenticated } = userContext;
   const [alertMsg, setAlertMsg] = useState(null);

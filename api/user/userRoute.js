@@ -226,7 +226,6 @@ router.delete(
 
 router.get('/authenticated', orderMiddleware, async (req, res) => {
   try {
-    console.log(req.user);
     if (!req.user) {
       return res
         .status(200)

@@ -1,13 +1,11 @@
 import { useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import movies from '../../mock/moviesMock';
-import screenigns from '../../mock/screeningsMock';
+import { useHistory } from 'react-router-dom';
 import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
 import { ReservationContext } from '../../context/Reservation';
 import { RESET_RESERVATION } from '../../actions/types';
 
-function PreBooking({ match }) {
+function PreBooking() {
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
   const { reservation, dispatchReservation } = useContext(ReservationContext);

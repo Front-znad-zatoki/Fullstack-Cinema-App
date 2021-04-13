@@ -66,7 +66,6 @@ function MovieView({ match }) {
           {screenings
             ? screenings.map((screening, index, array) => {
                 if (index < 5) {
-                  console.log('lots of screening');
                   const startDate = new Date(screening.startDate);
                   const startDateFormatted = new Date(
                     startDate,

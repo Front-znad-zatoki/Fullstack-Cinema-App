@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { ReservationContext } from '../../../context/Reservation';
 import { AuthContext } from '../../../context/Auth';
 import { loadUser } from '../../../actions/Auth';
@@ -7,10 +7,10 @@ import { placeOrder } from '../../../actions/Reservation';
 
 function ReservationForm() {
   const { reservation, dispatchReservation } = useContext(ReservationContext);
-  const { movieDetails, selectedSeats } = reservation;
+  const { selectedSeats } = reservation;
   const { _id } = reservation.screening;
   const { userContext, dispatchUserContext } = useContext(AuthContext);
-  const { isAuthenticated, user } = userContext;
+  const { user } = userContext;
   const history = useHistory();
   const [formData, setFormData] = useState({
     status: 'pending',
@@ -57,7 +57,7 @@ function ReservationForm() {
   };
   return (
     <form className="reservation__form" onSubmit={onSubmit}>
-      <h5>INSERT CORRECT DATA</h5>
+      <h5>INSERT CORRECT EMAIL</h5>
       <label htmlFor="reservationEmail" className="auth__form-group">
         <input
           type="email"
@@ -74,7 +74,7 @@ function ReservationForm() {
           Go Back
         </button>
         <button type="submit" className="button--submit">
-          Confirm your reservation
+          Confirm
         </button>
       </div>
     </form>

@@ -108,9 +108,6 @@ router.put(
         { name: req.body.name },
         { new: true },
       ).select('-password');
-      // const user = await User.findByIdAndUpdate(req.user.id)
-      console.log(req.user.id);
-      console.log(user);
       if (!user) res.status(404).send('User not found');
       await user.save();
       res.status(200).json({ user: user, isAuthenticated: true });

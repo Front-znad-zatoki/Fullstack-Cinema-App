@@ -18,7 +18,6 @@ function CinemaForm() {
       return cinema.city === event.target.value;
     });
     setCurrentCinema(nextCurrentCinema);
-    console.log('setting to', nextCurrentCinema);
   };
   return (
     <form className="cinema-city__form">

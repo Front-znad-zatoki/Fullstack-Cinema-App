@@ -1,13 +1,11 @@
 /* eslint-disable import/prefer-default-export */
 import api from '../../services/Api';
-import { CHANGE_SUCCESS, CHANGE_FAIL } from '../types';
+import { CHANGE_SUCCESS } from '../types';
 
 // Change name
 export const changeUsersData = async (title, formData, dispatch) => {
   try {
-    console.log(formData);
     const res = await api.put(`users/me/${title}`, formData);
-    console.log(res);
     dispatch({
       type: CHANGE_SUCCESS,
       payload: res.data,
@@ -26,7 +24,6 @@ export const changeUsersData = async (title, formData, dispatch) => {
     } else {
       console.log('Error', error.message);
     }
-    console.log(error.config);
     return false;
   }
 };

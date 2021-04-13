@@ -12,7 +12,6 @@ describe('JavaScript sample test', () => {
 /* import mongoose from 'mongoose';
 import supertest from 'supertest';
 
-// TODO: CHECK SUPERTEST DEPENDENCY
 import app from '../../test/mockserver.js';
 import Movie from './Movie.js';
 

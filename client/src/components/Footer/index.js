@@ -1,22 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import './style.scss';
-import { Link, NavLink, useHistory } from 'react-router-dom';
-import { AuthContext } from '../../context/Auth';
-import { ThemeContext } from '../../context/Theme';
-import AppTheme from '../../context/Theme/themeColors';
 import { CinemaContext } from '../../context/Cinema';
-import { ReservationContext } from '../../context/Reservation';
 
 export default function Footer() {
-  const history = useHistory();
-  const { reservation, dispatchReservation } = useContext(ReservationContext);
-  const { userContext, dispatchUserContext } = useContext(AuthContext);
-  const { isAuthenticated, user } = userContext;
-  const theme = useContext(ThemeContext)[0];
-  const currentTheme = AppTheme[theme];
-  const { cinemas, currentCinema, setCurrentCinema } = useContext(
-    CinemaContext,
-  );
+  const { currentCinema } = useContext(CinemaContext);
   return (
     <footer className="footer">
       <ul className="footer__list">

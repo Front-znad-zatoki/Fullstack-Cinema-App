@@ -109,7 +109,6 @@ router
       genre,
     } = req.body;
     const movie = await Movie.findById(req.params.id);
-    // TODO: findByIdAndUpdate can save you some lines
     try {
       if (movie === undefined) {
         res.status(404).json({
@@ -117,7 +116,6 @@ router
         });
         return;
       }
-      // TODO:  use express-validator checks for that
       if (title !== undefined) {
         movie.title = title;
       }

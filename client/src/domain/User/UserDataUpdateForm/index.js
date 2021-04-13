@@ -13,7 +13,6 @@ function UserDataUpdateForm({ title, setshowChange }) {
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('changing');
     const changedData = await changeUsersData(
       title,
       formData,
@@ -43,7 +42,6 @@ function UserDataUpdateForm({ title, setshowChange }) {
             required
             name={title}
             placeholder={`new ${title}`}
-            name={title}
             onChange={onChange}
             minLength="5"
           />
