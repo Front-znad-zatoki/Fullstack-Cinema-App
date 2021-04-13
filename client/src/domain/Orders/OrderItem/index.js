@@ -35,7 +35,7 @@ function OrderItem({ id, callback }) {
   return (
     <li className="profile__list-item">
       <p>
-        ORDER: <span className="order__list-item--bold">{id}: </span>
+        ORDER: <span className="profile__list-item--bold">{id}: </span>
       </p>
       <button className="button--submit" onClick={handleDelete}>
         Delete order

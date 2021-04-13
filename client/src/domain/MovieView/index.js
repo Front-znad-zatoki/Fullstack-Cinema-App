@@ -30,12 +30,15 @@ function MovieView({ match }) {
       return;
     }
     setCurrentMovie(movie);
+    setLoading(false);
   }, []);
   useEffect(() => {
     setLoading(true);
     if (currentMovie) {
       getMovieScreeningsByMovieId(currentMovie._id, setScreenings, setLoading);
       getMovieBySlug(match.params.movieSlug, setCurrentMovie, setLoading);
+    } else {
+      setLoading(false);
     }
   }, [currentMovie, movies]);
   if (loading)
