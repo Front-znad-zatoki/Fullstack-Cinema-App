@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import UserDataUpdateForm from '../UserDataUpdateForm';
 
 function UserListItem({ title, text = '' }) {

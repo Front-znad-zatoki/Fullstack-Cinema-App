@@ -6,6 +6,7 @@ import { getMovieDetails } from '../../actions/Movies';
 import './style.scss';
 
 const MovieInfoBar = ({ screening }) => {
+  const [loading, setLoading] = useState(false);
   const { dispatchReservation } = useContext(ReservationContext);
   const [currentMovie, setCurrentMovie] = useState();
   const { movies } = useContext(MoviesContext);
@@ -13,7 +14,7 @@ const MovieInfoBar = ({ screening }) => {
   const screeningHour = new Date(screening.startDate).getHours();
   const screeningMinutes = new Date(screening.startDate).getMinutes();
   useEffect(() => {
-    const movieDetails = getMovieDetails(screening.movieId, movies);
+    const movieDetails = getMovieDetails(screening.movieId, movies, setLoading);
     setCurrentMovie((prevCurrentMovie) => movieDetails);
   }, []);
   useEffect(() => {}, [currentMovie]);

@@ -11,30 +11,39 @@ import {
   getMovieBySlug,
   getMovies,
 } from '../../actions/Movies';
+import CustomLoader from '../../components/Loader';
 
 function MovieView({ match }) {
+  const [loading, setLoading] = useState(false);
   const { movies, setMovies } = useContext(MoviesContext);
-  const { screenings, setScreenings } = useContext(MoviesContext);
+  const [screenings, setScreenings] = useState([]);
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
   const movie = movies.find((item) => item.slug === match.params.movieSlug);
   const [currentMovie, setCurrentMovie] = useState(movie);
 
   useEffect(() => {
+    setLoading(true);
     if (!movie) {
-      getMovies(setMovies);
-      getMovieBySlug(match.params.movieSlug, setCurrentMovie);
+      getMovies(setMovies, setLoading);
+      getMovieBySlug(match.params.movieSlug, setCurrentMovie, setLoading);
       return;
     }
     setCurrentMovie(movie);
   }, []);
   useEffect(() => {
+    setLoading(true);
     if (currentMovie) {
-      getMovieScreeningsByMovieId(currentMovie._id, setScreenings);
-      getMovieBySlug(match.params.movieSlug, setCurrentMovie);
+      getMovieScreeningsByMovieId(currentMovie._id, setScreenings, setLoading);
+      getMovieBySlug(match.params.movieSlug, setCurrentMovie, setLoading);
     }
   }, [currentMovie, movies]);
-
+  if (loading)
+    return (
+      <div>
+        <CustomLoader />
+      </div>
+    );
   return movie ? (
     <div
       className="movie__view app-container"

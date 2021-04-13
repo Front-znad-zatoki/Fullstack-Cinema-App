@@ -42,7 +42,11 @@ export const getHallScreeningsByHallId = async (id, dispatch) => {
 };
 
 // Get single cinema hall screenings
-export const getOccupiedSeatsForScreening = async (id, dispatch) => {
+export const getOccupiedSeatsForScreening = async (
+  id,
+  dispatch,
+  setLoading,
+) => {
   try {
     const res = await api.get(`tickets`);
     const filteredTickets = await res.data.filter((ticket) => {
@@ -57,6 +61,7 @@ export const getOccupiedSeatsForScreening = async (id, dispatch) => {
       type: ADD_OCCUPIED_SEATS,
       payload: occupiedSeats,
     });
+    setLoading(false);
     return occupiedSeats;
   } catch (error) {
     if (error.response) {
@@ -71,7 +76,7 @@ export const getOccupiedSeatsForScreening = async (id, dispatch) => {
 };
 
 // Place Order
-export const placeOrder = async (formData, dispatch) => {
+export const placeOrder = async (formData, dispatch, setLoading) => {
   try {
     const orderDTO = {
       ...formData,
@@ -87,6 +92,7 @@ export const placeOrder = async (formData, dispatch) => {
       type: ADD_ORDER_DETAILS,
       payload: res.data.order,
     });
+    setLoading(false);
     return res;
   } catch (error) {
     if (error.response) {

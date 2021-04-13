@@ -1,10 +1,12 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Seat from './Seat';
 import './style.scss';
 import { ReservationContext } from '../../context/Reservation';
 import { getOccupiedSeatsForScreening } from '../../actions/Reservation';
+import CustomLoader from '../Loader';
 
 const CinemaHall = () => {
+  const [loading, setLoading] = useState(false);
   const { reservation, dispatchReservation } = useContext(ReservationContext);
   const { cinemaHallId, _id } = reservation.screening;
   const nrOfRows = cinemaHallId.rows || 10;
@@ -13,7 +15,8 @@ const CinemaHall = () => {
   const rowsInLetter = [];
 
   useEffect(() => {
-    getOccupiedSeatsForScreening(_id, dispatchReservation);
+    setLoading(true);
+    getOccupiedSeatsForScreening(_id, dispatchReservation, setLoading);
   }, []);
   for (let i = 1; i <= nrOfColumns; i += 1) {
     columns.push(i);
@@ -21,6 +24,7 @@ const CinemaHall = () => {
   for (let j = 1; j <= nrOfRows; j += 1) {
     rowsInLetter.push(String.fromCharCode(j + 64));
   }
+  if (loading) return <CustomLoader />;
 
   return (
     <div className="cinema__hall">
