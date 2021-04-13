@@ -1,11 +1,9 @@
 /* eslint-disable no-underscore-dangle */
-import { useState, useContext, useEffect } from 'react';
-import './style.scss';
+import { useContext, useEffect } from 'react';
 import Movie from './Movie';
 import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
 import { MoviesContext } from '../../context/Movies';
-import useFetchedData from '../../hooks/useFetchedData';
 import { getMovies } from '../../actions/Movies';
 
 function MovieList() {

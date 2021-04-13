@@ -1,10 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import api from '../../services/Api';
-import {
-  ADD_OCCUPIED_SEATS,
-  ADD_ORDER_DETAILS,
-  RESET_RESERVATION,
-} from '../types';
+import { ADD_OCCUPIED_SEATS, ADD_ORDER_DETAILS } from '../types';
 
 // Get all cinema halls
 export const getCinemaHalls = async (dispatch) => {
@@ -96,7 +92,6 @@ export const placeOrder = async (formData, dispatch) => {
     if (error.response) {
       const { errors } = error.response.data;
       if (typeof errors !== 'string') {
-        console.log(typeof errors);
         errors.forEach((err) => alert(err.msg, 'Something went wrong'));
       } else {
         alert(error.response.data);

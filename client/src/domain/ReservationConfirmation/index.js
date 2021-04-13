@@ -1,20 +1,15 @@
 import { useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
-import screenigns from '../../mock/screeningsMock';
 import { ReservationContext } from '../../context/Reservation';
 import { RESET_RESERVATION } from '../../actions/types';
-import { AuthContext } from '../../context/Auth';
 
-function ReservationConfirmation({ email }) {
+function ReservationConfirmation() {
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
   const { reservation, dispatchReservation } = useContext(ReservationContext);
   const { orderDetails } = reservation;
-  const { userContext, dispatchUserContext } = useContext(AuthContext);
-  const { isAuthenticated, user } = userContext;
-  console.log(orderDetails);
   const history = useHistory();
   const handleProceed = (event) => {
     event.preventDefault();

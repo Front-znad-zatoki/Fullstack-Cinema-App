@@ -5,7 +5,7 @@ import { PRICE_NORMAL } from '../../../actions/types';
 
 const Seat = ({ rowNr, columnNr, seatNr }) => {
   const { reservation, dispatchReservation } = useContext(ReservationContext);
-  const { movieDetails, selectedSeats, occupiedSeats } = reservation;
+  const { occupiedSeats } = reservation;
   const [occupied, setOccupied] = useState(false);
   useEffect(() => {
     const isSeatOccupied = () => {

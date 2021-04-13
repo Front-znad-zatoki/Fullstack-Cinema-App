@@ -1,8 +1,6 @@
-import './style.scss';
 import { Link } from 'react-router-dom';
 
 function Movie({ movie }) {
-  const releaseDateFormated = new Date(movie.releaseDate).toLocaleDateString();
   return (
     <li key={movie.id} className="movie__view app-container">
       <Link

@@ -1,11 +1,7 @@
 import TicketChosen from '../../../components/Ticket/TicketChosen';
 import convertRowsAndColumnsToAlphanumeric from '../../../utils/convertRowsAndColumnsToAlhaNumeric';
 import OrderDetailsItem from './OrderDetailsItem';
-import {
-  formatDate,
-  formatDateAndTime,
-  formatTime,
-} from '../../../utils/dateFormatters';
+import { formatDateAndTime } from '../../../utils/dateFormatters';
 
 function OrderDetails({ details }) {
   const { status, tickets } = details;
@@ -13,8 +9,6 @@ function OrderDetails({ details }) {
     <ul className="profile__list-details">
       <OrderDetailsItem
         title="Start date"
-        //   data={`${formatDate(tickets[0].screening.startDate)}
-        // ${formatTime(tickets[0].screening.startDate)}`}
         data={`${formatDateAndTime(tickets[0].screening.startDate)}`}
       />
       <OrderDetailsItem title="Status" data={status} />

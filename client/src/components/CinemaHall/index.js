@@ -2,14 +2,11 @@ import React, { useContext, useEffect } from 'react';
 import Seat from './Seat';
 import './style.scss';
 import { ReservationContext } from '../../context/Reservation';
-import { MoviesContext } from '../../context/Movies';
 import { getOccupiedSeatsForScreening } from '../../actions/Reservation';
-// TODO: check occupied seats
 
 const CinemaHall = () => {
   const { reservation, dispatchReservation } = useContext(ReservationContext);
   const { cinemaHallId, _id } = reservation.screening;
-  const { movieDetails, selectedSeats, occupiedSeats } = reservation;
   const nrOfRows = cinemaHallId.rows || 10;
   const nrOfColumns = cinemaHallId.columns || 10;
   const columns = [];

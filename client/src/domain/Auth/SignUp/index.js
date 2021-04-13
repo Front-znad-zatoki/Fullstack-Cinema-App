@@ -1,5 +1,4 @@
-import './style.scss';
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { ThemeContext } from '../../../context/Theme';
 import AppTheme from '../../../context/Theme/themeColors';
@@ -8,8 +7,7 @@ import { AuthContext } from '../../../context/Auth';
 import Message from '../../../components/Message';
 import movies from '../../../mock/moviesMock';
 
-function SignUp(props) {
-  // TODO: Check cookies
+function SignUp() {
   const { userContext, dispatchUserContext } = useContext(AuthContext);
   const { isAuthenticated } = userContext;
   const theme = useContext(ThemeContext)[0];

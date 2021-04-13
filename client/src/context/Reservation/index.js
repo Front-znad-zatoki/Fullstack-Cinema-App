@@ -98,7 +98,6 @@ const reducer = (state, action) => {
 };
 const ReservationProvider = ({ children }) => {
   const [reservation, dispatchReservation] = useReducer(reducer, initialState);
-  console.log(reservation);
   return (
     <ReservationContext.Provider value={{ reservation, dispatchReservation }}>
       {children}

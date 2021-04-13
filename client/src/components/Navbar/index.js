@@ -1,28 +1,21 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import './style.scss';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { logout } from '../../actions/Auth';
 import { AuthContext } from '../../context/Auth';
-import { ThemeContext } from '../../context/Theme';
-import AppTheme from '../../context/Theme/themeColors';
 import ThemeToggler from '../ThemeToggler';
 import UnauthenticatedNavBar from './UnauthanticatedNavbar';
 import AuthenticatedNavBar from './AuthenticatedNavbar';
-import CinemaForm from './CinemaForm';
 import { CinemaContext } from '../../context/Cinema';
 import { ReservationContext } from '../../context/Reservation';
 import { RESET_RESERVATION } from '../../actions/types';
 
 function Navbar() {
   const history = useHistory();
-  const { reservation, dispatchReservation } = useContext(ReservationContext);
+  const { dispatchReservation } = useContext(ReservationContext);
   const { userContext, dispatchUserContext } = useContext(AuthContext);
   const { isAuthenticated, user } = userContext;
-  const theme = useContext(ThemeContext)[0];
-  const currentTheme = AppTheme[theme];
-  const { cinemas, currentCinema, setCurrentCinema } = useContext(
-    CinemaContext,
-  );
+  const { currentCinema } = useContext(CinemaContext);
   const onClickLogoutHandler = async () => {
     const isLoggedOut = await logout(dispatchUserContext);
     dispatchReservation({ type: RESET_RESERVATION });
@@ -44,7 +37,6 @@ function Navbar() {
         <h1>FZZ Cinemas </h1>
         <h5>{currentCinema.city}</h5>
       </Link>
-      {/* <CinemaForm /> */}
 
       <ul className="navbar__list">
         <Link to="/movies">

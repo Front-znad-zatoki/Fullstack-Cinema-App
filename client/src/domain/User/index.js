@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { loadUser } from '../../actions/Auth';
 import { AuthContext } from '../../context/Auth';

@@ -12,16 +12,12 @@ function Ticket({ seatNr, type, price }) {
   const { screening } = reservation;
   const priceRegular = screening.price.normal.toString() || '50';
   const priceDiscount = screening.price.reduced.toString() || '25';
-  const ticketSelectedBefore = reservation.selectedSeats.find((seat, index) => {
-    return seat.seatNr === seatNr;
-  });
 
   const [chosenPrice, setchosenPrice] = useState(
     price === PRICE_REDUCED ? priceDiscount : priceRegular,
   );
 
   const handleChange = (event) => {
-    console.log(reservation);
     setchosenPrice((prevPrice) => event.target.value);
     dispatchReservation({
       type: UPDATE_TICKET_PRICE,

@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { ReservationContext } from '../../../context/Reservation';
 import { AuthContext } from '../../../context/Auth';
 import { loadUser } from '../../../actions/Auth';
@@ -7,10 +7,10 @@ import { placeOrder } from '../../../actions/Reservation';
 
 function ReservationForm() {
   const { reservation, dispatchReservation } = useContext(ReservationContext);
-  const { movieDetails, selectedSeats } = reservation;
+  const { selectedSeats } = reservation;
   const { _id } = reservation.screening;
   const { userContext, dispatchUserContext } = useContext(AuthContext);
-  const { isAuthenticated, user } = userContext;
+  const { user } = userContext;
   const history = useHistory();
   const [formData, setFormData] = useState({
     status: 'pending',

@@ -1,19 +1,18 @@
 import { useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import CinemaHall from '../../components/CinemaHall';
 import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
-import screenigns from '../../mock/screeningsMock';
 import Ticket from '../../components/Ticket';
 import { ReservationContext } from '../../context/Reservation';
 import './style.scss';
 
-function ReservationView({ match }) {
+function ReservationView() {
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
-  const { reservation, dispatchReservation } = useContext(ReservationContext);
-  const { movieDetails, selectedSeats } = reservation;
-  const { cinemaHallId, startDate, _id } = reservation.screening;
+  const { reservation } = useContext(ReservationContext);
+  const { selectedSeats } = reservation;
+  const { _id } = reservation.screening;
   const history = useHistory();
   const handleProceed = (event) => {
     event.preventDefault();
