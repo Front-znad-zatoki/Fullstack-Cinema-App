@@ -6,8 +6,11 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { getMovies } from '../../actions/Movies';
 import './style.scss';
+import CustomLoader from '../../components/Loader';
 
 function MovieSlider() {
+  const [loading, setLoading] = useState(false);
+
   const { movies, setMovies } = useContext(MoviesContext);
   const [incomingMovies, setIncomingMovies] = useState();
   const getIncomingMovies = () => {
@@ -19,10 +22,13 @@ function MovieSlider() {
     setIncomingMovies(filteredIncomingMovies);
   };
   useEffect(() => {
-    getMovies(setMovies);
+    setLoading(true);
+    getMovies(setMovies, setLoading);
   }, []);
   useEffect(() => {
+    setLoading(true);
     getIncomingMovies(movies);
+    setLoading(false);
   }, [movies]);
   const settings = {
     dots: true,

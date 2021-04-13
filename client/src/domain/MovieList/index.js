@@ -14,6 +14,7 @@ function MovieList() {
   const currentTheme = AppTheme[theme];
 
   useEffect(() => {
+    setLoading(true);
     getMovies(setMovies, setLoading);
   }, []);
 

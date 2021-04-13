@@ -7,7 +7,7 @@ import RepertoireNav from './RepertoireNav';
 import CustomLoader from '../../components/Loader';
 
 function Repertoire() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { currentCinema } = useContext(CinemaContext);
   const { screenings, setScreenings } = useContext(MoviesContext);
   const [selectedDate, setSelectedDate] = useState(new Date());

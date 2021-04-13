@@ -14,10 +14,11 @@ function Login() {
   const [alertMsg, setAlertMsg] = useState(null);
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
-  const [formData, setFormData] = useState({
+  const initialValue = {
     email: '',
     password: '',
-  });
+  };
+  const [formData, setFormData] = useState(initialValue);
   const history = useHistory();
   const { email, password } = formData;
   const { poster } = movies[1];
@@ -31,9 +32,9 @@ function Login() {
   const onSubmit = async (event) => {
     event.preventDefault();
     const isLoggedIn = await login({ email, password }, dispatchUserContext);
-    history.push('/');
-
-    if (!isLoggedIn) {
+    if (isLoggedIn) history.push('/');
+    else {
+      setFormData(initialValue);
       setAlertMsg('Could not login user. Try again');
     }
   };

@@ -14,7 +14,7 @@ import {
 import CustomLoader from '../../components/Loader';
 
 function MovieView({ match }) {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { movies, setMovies } = useContext(MoviesContext);
   const [screenings, setScreenings] = useState([]);
   const theme = useContext(ThemeContext)[0];
