@@ -1,8 +1,10 @@
 /* eslint-disable react/no-array-index-key */
 import { useContext, useEffect, useState } from 'react';
 import { getCollection } from '../../../actions/Admin';
+import CustomLoader from '../../../components/Loader';
 
 const CollectionTable = ({ collectionName }) => {
+  const [loading, setLoading] = useState(false);
   const [collection, setCollection] = useState(null);
   const [headers, setHeaders] = useState(null);
   const getHeaders = (item) => {
@@ -21,12 +23,15 @@ const CollectionTable = ({ collectionName }) => {
     setHeaders(newHeaders);
   };
   useEffect(() => {
-    getCollection(collectionName, setCollection);
+    setLoading(true);
+    getCollection(collectionName, setCollection, setLoading);
   }, [collectionName]);
   useEffect(() => {
+    setLoading(true);
     if (collection) {
       getHeaders(collection[0]);
     }
+    setLoading(false);
   }, [collection]);
 
   const removeData = (id) => {
@@ -101,7 +106,12 @@ const CollectionTable = ({ collectionName }) => {
       })
     );
   };
-
+  if (loading)
+    return (
+      <div className="admin__table">
+        <CustomLoader />
+      </div>
+    );
   return (
     <div className="admin__table">
       <h4 className="admin__table__header">{collectionName}</h4>

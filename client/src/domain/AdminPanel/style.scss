@@ -37,10 +37,11 @@
       text-align: center;
       padding-bottom: 16px;
     }
-    &__container{
+    &__container {
       border-collapse: collapse;
       border: 0;
-      & td, th {
+      & td,
+      th {
         border: 1px solid #ddd;
         padding: 12px;
       }
@@ -58,7 +59,6 @@
         color: white;
       }
     }
-
   }
 }
 
@@ -70,7 +70,7 @@
   border: none;
   outline: none;
   font-size: 11px;
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   color: #f44336;
   padding: 3px 10px;
   border-radius: 8px;
