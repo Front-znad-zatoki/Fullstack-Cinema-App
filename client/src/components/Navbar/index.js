@@ -9,6 +9,7 @@ import AuthenticatedNavBar from './AuthenticatedNavbar';
 import { CinemaContext } from '../../context/Cinema';
 import { ReservationContext } from '../../context/Reservation';
 import { RESET_RESERVATION } from '../../actions/types';
+import CookiesDesclaimer from '../CookiesDesclaimer';
 
 function Navbar() {
   const history = useHistory();
@@ -49,6 +50,7 @@ function Navbar() {
         )}
         <ThemeToggler />
       </ul>
+      <CookiesDesclaimer />
     </nav>
   );
 }
