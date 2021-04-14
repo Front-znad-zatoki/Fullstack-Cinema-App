@@ -33,3 +33,24 @@
     }
   }
 }
+@media screen and (max-width: 800px) {
+  .cinema__hall {
+    &__name {
+      padding: 16px 0;
+      font-size: 0.7rem;
+    }
+    &__arrangement {
+      width: 50%;
+      padding: 16px;
+      &__seats {
+        padding-top: 20px;
+      }
+
+      &__screen {
+        width: 60%;
+        margin: 0 auto 8px auto;
+        font-size: 0.7rem;
+      }
+    }
+  }
+}

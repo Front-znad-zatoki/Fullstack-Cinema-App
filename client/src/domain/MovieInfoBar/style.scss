@@ -44,3 +44,32 @@
     cursor: pointer;
   }
 }
+@media screen and (max-width: 800px) {
+  .movie {
+    &__image {
+      &-container {
+        width: 150px;
+      }
+    }
+    &__info {
+      font-size: 0.7rem;
+      padding-left: 20px;
+      line-height: 1.5;
+      &-title {
+        font-size: 0.7rem;
+      }
+      &-bar {
+        padding: 16px;
+      }
+      &-details {
+        font-size: 0.7rem;
+      }
+    }
+  }
+  .button--submit {
+    width: 100px;
+    margin-top: 10px;
+    padding: 0;
+    font-size: 0.7rem;
+  }
+}

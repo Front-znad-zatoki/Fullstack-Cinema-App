@@ -11,3 +11,17 @@
     border: thin solid gray;
   }
 }
+@media screen and (max-width: 800px) {
+  .cinema-city__form {
+    font-size: 0.7rem;
+    margin: 5px;
+    &__select {
+      width: 200px;
+      margin-left: 8px;
+      border: none;
+      padding: 7px;
+      font-size: 0.7rem;
+      border: thin solid gray;
+    }
+  }
+}

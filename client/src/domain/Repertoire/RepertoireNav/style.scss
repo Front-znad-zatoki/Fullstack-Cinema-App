@@ -17,3 +17,30 @@
     padding: 10px;
   }
 }
+@media screen and (max-width: 800px) {
+  .repertoire {
+    &__nav {
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.7rem;
+      &__title {
+        font-size: 1rem;
+        margin: 5px;
+      }
+      &__picker {
+        background-color: #fff;
+        margin: 5px;
+      }
+    }
+  }
+  .react-date-picker {
+    &__button {
+      &__icon {
+        height: 12px;
+      }
+    }
+    &__wrapper {
+      padding: 5px;
+    }
+  }
+}

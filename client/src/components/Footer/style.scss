@@ -48,3 +48,32 @@
   color: #f1f1f1;
   letter-spacing: 2px;
 }
+@media screen and (max-width: 800px) {
+  .footer {
+    &__header {
+      letter-spacing: 6px;
+      font-size: 0.7rem;
+    }
+    &__list {
+      margin: 0 16px;
+      padding: 10px 0;
+      font-size: 7px;
+    }
+    &__item {
+      line-height: 1.5;
+      &:hover {
+        transition: none;
+      }
+      & span {
+        padding-right: 8px;
+      }
+    }
+    &-header {
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+    }
+
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+  }
+}

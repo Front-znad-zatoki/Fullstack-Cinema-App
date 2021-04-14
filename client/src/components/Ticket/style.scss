@@ -6,7 +6,7 @@
   &__heading {
     text-align: center;
   }
-  width: 432px;
+  max-width: 432px;
   border: 2px #6e093a solid;
   border-radius: 4px;
   background: $color-primary;
@@ -67,4 +67,24 @@
   flex-wrap: wrap;
   width: 75%;
   margin: 0 auto;
+}
+@media screen and (max-width: 800px) {
+  .ticket {
+    max-width: 150px;
+    padding: 10px;
+    margin: 0 10px 20px;
+    &__type {
+      font-size: 0.7rem;
+    }
+    &__price {
+      font-size: 0.7rem;
+    }
+    & label {
+      padding: 6px 10px;
+      margin: 5px;
+    }
+  }
+  .ticket__list {
+    padding: 0 16px;
+  }
 }
