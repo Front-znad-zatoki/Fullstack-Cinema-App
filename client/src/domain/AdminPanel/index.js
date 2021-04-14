@@ -6,6 +6,8 @@ import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
 import './style.scss';
 import CustomLoader from '../../components/Loader';
+import NotFound from '../../components/NotFound';
+import CollectionTable from './CollectionTable';
 
 function AdminPanel() {
   const theme = useContext(ThemeContext)[0];
@@ -13,6 +15,7 @@ function AdminPanel() {
   const [loading, setLoading] = useState(false);
   const { userContext, dispatchUserContext } = useContext(AuthContext);
   const { isAuthenticated, user } = userContext;
+  const [collectionToDisplay, setCollectionToDisplay] = useState(null);
   const collectionName = [
     'movies',
     'cinemas',
@@ -24,9 +27,10 @@ function AdminPanel() {
     'users',
   ];
   const handleTableShow = (event) => {
-    console.log(event.target);
+    setCollectionToDisplay(event.target.value);
   };
-  return (
+  useEffect(() => {}, [collectionToDisplay]);
+  return isAuthenticated && user.isAdmin ? (
     <div
       className="admin"
       style={{
@@ -34,21 +38,35 @@ function AdminPanel() {
         color: `${currentTheme.textColor}`,
       }}
     >
-      <h3>ADMIN PANEL</h3>
-      <div className="button-group admin__buttons">
-        {collectionName.map((collection) => {
-          return (
-            <button
-              onClick={handleTableShow}
-              key={collection}
-              className="button--submit admin__button"
-            >
-              {collection}
-            </button>
-          );
-        })}
+      <div className="admin__panel">
+        <div className="button-group admin__buttons">
+          <h3>ADMIN PANEL</h3>
+          {collectionName.map((collection) => {
+            return (
+              <button
+                onClick={handleTableShow}
+                key={collection}
+                className="button--submit admin__button"
+                value={collection}
+              >
+                {collection}
+              </button>
+            );
+          })}
+        </div>
+        {collectionToDisplay ? (
+          <CollectionTable collectionName={collectionToDisplay} />
+        ) : (
+          <div className="admin__table">
+            <h4 className="admin__table__header">
+              {`<< `}Click on the data you want to display
+            </h4>
+          </div>
+        )}
       </div>
     </div>
+  ) : (
+    <NotFound />
   );
 }
 

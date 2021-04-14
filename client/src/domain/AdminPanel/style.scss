@@ -2,7 +2,8 @@
 .admin {
   padding: 32px;
   & h3 {
-    line-height: 3;
+    // line-height: 3;
+    padding-bottom: 16px;
     // text-align: center;
   }
   &__buttons {
@@ -21,4 +22,63 @@
       margin-bottom: 0;
     }
   }
+  &__panel {
+    display: flex;
+    & h4 {
+      // text-align: center;
+    }
+  }
+  &__table {
+    width: 100%;
+    padding-left: 32px;
+    &__header {
+      text-transform: uppercase;
+      font-size: 20px;
+      text-align: center;
+      padding-bottom: 16px;
+    }
+    &__container{
+      border-collapse: collapse;
+      border: 0;
+      & td, th {
+        border: 1px solid #ddd;
+        padding: 12px;
+      }
+      & td {
+        font-size: 14px;
+        text-align: center;
+      }
+      & tr:hover {
+        background-color: #ddd;
+      }
+      & th {
+        padding: 10px;
+        text-align: center;
+        background-color: #111;
+        color: white;
+      }
+    }
+
+  }
+}
+
+.opration {
+  text-align: center;
+}
+
+.button {
+  border: none;
+  outline: none;
+  font-size: 11px;
+  font-family: "Quicksand", sans-serif;
+  color: #f44336;
+  padding: 3px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid #f44336;
+  background-color: transparent;
+}
+
+.button:active {
+  border: 1px solid blue;
 }

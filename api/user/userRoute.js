@@ -198,7 +198,7 @@ router.get('/', authMiddleware, adminMiddleware, async (req, res) => {
   try {
     const users = await User.find().select('-password');
     if (!users) res.status(404).send('Users not found');
-    res.json({ users: users, isAuthenticated: true });
+    res.json(users);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
