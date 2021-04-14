@@ -4,7 +4,6 @@ import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
 import { ReservationContext } from '../../context/Reservation';
 import { RESET_RESERVATION } from '../../actions/types';
-import ScreeningDetails from '../../components/ScreeningDetails';
 
 function PreBooking() {
   const theme = useContext(ThemeContext)[0];
@@ -40,15 +39,22 @@ function PreBooking() {
           alt="Movie poster"
         />
       </div>
-
-      <div className="movie__view__details movie__list__item ">
-        <ScreeningDetails
-          title={movieDetails.title}
-          city={cinemaHallId.cinemaId.city}
-          country={cinemaHallId.cinemaId.country}
-          startDateFormatted={startDateFormatted}
-          startTimeFormatted={startTimeFormatted}
-        />
+      <div className="movie__view__details movie__list__item">
+        <h3>{movieDetails.title}</h3>
+        <p>
+          <strong>Cinema:</strong> {cinemaHallId.cinemaId.city},{' '}
+          {cinemaHallId.cinemaId.country}
+        </p>
+        <p>
+          <strong>Start Date:</strong>
+          {startDateFormatted}, {startTimeFormatted}
+        </p>
+        <p>
+          <strong>Duration:</strong> {movieDetails.duration} min
+        </p>
+        <p>
+          <strong>Genre:</strong> {movieDetails.genre}
+        </p>
         <div className="button__group">
           <button className="button--submit" onClick={handleGoBackClick}>
             Go Back
