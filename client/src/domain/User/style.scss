@@ -75,6 +75,9 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       grid-gap: 1rem;
+      & .ticket__heading {
+        text-align: left;
+      }
     }
   }
   font-family: $font-primary;

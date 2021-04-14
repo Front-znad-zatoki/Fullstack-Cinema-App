@@ -9,10 +9,12 @@ import AuthenticatedNavBar from './AuthenticatedNavbar';
 import { CinemaContext } from '../../context/Cinema';
 import { ReservationContext } from '../../context/Reservation';
 import { RESET_RESERVATION } from '../../actions/types';
+import CookiesDesclaimer from '../CookiesDesclaimer';
+import ScreeningDetails from '../ScreeningDetails';
 
 function Navbar() {
   const history = useHistory();
-  const { dispatchReservation } = useContext(ReservationContext);
+  const { dispatchReservation, reservation } = useContext(ReservationContext);
   const { userContext, dispatchUserContext } = useContext(AuthContext);
   const { isAuthenticated, user } = userContext;
   const { currentCinema } = useContext(CinemaContext);
@@ -30,26 +32,31 @@ function Navbar() {
     dispatchReservation({ type: RESET_RESERVATION });
     history.push(`/`);
   };
+  console.log(reservation);
   return (
-    <nav className="navbar">
-      <Link to="/" onClick={handleLogoClick} className="navbar__logo">
-        <span className="fas fa-video" />
-        <h1>FZZ Cinemas </h1>
-        <h5>{currentCinema.city}</h5>
-      </Link>
-
-      <ul className="navbar__list">
-        <Link to="/movies">
-          <li className="navbar__list-item">Movies</li>
+    <div>
+      <nav className="navbar">
+        <Link to="/" onClick={handleLogoClick} className="navbar__logo">
+          <span className="fas fa-video" />
+          <h1>FZZ Cinemas </h1>
+          <h5>{currentCinema.city}</h5>
         </Link>
-        {!isAuthenticated ? (
-          <UnauthenticatedNavBar callback={onClickLogoutHandler} />
-        ) : (
-          <AuthenticatedNavBar callback={onClickLogoutHandler} user={user} />
-        )}
-        <ThemeToggler />
-      </ul>
-    </nav>
+
+        <ul className="navbar__list">
+          <Link to="/movies">
+            <li className="navbar__list-item">Movies</li>
+          </Link>
+          {!isAuthenticated ? (
+            <UnauthenticatedNavBar callback={onClickLogoutHandler} />
+          ) : (
+            <AuthenticatedNavBar callback={onClickLogoutHandler} user={user} />
+          )}
+          <ThemeToggler />
+        </ul>
+        <CookiesDesclaimer />
+      </nav>
+      {reservation.screening !== null ? <ScreeningDetails /> : null}
+    </div>
   );
 }
 

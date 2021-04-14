@@ -49,6 +49,12 @@ function PreBooking() {
           <strong>Start Date:</strong>
           {startDateFormatted}, {startTimeFormatted}
         </p>
+        <p>
+          <strong>Duration:</strong> {movieDetails.duration} min
+        </p>
+        <p>
+          <strong>Genre:</strong> {movieDetails.genre}
+        </p>
         <div className="button__group">
           <button className="button--submit" onClick={handleGoBackClick}>
             Go Back

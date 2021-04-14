@@ -14,14 +14,13 @@ function ReservationSummary() {
 
   return (
     <div
-      className="app-container reservation"
+      className="reservation-view reservation-summary"
       style={{
         backgroundColor: `${currentTheme.backgroundColor}`,
         color: `${currentTheme.textColor}`,
       }}
     >
       <h4>SUMMARY</h4>
-      {/* <ScreeningDetails /> */}
       <ul className="ticket__list movie__view__list">
         {selectedSeats
           ? selectedSeats.map((seat) => {
