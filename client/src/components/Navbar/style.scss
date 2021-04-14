@@ -47,7 +47,12 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.5) 5%, rgba(204, 204, 204, 0.5) 15%, rgba(0, 0, 0, 0.5) 60%, rgba(0, 0, 0, 0.8) 90%);
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.5) 5%,
+    rgba(204, 204, 204, 0.5) 15%,
+    rgba(0, 0, 0, 0.5) 60%,
+    rgba(0, 0, 0, 0.8) 90%
+  );
   z-index: 1;
   & p {
     line-height: 2;
