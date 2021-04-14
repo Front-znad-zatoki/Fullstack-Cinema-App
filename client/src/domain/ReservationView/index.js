@@ -5,14 +5,20 @@ import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
 import Ticket from '../../components/Ticket';
 import { ReservationContext } from '../../context/Reservation';
+import ScreeningDetails from '../../components/ScreeningDetails';
 import './style.scss';
+
+import { RESET_RESERVATION } from '../../actions/types';
 
 function ReservationView() {
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
   const { reservation } = useContext(ReservationContext);
   const { selectedSeats } = reservation;
-  const { _id } = reservation.screening;
+  const { cinemaHallId, startDate, _id } = reservation.screening;
+  const { movieDetails } = reservation;
+  const startDateFormatted = new Date(startDate).toLocaleDateString();
+  const startTimeFormatted = new Date(startDate).toLocaleTimeString();
   const history = useHistory();
   const handleProceed = (event) => {
     event.preventDefault();
@@ -30,6 +36,15 @@ function ReservationView() {
         color: `${currentTheme.textColor}`,
       }}
     >
+      <div className="movie__view__details movie__list__item ">
+        <ScreeningDetails
+          title={movieDetails.title}
+          city={cinemaHallId.cinemaId.city}
+          country={cinemaHallId.cinemaId.country}
+          startDateFormatted={startDateFormatted}
+          startTimeFormatted={startTimeFormatted}
+        />
+      </div>
       <CinemaHall />
       {selectedSeats.length > 0 ? (
         <h2 className="cinema__hall__name">Selected tickets</h2>
