@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { deleteCollectionItem, getCollection } from '../../../actions/Admin';
 import CustomLoader from '../../../components/Loader';
 
@@ -92,7 +92,11 @@ const CollectionTable = ({ collectionName }) => {
               );
             })}
             <td className="item__cell item opration">
-              <button className="button" onClick={() => removeData(item._id)}>
+              <button
+                disabled
+                className="button"
+                onClick={() => removeData(item._id)}
+              >
                 Delete
               </button>
             </td>

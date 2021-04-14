@@ -2,21 +2,15 @@
 .admin {
   padding: 32px;
   & h3 {
-    // line-height: 3;
     padding-bottom: 16px;
-    // text-align: center;
   }
   &__buttons {
-    // display: grid;
-    // grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    // grid-gap: 1rem;
     display: flex;
     flex-direction: column;
     padding: 0;
   }
   &__button {
     margin: 0;
-    // width: unset;
     margin-bottom: 16px;
     &:last-of-type {
       margin-bottom: 0;
@@ -24,13 +18,12 @@
   }
   &__panel {
     display: flex;
-    & h4 {
-      // text-align: center;
-    }
   }
   &__table {
     width: 100%;
-    padding-left: 32px;
+    margin-left: 32px;
+    padding: 0 32px;
+    overflow-x: scroll;
     &__header {
       text-transform: uppercase;
       font-size: 20px;

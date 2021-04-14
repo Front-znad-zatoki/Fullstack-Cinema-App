@@ -25,7 +25,6 @@ function ReservationConfirmation() {
       }}
     >
       <h4>CONFIRMATION</h4>
-      {/* <ScreeningDetails /> */}
       <h5>Your reservation was made!</h5>
       <p>We sent an email to the adress you provided: {orderDetails.email}. </p>
       <p>You should get and email with the confirmation soon!</p>

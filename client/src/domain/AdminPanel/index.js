@@ -1,19 +1,15 @@
 import { useContext, useEffect, useState } from 'react';
-import { Redirect } from 'react-router-dom';
-import { loadUser } from '../../actions/Auth';
 import { AuthContext } from '../../context/Auth';
 import { ThemeContext } from '../../context/Theme';
 import AppTheme from '../../context/Theme/themeColors';
 import './style.scss';
-import CustomLoader from '../../components/Loader';
 import NotFound from '../../components/NotFound';
 import CollectionTable from './CollectionTable';
 
 function AdminPanel() {
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
-  const [loading, setLoading] = useState(false);
-  const { userContext, dispatchUserContext } = useContext(AuthContext);
+  const { userContext } = useContext(AuthContext);
   const { isAuthenticated, user } = userContext;
   const [collectionToDisplay, setCollectionToDisplay] = useState(null);
   const collectionName = [
