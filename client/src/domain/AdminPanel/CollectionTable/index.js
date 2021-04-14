@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import { useContext, useEffect, useState } from 'react';
-import { getCollection } from '../../../actions/Admin';
+import { deleteCollectionItem, getCollection } from '../../../actions/Admin';
 import CustomLoader from '../../../components/Loader';
 
 const CollectionTable = ({ collectionName }) => {
@@ -35,13 +35,8 @@ const CollectionTable = ({ collectionName }) => {
   }, [collection]);
 
   const removeData = (id) => {
-    // axios.delete(`${URL}/${id}`).then((res) => {
-    //   const del = collection.filter(
-    //     (collectionItem) => id !== collectionItem.id,
-    //   );
-    //   setCollection(del);
-    // });
-    console.log('removing');
+    setLoading(true);
+    deleteCollectionItem(collectionName, id, setCollection, setLoading);
   };
 
   const renderHeader = () => {
