@@ -11,6 +11,8 @@ export const getCollection = async (collectionName, dispatch, setLoading) => {
     return res;
   } catch (error) {
     handleAxiosError(error);
+    // check error display
+    setLoading(false);
   }
 };
 
@@ -29,5 +31,7 @@ export const deleteCollectionItem = async (
     return res;
   } catch (error) {
     handleAxiosError(error);
+    // check error display
+    setLoading(false);
   }
 };
