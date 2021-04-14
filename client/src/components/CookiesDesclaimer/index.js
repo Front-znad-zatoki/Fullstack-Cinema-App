@@ -10,15 +10,17 @@ function CookiesDesclaimer() {
   };
   return !cookiesConsent ? (
     <div className="cookies">
-      <h3>This website uses cookies</h3>
-      <p>
-        We use cookies to give you the best online experience. Please let us
-        know if you agree.
-      </p>
-      <div className="button__group">
-        <button className="button--submit" onClick={handleCookies}>
-          Accept
-        </button>
+      <div className="cookies-text">
+        <h3>This website uses cookies</h3>
+        <p>
+          We use cookies to give you the best online experience. Please let us
+          know if you agree.
+        </p>
+        <div className="button__group">
+          <button className="button--submit" onClick={handleCookies}>
+            Accept
+          </button>
+        </div>
       </div>
     </div>
   ) : null;
