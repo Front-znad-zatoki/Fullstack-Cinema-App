@@ -1,8 +1,8 @@
 import React from 'react';
-import './style.scss';
 import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
 import CinemaForm from '../../../components/Navbar/CinemaForm';
+import './style.scss';
 
 function RepertoireNav({ selectedDate, setSelectedDate }) {
   const handleDate = (date) => {

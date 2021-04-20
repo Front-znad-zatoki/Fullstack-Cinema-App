@@ -43,4 +43,56 @@
       padding: 5px;
     }
   }
+  .react-calendar {
+    max-width: 200px;
+    &__navigation {
+      &__label {
+        font-size: 0.6rem;
+      }
+      button {
+        min-width: 20px;
+      }
+    }
+    &__month {
+      &-view {
+        &__weekdays {
+          &__weekday {
+            font-size: 0.5rem;
+          }
+        }
+        &__days {
+          &__day {
+            font-size: 0.5rem;
+          }
+        }
+      }
+    }
+    &__year {
+      &-view {
+        &__months {
+          &__month {
+            font-size: 0.5rem;
+          }
+        }
+      }
+    }
+    &__decade {
+      &-view {
+        &__years {
+          &__year {
+            font-size: 0.5rem;
+          }
+        }
+      }
+    }
+    &__century {
+      &-view {
+        &__decades {
+          &__decade {
+            font-size: 0.5rem;
+          }
+        }
+      }
+    }
+  }
 }

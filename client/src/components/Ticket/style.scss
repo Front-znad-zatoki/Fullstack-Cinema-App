@@ -71,20 +71,20 @@
 @media screen and (max-width: 800px) {
   .ticket {
     max-width: 150px;
-    padding: 10px;
-    margin: 0 10px 20px;
+    padding: 6px;
+    margin: 0 8px 16px;
+    &__heading {
+      font-size: 0.6rem;
+      margin: 0 auto;
+    }
     &__type {
-      font-size: 0.7rem;
+      font-size: 0.5rem;
     }
     &__price {
-      font-size: 0.7rem;
+      font-size: 0.5rem;
     }
     & label {
-      padding: 6px 10px;
-      margin: 5px;
+      padding: 5px;
     }
-  }
-  .ticket__list {
-    padding: 0 16px;
   }
 }

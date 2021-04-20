@@ -30,3 +30,25 @@
     }
   }
 }
+@media screen and (max-width: 800px) {
+  .reservation {
+    & h4 {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    & h5 {
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+    &__form {
+      & input {
+        font-size: 0.7rem;
+        max-width: 200px;
+      }
+      & h5 {
+        margin-bottom: 20px;
+        font-size: 16px;
+      }
+    }
+  }
+}
